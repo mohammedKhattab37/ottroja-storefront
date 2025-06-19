@@ -1,0 +1,11 @@
+{
+  "homePage": {
+    "getStarted": "ابدأ بتحرير",
+    "saveAndSee": "احفظ واشاهد التغييرات فوراً.",
+    "deployNow": "انشر الآن",
+    "readDocs": "اقرأ الوثائق",
+    "learn": "تعلم",
+    "examples": "أمثلة",
+    "goToNextjs": "اذهب إلى nextjs.org ←"
+  }
+}
