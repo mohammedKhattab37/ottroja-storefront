@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -23,8 +23,12 @@
   --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
   --color-input: var(--input);
+  --color-input-border: var(--input-border);
   --color-border: var(--border);
+  --color-success: var(--success);
   --color-destructive: var(--destructive);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -35,6 +39,7 @@
   --color-primary: var(--primary);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
+  --color-hero: var(--hero);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
   --radius-sm: calc(var(--radius) - 4px);
@@ -45,23 +50,28 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --background: hsla(47, 100%, 96%, 1);
+  --foreground: hsla(31, 72%, 34%, 1);
+  --card: hsla(47, 100%, 95%, 1);
+  --card-foreground: hsla(34, 36%, 35%, 1);
+  --hero: hsla(44, 58%, 93%, 1);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: hsla(31, 72%, 34%, 1);
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
+  --secondary: hsla(12, 24%, 28%, 1);
+  --secondary-foreground: hsla(0, 0%, 100%, 1);
+  --muted: hsla(0, 0%, 57%, 1);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
   --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
+  --success: hsla(151, 100%, 25%, 1);
+  --destructive: hsla(0, 100%, 44%, 1);
+  --warning: hsla(29, 89%, 49%, 1);
+  --info: hsla(216, 90%, 44%, 1);
+  --border: hsla(34, 51%, 83%, 1);
+  --input: hsla(36, 100%, 94%, 1);
+  --input-border: hsla(47, 54%, 72%, 1);
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
