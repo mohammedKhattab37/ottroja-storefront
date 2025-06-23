@@ -39,14 +39,14 @@ function Hero({ direction }: { direction: string }) {
         className="mx-auto w-full"
       >
         <Image
-          className="absolute top-10 right-40"
+          className="absolute top-10 right-20 xl:right-40"
           alt="fl"
           src={'/assets/Hero-icon.webp'}
           width={80}
           height={80}
         />
         <Image
-          className="absolute right-[45%] bottom-16"
+          className="absolute right-[45%] bottom-5 xl:bottom-16"
           alt="fl"
           src={'/assets/Hero-icon.webp'}
           width={55}
@@ -55,7 +55,7 @@ function Hero({ direction }: { direction: string }) {
         <CarouselContent>
           {[...Array(6)].map((_, index) => (
             <CarouselItem key={index}>
-              <div className="grid min-h-96 grid-cols-1 items-center justify-items-center gap-5 px-24 sm:px-14 md:grid-cols-2 md:gap-20 lg:px-32 xl:px-40">
+              <div className="grid min-h-96 grid-cols-1 items-center justify-items-center gap-5 px-24 sm:px-14 md:grid-cols-2 md:gap-20 lg:px-28 xl:px-40">
                 <Image alt="hero" src={'/assets/hero.png'} width={600} height={600} />
                 <div className="text-secondary grid gap-10" dir={direction}>
                   <div>
