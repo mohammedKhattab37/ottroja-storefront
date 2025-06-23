@@ -2,7 +2,7 @@
 import { Link, usePathname } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
 
-function NavItems() {
+function NavItems({ direction }: { direction: string }) {
   const navLinks = [
     { title: 'Home Page', url: '' },
     { title: 'Special Offers', url: '#2' },
@@ -14,15 +14,22 @@ function NavItems() {
   const pathname = usePathname()
 
   return (
-    <div className="text-secondary flex flex-wrap justify-center gap-5 py-6 md:gap-10">
+    <div
+      className={cn(
+        'text-secondary flex flex-wrap justify-center gap-5 py-6 md:gap-10',
+        direction == 'rtl' ? 'flex-row-reverse' : '',
+      )}
+    >
       {navLinks.map((link) => {
         const isActive =
           (link.url === '' && pathname === '/') || (link.url && pathname === link.url)
         return (
           <Link
             className={cn(
-              'w-fit hover:underline',
-              isActive && 'text-primary grid justify-items-center gap-y-2 font-bold',
+              'w-fit',
+              isActive
+                ? 'text-primary grid justify-items-center gap-y-2 font-bold'
+                : 'hover:underline',
             )}
             key={link.url}
             href={link.url || '/'}

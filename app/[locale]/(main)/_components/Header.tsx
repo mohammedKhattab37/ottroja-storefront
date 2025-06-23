@@ -3,6 +3,7 @@ import { Link } from '@/i18n/navigation'
 import { Search, ShoppingBag, UserRound } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
+import Hero from './hero'
 import NavItems from './nav-items'
 
 function Header() {
@@ -46,7 +47,8 @@ function Header() {
           </span>
         </div>
       </div>
-      <NavItems />
+      <NavItems direction={locale == 'ar' ? 'rtl' : 'ltr'} />
+      <Hero direction={locale == 'ar' ? 'rtl' : 'ltr'} />
     </div>
   )
 }
