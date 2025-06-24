@@ -1,6 +1,6 @@
 import Header from '@/components/header'
 import { Link } from '@/i18n/navigation'
-import { categoriesSlugs } from '@/lib/constants'
+import { getCategoriesList } from '@/lib/utils'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 
@@ -14,15 +14,7 @@ function CategoriesSection() {
   const t = useTranslations('homePage')
   const locale = useLocale()
 
-  const categoriesList: categoryItem[] = [...Array(6)].map((_, index) => {
-    const cat = 'cat' + (index + 1)
-    return {
-      name: t(`categories.${cat}`),
-      image: `/assets/${cat}.webp`,
-      slug:
-        'categories/' + Object.entries(categoriesSlugs).find((catSlug) => catSlug[0] == cat)?.[1],
-    }
-  })
+  const categoriesList = getCategoriesList(t)
 
   return (
     <div className="justify-items-center">
