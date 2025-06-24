@@ -1,19 +1,14 @@
 import { routing } from '@/i18n/routing'
 import type { Metadata } from 'next'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Noto_Kufi_Arabic } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import '../globals.css'
 import HeaderWrapper from './_components/HeaderWrapper'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-})
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+const notoKufiArabic = Noto_Kufi_Arabic({
+  variable: '--font-noto-kufi-arabic',
+  subsets: ['arabic'],
 })
 
 export const metadata: Metadata = {
@@ -37,7 +32,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <NextIntlClientProvider>
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <body className={`${notoKufiArabic.variable} antialiased`}>
           <HeaderWrapper />
           {children}
         </body>
