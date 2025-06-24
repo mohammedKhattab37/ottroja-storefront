@@ -6,6 +6,14 @@
     },
     "sections":{
       "categories": "Explore Categories"
+    },
+    "categories":{
+      "cat1":"Honey",
+      "cat2":"Mountain honey",
+      "cat3":"Honey mixtures",
+      "cat4":"Honey capsules",
+      "cat5":"Sesame tahini",
+      "cat6":"Natural oils"
     }
   }
 }
