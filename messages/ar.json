@@ -5,7 +5,16 @@
       "search": "ابحث عن ما تريد"
     },
     "sections":{
-      "categories": "تسوق الاصناف"
+      "categories": "تسوق الاصناف",
+      "products": "المنتجات"
+    },
+    "buttons":{
+      "buy": "اشتر الان",
+      "all": "الكل"
+    },
+    "status":{
+      "available": "متوفر",
+      "not-available": "غير متوفر"
     },
     "categories":{
       "cat1":"عسل النحل",

@@ -5,7 +5,16 @@
       "search": "Find what you looking for"
     },
     "sections":{
-      "categories": "Explore Categories"
+      "categories": "Explore Categories",
+      "products": "Products"
+    },
+    "buttons":{
+      "buy": "Buy now",
+      "all": "All"
+    },
+    "status":{
+      "available": "Available",
+      "not-available": "Unavailable"
     },
     "categories":{
       "cat1":"Honey",
