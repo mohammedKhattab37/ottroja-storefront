@@ -1,3 +1,4 @@
+'use client'
 import InputWithIcon from '@/components/input-with-icon'
 import { Link } from '@/i18n/navigation'
 import { Search, ShoppingBag, UserRound } from 'lucide-react'
@@ -6,7 +7,16 @@ import Image from 'next/image'
 import Hero from './hero'
 import NavItems from './nav-items'
 
-function Header() {
+interface NavItem {
+  title: string
+  url?: string
+}
+
+interface HeaderProps {
+  navLinks?: NavItem[]
+}
+
+function Header({ navLinks }: HeaderProps) {
   const t = useTranslations('homePage')
   const locale = useLocale()
   return (
@@ -47,7 +57,7 @@ function Header() {
           </span>
         </div>
       </div>
-      <NavItems direction={locale == 'ar' ? 'rtl' : 'ltr'} />
+      <NavItems direction={locale == 'ar' ? 'rtl' : 'ltr'} navLinks={navLinks} />
       <Hero direction={locale == 'ar' ? 'rtl' : 'ltr'} />
     </div>
   )
