@@ -3,6 +3,9 @@
     "header":{
       "user-button":"Hello,",
       "search": "Find what you looking for"
+    },
+    "sections":{
+      "categories": "Explore Categories"
     }
   }
 }

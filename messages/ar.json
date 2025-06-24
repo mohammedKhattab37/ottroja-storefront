@@ -3,6 +3,9 @@
     "header":{
       "user-button":"أهلا،",
       "search": "ابحث عن ما تريد"
+    },
+    "sections":{
+      "categories": "تسوق الاصناف"
     }
   }
 }
