@@ -12,11 +12,21 @@ interface NavItem {
   url?: string
 }
 
-interface HeaderProps {
-  navLinks?: NavItem[]
+interface HeroItem {
+  id: string
+  title: string
+  sub_title: string
+  button_destination: string
+  button_text: string
+  images: string[]
 }
 
-function Header({ navLinks }: HeaderProps) {
+interface HeaderProps {
+  navLinks?: NavItem[]
+  heroData?: HeroItem[]
+}
+
+function Header({ navLinks, heroData }: HeaderProps) {
   const t = useTranslations('homePage')
   const locale = useLocale()
   return (
@@ -58,7 +68,7 @@ function Header({ navLinks }: HeaderProps) {
         </div>
       </div>
       <NavItems direction={locale == 'ar' ? 'rtl' : 'ltr'} navLinks={navLinks} />
-      <Hero direction={locale == 'ar' ? 'rtl' : 'ltr'} />
+      <Hero direction={locale == 'ar' ? 'rtl' : 'ltr'} heroData={heroData} />
     </div>
   )
 }
