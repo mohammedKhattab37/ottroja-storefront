@@ -51,7 +51,6 @@ export const getNavLinks = async (
     const response = await sdk.client.fetch<NavLinksResponse>(`/store/cms`, {
       query: {
         position: 'NAV_LINKS',
-        language,
         ...query,
       },
       headers: {
