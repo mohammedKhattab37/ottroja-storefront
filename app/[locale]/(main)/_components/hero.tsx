@@ -43,7 +43,7 @@ function Hero({
   }, [api, heroData])
 
   return (
-    <div className="bg-hero relative">
+    <div className="bg-hero relative py-8">
       <Carousel
         setApi={setApi}
         opts={{
@@ -58,18 +58,18 @@ function Hero({
         className="mx-auto w-full"
       >
         <Image
-          className="absolute top-10 right-20 xl:right-40"
+          className="absolute top-6 right-10 xl:top-10 xl:right-20"
           alt="fl"
           src={'/assets/Hero-icon.webp'}
           width={80}
           height={80}
         />
         <Image
-          className="absolute right-[45%] bottom-5 xl:bottom-16"
+          className="absolute right-[45%] bottom-2 xl:bottom-20"
           alt="fl"
           src={'/assets/Hero-icon.webp'}
-          width={55}
-          height={55}
+          width={50}
+          height={50}
         />
         <CarouselContent>
           {heroData && heroData.length > 0 && heroData
@@ -78,29 +78,33 @@ function Hero({
             const imageSrc = hero.images[0]?.split('||')[0]
             return (
             <CarouselItem key={hero.id || index}>
-              <div className="grid min-h-96 grid-cols-1 items-center justify-items-center gap-5 px-24 sm:px-14 md:grid-cols-2 md:gap-20 lg:px-28 xl:px-40">
-                {imageSrc && (
-                  <Image 
-                    alt="hero" 
-                    src={imageSrc} 
-                    width={600} 
-                    height={600}
-                    className="max-w-full h-auto object-contain"
-                  />
-                )}
-                <div className="text-secondary grid gap-10" dir={direction}>
-                  <div>
-                    <p className="text-4xl font-bold sm:text-5xl">{hero.title}</p>
-                    <p className="text-regular mt-2 sm:text-lg">
-                      {hero.sub_title}
-                    </p>
+              <div className="container mx-auto px-6 sm:px-8 lg:px-16">
+                <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-8 lg:gap-12">
+                  {imageSrc && (
+                    <div className="flex justify-center md:justify-start">
+                      <Image 
+                        alt="hero" 
+                        src={imageSrc} 
+                        width={400} 
+                        height={400}
+                        className="w-full max-w-sm h-auto object-contain"
+                      />
+                    </div>
+                  )}
+                  <div className="text-secondary space-y-6" dir={direction}>
+                    <div className="space-y-3">
+                      <h1 className="text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">{hero.title}</h1>
+                      <p className="text-secondary/80 text-base sm:text-lg leading-relaxed">
+                        {hero.sub_title}
+                      </p>
+                    </div>
+                    <Link
+                      href={hero.button_destination}
+                      className="bg-secondary text-secondary-foreground inline-block w-fit rounded-full px-6 py-3 text-sm font-bold transition-colors hover:bg-secondary/90"
+                    >
+                      {hero.button_text}
+                    </Link>
                   </div>
-                  <Link
-                    href={hero.button_destination}
-                    className="bg-secondary text-secondary-foreground justify-self-right w-fit rounded-full px-5 py-3 font-extrabold"
-                  >
-                    {hero.button_text}
-                  </Link>
                 </div>
               </div>
             </CarouselItem>
@@ -109,13 +113,13 @@ function Hero({
         </CarouselContent>
       </Carousel>
 
-      {heroData && heroData.length > 0 && (
-        <div className="flex justify-center space-x-2 py-8">
+      {heroData && heroData.length > 0 && count > 1 && (
+        <div className="flex justify-center space-x-2 pt-6">
           {Array.from({ length: count }).map((_, index) => (
             <button
               key={index}
               className={`h-3 w-3 cursor-pointer rounded-full transition-all duration-300 hover:scale-110 ${
-                index + 1 === current ? 'scale-110 bg-[#362416]' : 'bg-secondary-foreground'
+                index + 1 === current ? 'scale-110 bg-[#362416]' : 'bg-secondary-foreground/50'
               }`}
               onClick={() => api?.scrollTo(index)}
               aria-label={`Go to slide ${index + 1}`}
