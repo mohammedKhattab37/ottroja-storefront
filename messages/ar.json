@@ -6,11 +6,15 @@
     },
     "sections":{
       "categories": "تسوق الاصناف",
-      "products": "المنتجات"
+      "products": "المنتجات",
+      "offers": "العروض المميزة"
     },
     "buttons":{
       "buy": "اشتر الان",
       "all": "الكل"
+    },
+    "badges":{
+      "discount": "وفر"
     },
     "status":{
       "available": "متوفر",

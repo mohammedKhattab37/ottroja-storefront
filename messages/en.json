@@ -6,11 +6,15 @@
     },
     "sections":{
       "categories": "Explore Categories",
-      "products": "Products"
+      "products": "Products",
+      "offers": "Special Offers"
     },
     "buttons":{
       "buy": "Buy now",
       "all": "All"
+    },
+    "badges":{
+      "discount": "Save"
     },
     "status":{
       "available": "Available",
