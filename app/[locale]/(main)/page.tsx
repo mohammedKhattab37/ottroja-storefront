@@ -3,7 +3,7 @@ import ProductsSection from './_components/Products-section'
 
 export default function Home() {
   return (
-    <div className="grid justify-items-center gap-y-32 py-28">
+    <div className="3xl:px-64 grid gap-y-32 px-4 py-28 md:px-20 lg:px-32 xl:px-24 2xl:px-56">
       <CategoriesSection />
       <ProductsSection />
     </div>

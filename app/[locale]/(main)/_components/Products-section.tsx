@@ -24,7 +24,7 @@ function ProductsSection() {
   }
 
   return (
-    <div className="justify-items-center">
+    <div>
       <Header title={t('sections.products')} direction={contentDirection} />
       <div
         className={cn(
@@ -63,7 +63,7 @@ function ProductsSection() {
         })}
       </div>
 
-      <div className="grid grid-cols-1 gap-x-5 gap-y-28 pt-40 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-x-5 gap-y-28 px-16 pt-40 sm:px-20 md:grid-cols-2 md:px-0 lg:grid-cols-3 xl:grid-cols-4">
         <ProductBigCard direction={contentDirection} data={dummyProduct} />
         <ProductBigCard direction={contentDirection} data={dummyProduct} />
         <ProductBigCard direction={contentDirection} data={dummyProduct} />

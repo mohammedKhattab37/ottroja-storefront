@@ -42,7 +42,7 @@ function ProductBigCard({ direction, data }: { direction: string; data: ProductD
         />
       </div>
       <div className="grid justify-items-center gap-y-7 pt-36">
-        <div>
+        <div className="justify-items-center">
           <div className="mb-3 flex items-center gap-1" dir={direction}>
             {Array.from({ length: 5 }).map((_, i) => (
               <Star

@@ -20,7 +20,7 @@ function CategoriesSection() {
     <div className="justify-items-center">
       <Header title={t('sections.categories')} direction={locale == 'ar' ? 'rtl' : 'ltr'} />
       <div
-        className="mt-20 flex flex-wrap justify-center gap-20 px-10"
+        className="mt-20 flex flex-wrap justify-center gap-16"
         dir={locale == 'ar' ? 'rtl' : 'ltr'}
       >
         {categoriesList.map((category, index) => (
@@ -42,7 +42,7 @@ function CategoryItem({ name, slug, image }: categoryItem) {
   return (
     <Link href={slug} className="grid gap-y-6 text-center">
       <div className="relative justify-self-center rounded-full bg-[#FEF4CF] px-6 py-5">
-        <Image alt={'cat'} src={image} width={60} height={60} />
+        <Image alt={name} src={image} width={58} height={58} quality={100} />
         <Image
           alt="border"
           src={'/assets/dashed-border.webp'}
