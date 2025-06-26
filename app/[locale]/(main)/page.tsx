@@ -1,6 +1,7 @@
 import CategoriesSection from './_components/Categories-section'
 import FirstBannerSection from './_components/First-banner-section'
 import OffersSection from './_components/Offers-section'
+import PhotoGallerySection from './_components/Photo-gallery-section'
 import ProductsSection from './_components/Products-section'
 import SecondBannerSection from './_components/Second-banner-section'
 import SubBanners from './_components/Sub-banners'
@@ -13,6 +14,7 @@ export default function Home() {
       <OffersSection />
       <FirstBannerSection />
       <SubBanners />
+      <PhotoGallerySection />
       <SecondBannerSection />
     </div>
   )
