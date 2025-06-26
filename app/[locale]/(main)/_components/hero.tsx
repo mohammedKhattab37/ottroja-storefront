@@ -85,7 +85,7 @@ function Hero({ direction, heroData }: { direction: string; heroData?: HeroItem[
                               src={imageSrc}
                               width={400}
                               height={400}
-                              className="h-auto w-full max-w-sm object-contain"
+                              className="h-auto w-full min-w-sm object-contain"
                             />
                           </div>
                         )}
