@@ -5,7 +5,28 @@
       "search": "Find what you looking for"
     },
     "sections":{
-      "categories": "Explore Categories"
+      "categories": "Explore Categories",
+      "products": "Products",
+      "offers": "Special Offers"
+    },
+    "buttons":{
+      "buy": "Buy now",
+      "all": "All"
+    },
+    "badges":{
+      "discount": "Save"
+    },
+    "status":{
+      "available": "Available",
+      "not-available": "Unavailable"
+    },
+    "categories":{
+      "cat1":"Honey",
+      "cat2":"Mountain honey",
+      "cat3":"Honey mixtures",
+      "cat4":"Honey capsules",
+      "cat5":"Sesame tahini",
+      "cat6":"Natural oils"
     }
   }
 }
