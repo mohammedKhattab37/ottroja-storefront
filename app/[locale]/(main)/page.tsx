@@ -1,11 +1,11 @@
-import CategoriesSection from './_components/Categories-section'
-import FirstBannerSection from './_components/First-banner-section'
-import OffersSection from './_components/Offers-section'
-import PhotoGallerySection from './_components/Photo-gallery-section'
-import ProductsSection from './_components/Products-section'
-import ReviewsSection from './_components/Reviews-section'
-import SecondBannerSection from './_components/Second-banner-section'
-import SubBanners from './_components/Sub-banners'
+import FirstBannerSection from './_components/banners/First-banner-section'
+import SecondBannerSection from './_components/banners/Second-banner-section'
+import SubBanners from './_components/banners/Sub-banners'
+import CategoriesSection from './_components/categories/Categories-section'
+import PhotoGallerySection from './_components/photo-gallery/Photo-gallery-section'
+import OffersSection from './_components/products/Offers-section'
+import ProductsSection from './_components/products/Products-section'
+import ReviewsSection from './_components/reviews/Reviews-section'
 
 export default function Home() {
   return (
