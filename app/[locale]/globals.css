@@ -17,6 +17,8 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-discount-badge: var(--discount-badge);
+  --color-carousel-control-disabled: var(--carousel-control-disabled);
+--color-carousel-control-disabled-fg: var(--carousel-control-disabled-fg);
   --color-sidebar: var(--sidebar);
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
@@ -74,6 +76,8 @@
   --border: hsla(34, 51%, 83%, 1);
   --input: hsla(36, 100%, 94%, 1);
   --input-border: hsla(47, 54%, 72%, 1);
+  --carousel-control-disabled:hsla(47, 45%, 91%, 1);
+  --carousel-control-disabled-fg:hsla(12, 16%, 47%, 1);
   --ring: oklch(0.708 0 0);
   --discount-badge:hsla(151, 95%, 40%, 1);
   --chart-1: oklch(0.646 0.222 41.116);
