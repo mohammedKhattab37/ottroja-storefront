@@ -29,7 +29,7 @@ function NavItems({ direction, navLinks }: NavItemsProps) {
   return (
     <div
       className={cn(
-        'text-secondary bg-hero border-border flex flex-wrap justify-center gap-5 rounded-b-sm border-[1px] !border-t-0 py-6 md:gap-10',
+        'text-secondary bg-hero border-header-border flex flex-wrap justify-center gap-5 rounded-b-sm border-[1px] !border-t-0 py-5 md:gap-10',
         direction == 'rtl' ? 'flex-row-reverse' : '',
       )}
     >
