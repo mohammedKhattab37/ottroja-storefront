@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation'
 import '../globals.css'
 import Footer from './_components/footer/Footer'
 import HeaderWrapper from './_components/header/HeaderWrapper'
+import { RegionProvider } from '@/providers/RegionProvider'
 
 const notoKufiArabic = Noto_Kufi_Arabic({
   variable: '--font-noto-kufi-arabic',
@@ -32,15 +33,17 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <NextIntlClientProvider>
-        <body className={`${notoKufiArabic.variable} antialiased`}>
-          <div className="grid gap-y-16 px-5 md:px-20 xl:px-24 2xl:px-56">
-            <HeaderWrapper />
-            {children}
-          </div>
-          <Footer />
-        </body>
-      </NextIntlClientProvider>
+      <RegionProvider>
+        <NextIntlClientProvider>
+          <body className={`${notoKufiArabic.variable} antialiased`}>
+            <div className="grid gap-y-16 px-5 md:px-20 xl:px-24 2xl:px-56">
+              <HeaderWrapper />
+              {children}
+              </div>
+            <Footer />
+          </body>
+        </NextIntlClientProvider>
+      </RegionProvider>
     </html>
   )
 }
