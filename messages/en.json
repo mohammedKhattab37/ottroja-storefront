@@ -14,7 +14,8 @@
       "all": "All"
     },
     "badges":{
-      "discount": "Save"
+      "discount": "Save",
+      "customer-reviews": "Customer Reviews"
     },
     "status":{
       "available": "Available",

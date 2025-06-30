@@ -4,7 +4,7 @@ import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { Noto_Kufi_Arabic } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import '../globals.css'
-import HeaderWrapper from './_components/HeaderWrapper'
+import HeaderWrapper from './_components/header/HeaderWrapper'
 
 const notoKufiArabic = Noto_Kufi_Arabic({
   variable: '--font-noto-kufi-arabic',
