@@ -58,7 +58,7 @@
   --foreground: hsla(31, 72%, 34%, 1);
   --card: hsla(47, 100%, 95%, 1);
   --card-foreground: hsla(34, 36%, 35%, 1);
-  --hero: hsla(44, 58%, 93%, 1);
+  --hero: hsla(47, 100%, 93%, 1);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
   --primary: hsla(31, 72%, 34%, 1);

@@ -9,7 +9,7 @@ import ReviewsSection from './_components/reviews/Reviews-section'
 
 export default function Home() {
   return (
-    <div className="grid gap-y-32 px-5 py-28 md:px-20 lg:px-32 xl:px-24 2xl:px-56">
+    <div className="grid gap-y-32">
       <CategoriesSection />
       <ProductsSection />
       <OffersSection />

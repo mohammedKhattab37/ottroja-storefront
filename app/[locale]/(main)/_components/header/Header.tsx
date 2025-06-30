@@ -30,25 +30,26 @@ function Header({ navLinks, heroData }: HeaderProps) {
   const t = useTranslations('homePage')
   const locale = useLocale()
   return (
-    <div>
-      <div className="border-border flex flex-row-reverse items-center justify-between border-b-2 px-4 py-2 sm:px-8 md:py-4 lg:px-24 xl:px-40">
-        <div className="mb-2 flex w-full items-center justify-end gap-4 sm:gap-6 md:mb-0 md:w-fit md:gap-8">
-          <div className="hidden items-center md:grid">
+    <div className="mt-8">
+      <div className="border-border bg-hero flex flex-row-reverse items-center justify-between rounded-t-sm border-[1px] px-4 py-7 md:px-10">
+        <div className="flex w-full items-center justify-end gap-4 sm:gap-6 md:mb-0 md:w-fit md:gap-8">
+          <div className="hidden items-center lg:grid">
             <InputWithIcon
               name="search"
-              classNames="bg-input border-input-border text-secondary placeholder:text-secondary w-lg py-3 md:py-5"
+              classNames="bg-input border-input-border text-secondary placeholder:text-secondary w-xl py-3 ps-8"
               placeholder={t('header.search')}
               direction={locale == 'ar' ? 'rtl' : 'ltr'}
-              icon={<Search />}
+              icon={<Search className="size-5" />}
+              iconWrapperClasses="top-1/5"
             />
           </div>
           <Link href="">
             <Image
-              src="/assets/ottroja-nav-icon.webp"
+              src="/assets/logo/header-logo.svg"
               alt=""
-              width={60}
-              height={60}
-              className="h-20 w-20"
+              width={85}
+              height={85}
+              className="!h-20 max-h-[85px] min-h-[85px] !w-20 max-w-[85px] min-w-[85px]"
             />
           </Link>
         </div>

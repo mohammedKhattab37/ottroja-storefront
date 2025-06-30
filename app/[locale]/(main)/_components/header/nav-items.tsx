@@ -21,7 +21,7 @@ function NavItems({ direction, navLinks }: NavItemsProps) {
     { title: 'Honey Derivatives', url: '#4' },
     { title: 'Other Products', url: '#5' },
   ]
-  
+
   const displayNavLinks = navLinks || defaultNavLinks
 
   const pathname = usePathname()
@@ -29,36 +29,34 @@ function NavItems({ direction, navLinks }: NavItemsProps) {
   return (
     <div
       className={cn(
-        'text-secondary flex flex-wrap justify-center gap-5 py-6 md:gap-10',
+        'text-secondary bg-hero border-border flex flex-wrap justify-center gap-5 rounded-b-sm border-[1px] !border-t-0 py-6 md:gap-10',
         direction == 'rtl' ? 'flex-row-reverse' : '',
       )}
     >
       {displayNavLinks.map((link) => {
         const linkUrl = link.url || '/'
-        
+
         // Extract pathname from full URL if it's a full URL
-        const linkPathname = linkUrl.startsWith('http') 
-          ? new URL(linkUrl).pathname 
-          : linkUrl
-        
+        const linkPathname = linkUrl.startsWith('http') ? new URL(linkUrl).pathname : linkUrl
+
         // Remove locale prefix from linkPathname for comparison
         // e.g., "/ar" -> "/" or "/ar/about" -> "/about"
         const normalizedLinkPath = linkPathname.replace(/^\/[a-z]{2}(?=\/|$)/, '') || '/'
-        
-        const isActive = 
+
+        const isActive =
           (normalizedLinkPath === '/' && pathname === '/') ||
           (normalizedLinkPath !== '/' && pathname === normalizedLinkPath)
         return (
-                      <Link
-              className={cn(
-                'w-fit text-secondary',
-                isActive
-                  ? 'text-primary grid justify-items-center gap-y-2 font-bold'
-                  : 'hover:underline',
-              )}
-              key={link.url}
-              href={linkPathname}
-            >
+          <Link
+            className={cn(
+              'text-secondary w-fit',
+              isActive
+                ? 'text-primary grid justify-items-center gap-y-2 font-bold'
+                : 'hover:underline',
+            )}
+            key={link.url}
+            href={linkPathname}
+          >
             {link.title}
             {isActive && <span className="bg-primary h-1.5 w-1/2 rounded-2xl"></span>}
           </Link>

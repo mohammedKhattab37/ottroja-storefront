@@ -37,7 +37,7 @@ function Hero({ direction, heroData }: { direction: string; heroData?: HeroItem[
   }, [api, heroData])
 
   return (
-    <div className="bg-hero relative py-8">
+    <div className="bg-hero border-border relative mt-6 rounded-sm border-[1px] py-8">
       <Carousel
         setApi={setApi}
         opts={{
