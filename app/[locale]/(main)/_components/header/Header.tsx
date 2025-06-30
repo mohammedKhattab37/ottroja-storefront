@@ -31,7 +31,7 @@ function Header({ navLinks, heroData }: HeaderProps) {
   const locale = useLocale()
   return (
     <div className="mt-8">
-      <div className="border-border bg-hero flex flex-row-reverse items-center justify-between rounded-t-sm border-[1px] px-4 py-7 md:px-10">
+      <div className="border-header-border bg-hero flex flex-row-reverse items-center justify-between rounded-t-sm border-[1px] px-4 py-7 md:px-10">
         <div className="flex w-full items-center justify-end gap-4 sm:gap-6 md:mb-0 md:w-fit md:gap-8">
           <div className="hidden items-center lg:grid">
             <InputWithIcon

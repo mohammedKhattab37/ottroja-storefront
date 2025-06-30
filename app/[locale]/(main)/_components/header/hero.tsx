@@ -37,7 +37,7 @@ function Hero({ direction, heroData }: { direction: string; heroData?: HeroItem[
   }, [api, heroData])
 
   return (
-    <div className="bg-hero border-border relative mt-6 rounded-sm border-[1px] py-8">
+    <div className="bg-hero border-header-border relative mt-6 rounded-sm border-[1px] py-8">
       <Carousel
         setApi={setApi}
         opts={{
@@ -75,18 +75,20 @@ function Hero({ direction, heroData }: { direction: string; heroData?: HeroItem[
               .map((hero, index) => {
                 const imageSrc = hero.images[0]?.split('||')[0]
                 return (
-                  <CarouselItem key={hero.id || index}>
+                  <CarouselItem key={hero.id || index} dir={direction == 'rtl' ? 'ltr' : 'rtl'}>
                     <div className="container mx-auto px-6 sm:px-8 lg:px-16">
                       <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-8 lg:gap-12">
                         {imageSrc && (
                           <div className="flex justify-center md:justify-start">
-                            <Image
-                              alt="hero"
-                              src={imageSrc}
-                              width={400}
-                              height={400}
-                              className="h-auto w-full min-w-sm object-contain"
-                            />
+                            <div className="flex h-[500px] w-[500px] items-center justify-center bg-transparent">
+                              <Image
+                                alt="hero"
+                                src={imageSrc}
+                                width={400}
+                                height={400}
+                                className="h-full w-full object-contain"
+                              />
+                            </div>
                           </div>
                         )}
                         <div className="text-secondary space-y-6" dir={direction}>
@@ -113,8 +115,8 @@ function Hero({ direction, heroData }: { direction: string; heroData?: HeroItem[
           {Array.from({ length: count }).map((_, index) => (
             <button
               key={index}
-              className={`h-3 w-3 cursor-pointer rounded-full transition-all duration-300 hover:scale-110 ${
-                index + 1 === current ? 'scale-110 bg-[#362416]' : 'bg-secondary-foreground/50'
+              className={`bg-darker h-3 w-3 cursor-pointer rounded-full transition-all duration-300 hover:scale-110 ${
+                index + 1 === current ? 'scale-110' : 'opacity-20'
               }`}
               onClick={() => api?.scrollTo(index)}
               aria-label={`Go to slide ${index + 1}`}

@@ -18,7 +18,8 @@
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-discount-badge: var(--discount-badge);
   --color-carousel-control-disabled: var(--carousel-control-disabled);
---color-carousel-control-disabled-fg: var(--carousel-control-disabled-fg);
+  --color-carousel-control-disabled-fg: var(--carousel-control-disabled-fg);
+  --color-darker:var(--darker);
   --color-sidebar: var(--sidebar);
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
@@ -29,6 +30,7 @@
   --color-input: var(--input);
   --color-input-border: var(--input-border);
   --color-border: var(--border);
+  --color-header-border: var(--header-border);
   --color-success: var(--success);
   --color-destructive: var(--destructive);
   --color-warning: var(--warning);
@@ -65,6 +67,7 @@
   --primary-foreground: oklch(0.985 0 0);
   --secondary: hsla(12, 24%, 28%, 1);
   --secondary-foreground: hsla(0, 0%, 100%, 1);
+  --darker:hsla(26, 42%, 15%, 1);
   --muted: hsla(0, 0%, 57%, 1);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
@@ -74,6 +77,7 @@
   --warning: hsla(29, 89%, 49%, 1);
   --info: hsla(216, 90%, 44%, 1);
   --border: hsla(34, 51%, 83%, 1);
+  --header-border: hsla(47, 54%, 72%, 1);
   --input: hsla(36, 100%, 94%, 1);
   --input-border: hsla(47, 54%, 72%, 1);
   --carousel-control-disabled:hsla(47, 45%, 91%, 1);
