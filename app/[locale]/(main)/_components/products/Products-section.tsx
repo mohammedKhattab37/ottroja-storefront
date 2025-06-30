@@ -55,7 +55,7 @@ function ProductsSection() {
                   ? 'text-secondary-foreground bg-secondary hover:bg-secondary/95'
                   : 'text-primary border-[1px] border-[#A66E28] bg-transparent hover:bg-transparent',
               )}
-              key={item.slug}
+              key={item.url}
             >
               {item.name}
             </Button>

@@ -12,7 +12,7 @@ export function getCategoriesList(t: (key: string) => string){
     return {
       name: t(`categories.${cat}`),
       image: `/assets/${cat}.webp`,
-      slug:
+      url:
         'categories/' + Object.entries(categoriesSlugs).find((catSlug) => catSlug[0] == cat)?.[1],
     }
   })

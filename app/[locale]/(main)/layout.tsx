@@ -4,6 +4,7 @@ import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { Noto_Kufi_Arabic } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import '../globals.css'
+import Footer from './_components/footer/Footer'
 import HeaderWrapper from './_components/header/HeaderWrapper'
 
 const notoKufiArabic = Noto_Kufi_Arabic({
@@ -35,6 +36,7 @@ export default async function LocaleLayout({
         <body className={`${notoKufiArabic.variable} antialiased`}>
           <HeaderWrapper />
           {children}
+          <Footer />
         </body>
       </NextIntlClientProvider>
     </html>

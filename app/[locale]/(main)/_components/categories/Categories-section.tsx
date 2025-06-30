@@ -27,7 +27,7 @@ function CategoriesSection() {
           <CategoryItem
             key={index}
             name={category.name}
-            slug={category.slug}
+            slug={category.url}
             image={category.image}
           />
         ))}

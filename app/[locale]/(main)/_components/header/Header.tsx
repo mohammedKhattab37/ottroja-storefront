@@ -33,13 +33,15 @@ function Header({ navLinks, heroData }: HeaderProps) {
     <div>
       <div className="border-border flex flex-row-reverse items-center justify-between border-b-2 px-4 py-2 sm:px-8 md:py-4 lg:px-24 xl:px-40">
         <div className="mb-2 flex w-full items-center justify-end gap-4 sm:gap-6 md:mb-0 md:w-fit md:gap-8">
-          <InputWithIcon
-            name="search"
-            classNames="bg-input border-input-border text-secondary placeholder:text-secondary w-lg py-3 md:py-5"
-            placeholder={t('header.search')}
-            direction={locale == 'ar' ? 'rtl' : 'ltr'}
-            icon={<Search />}
-          />
+          <div className="hidden items-center md:grid">
+            <InputWithIcon
+              name="search"
+              classNames="bg-input border-input-border text-secondary placeholder:text-secondary w-lg py-3 md:py-5"
+              placeholder={t('header.search')}
+              direction={locale == 'ar' ? 'rtl' : 'ltr'}
+              icon={<Search />}
+            />
+          </div>
           <Link href="">
             <Image
               src="/assets/ottroja-nav-icon.webp"
