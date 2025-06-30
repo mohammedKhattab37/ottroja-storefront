@@ -28,6 +28,22 @@
       "cat4":"Honey capsules",
       "cat5":"Sesame tahini",
       "cat6":"Natural oils"
+    },
+    "footer":{
+      "ottroja-description":"Ottroja is an online store offering the finest 100% pure natural honey, carefully extracted from local beehives and packaged according to the highest quality standards.",
+      "links-groups":{
+        "categories":"Categories",
+        "important-links":"Important Links",
+        "information":"Information Center",
+        "newsletter":{"name":"Newsletter", "description":"Subscribe to our weekly newsletter and receive updates via email."},
+        "payment": "We Accept"
+      },
+      "contacts":{
+        "address":"Address",
+        "mail": "Email",
+        "phone":"Phone"
+      },
+      "rights":"2025 Aturjah Honey Store. All rights reserved."
     }
   }
 }
