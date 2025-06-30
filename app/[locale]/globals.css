@@ -18,7 +18,8 @@
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-discount-badge: var(--discount-badge);
   --color-carousel-control-disabled: var(--carousel-control-disabled);
---color-carousel-control-disabled-fg: var(--carousel-control-disabled-fg);
+  --color-carousel-control-disabled-fg: var(--carousel-control-disabled-fg);
+  --color-darker:var(--darker);
   --color-sidebar: var(--sidebar);
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
@@ -65,6 +66,7 @@
   --primary-foreground: oklch(0.985 0 0);
   --secondary: hsla(12, 24%, 28%, 1);
   --secondary-foreground: hsla(0, 0%, 100%, 1);
+  --darker:hsla(26, 42%, 15%, 1);
   --muted: hsla(0, 0%, 57%, 1);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);

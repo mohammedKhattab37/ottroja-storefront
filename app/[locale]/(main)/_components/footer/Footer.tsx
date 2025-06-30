@@ -112,7 +112,7 @@ function Footer() {
                 classNames="bg-input xl:max-w-full max-w-2/3 border-input-border text-secondary placeholder:text-muted py-5 ps-12"
                 direction={direction}
                 icon={
-                  <Button className="hover:bg-secondary -start-1 top-[3px] rounded-md bg-[#362416] p-1.5">
+                  <Button className="hover:bg-secondary bg-darker -start-1 top-[3px] rounded-md p-1.5">
                     <Send />
                   </Button>
                 }
