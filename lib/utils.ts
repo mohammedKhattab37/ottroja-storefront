@@ -11,7 +11,7 @@ export function getCategoriesList(t: (key: string) => string){
     const cat = 'cat' + (index + 1)
     return {
       name: t(`categories.${cat}`),
-      image: `/assets/${cat}.webp`,
+      image: `/assets/illustrations/categories/${cat}.svg`,
       url:
         'categories/' + Object.entries(categoriesSlugs).find((catSlug) => catSlug[0] == cat)?.[1],
     }

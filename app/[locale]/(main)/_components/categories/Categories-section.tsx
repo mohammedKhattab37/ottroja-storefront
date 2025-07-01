@@ -45,12 +45,11 @@ function CategoryItem({ name, slug, image }: categoryItem) {
         <Image alt={name} src={image} width={58} height={58} quality={100} />
         <Image
           alt="border"
-          src={'/assets/dashed-border.webp'}
+          src={'/assets/dashed-border.svg'}
           className="absolute top-2 left-2 -z-10 h-full w-full rounded-full"
-          width={58}
-          height={58}
+          width={60}
+          height={60}
           quality={100}
-          style={{ imageResolution: '300dpi' }}
         />
       </div>
       <span className="text-md -mr-2 font-bold">{name}</span>

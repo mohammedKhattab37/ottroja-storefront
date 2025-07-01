@@ -30,7 +30,7 @@ function ReviewsSection() {
       >
         <Image
           alt="banner"
-          src={'/assets/reviews-illustration.webp'}
+          src={'/assets/illustrations/reviews-illustration.svg'}
           width={400}
           height={400}
           className="w-2xs object-contain lg:w-sm"

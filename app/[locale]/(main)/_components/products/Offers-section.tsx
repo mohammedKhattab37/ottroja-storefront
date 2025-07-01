@@ -63,11 +63,11 @@ function OffersSection() {
               <div className="flex items-center gap-1">
                 <Image
                   alt="Bee"
-                  src={'/assets/bee-icon.webp'}
+                  src={'/assets/illustrations/bee.svg'}
                   width={70}
                   height={70}
                   quality={100}
-                  style={{ transform: contentDirection == 'rtl' ? 'scaleX(-1)' : undefined }}
+                  style={{ transform: contentDirection == 'ltr' ? 'scaleX(-1)' : undefined }}
                 />
                 <span className="text-2xl font-semibold">{dummyOfferCard.name}</span>
               </div>

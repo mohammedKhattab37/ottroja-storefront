@@ -21,7 +21,7 @@ function SecondBannerSection() {
     >
       <Image
         alt=""
-        src={'/assets/banner2-icon.webp'}
+        src={'/assets/illustrations/banner2-icon.svg'}
         width={150}
         height={150}
         className="absolute end-0 bottom-0 w-20 scale-x-[-1] md:start-0 md:scale-x-[1] xl:w-36"
@@ -29,21 +29,21 @@ function SecondBannerSection() {
       />
       <Image
         alt="Bee"
-        src={'/assets/bee-icon.webp'}
+        src={'/assets/illustrations/bee.svg'}
         width={90}
         height={90}
         quality={100}
         className="absolute start-0 top-4 hidden w-24 md:block xl:top-16"
-        style={{ transform: contentDirection == 'ltr' ? 'scaleX(-1)' : undefined }}
+        style={{ transform: contentDirection == 'rtl' ? 'scaleX(-1)' : undefined }}
       />
       <Image
         alt="Bee"
-        src={'/assets/bee-icon.webp'}
+        src={'/assets/illustrations/bee.svg'}
         width={70}
         height={70}
         quality={100}
         className="absolute end-0 top-3/4 block md:end-[45%] md:top-1/2 md:hidden lg:block"
-        style={{ transform: contentDirection == 'rtl' ? 'scaleX(-1)' : undefined }}
+        style={{ transform: contentDirection == 'ltr' ? 'scaleX(-1)' : undefined }}
       />
       <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-8 lg:gap-12">
         {dummyBanner.image && (

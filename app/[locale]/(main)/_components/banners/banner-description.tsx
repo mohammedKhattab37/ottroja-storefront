@@ -24,7 +24,12 @@ function BannerDescription({
         <div className="text-secondary grid gap-2 text-sm font-bold">
           {bannerItems.map((item, i) => (
             <div key={i} className="flex items-center gap-4">
-              <Image alt="list item" src={'/assets/list-indicator.webp'} width={25} height={20} />
+              <Image
+                alt="list item"
+                src={'/assets/illustrations/list-indicator.svg'}
+                width={25}
+                height={20}
+              />
               {item}
             </div>
           ))}

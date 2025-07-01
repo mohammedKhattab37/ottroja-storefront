@@ -64,7 +64,12 @@ function ProductSmallCard({ direction, product }: { direction: string; product: 
               <span className="font-bold">{product.old_price} </span>/ {product.currency}
             </span>
             <span className="flex items-center gap-x-1">
-              <Image alt="hot offer" src={'/assets/hot-offer.webp'} width={20} height={20} />
+              <Image
+                alt="hot offer"
+                src={'/assets/illustrations/hot-offer.svg'}
+                width={20}
+                height={20}
+              />
               <span className="font-bold">{product.new_price} </span>/ {product.currency}
             </span>
           </div>
