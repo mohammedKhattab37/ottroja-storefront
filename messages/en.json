@@ -45,5 +45,16 @@
       },
       "rights":"2025 Aturjah Honey Store. All rights reserved."
     }
+  },
+  "products":{
+    "header":"Our Products",
+    "search": "Find what you looking for",
+    "filters":"Filters",
+    "pagination": {
+      "next":"Next",
+      "back":"Back",
+      "from":"From",
+      "per-page":"Per Page"
+    }
   }
 }

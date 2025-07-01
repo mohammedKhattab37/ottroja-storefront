@@ -20,6 +20,7 @@
   --color-carousel-control-disabled: var(--carousel-control-disabled);
   --color-carousel-control-disabled-fg: var(--carousel-control-disabled-fg);
   --color-darker:var(--darker);
+  --color-filter-trigger:var(--filter-trigger);
   --color-sidebar: var(--sidebar);
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
@@ -68,6 +69,7 @@
   --secondary: hsla(12, 24%, 28%, 1);
   --secondary-foreground: hsla(0, 0%, 100%, 1);
   --darker:hsla(26, 42%, 15%, 1);
+  --filter-trigger:hsla(44, 58%, 93%, 1);
   --muted: hsla(0, 0%, 57%, 1);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
@@ -136,6 +138,15 @@
 @layer base {
   * {
     @apply border-border outline-ring/50 font-noto;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
