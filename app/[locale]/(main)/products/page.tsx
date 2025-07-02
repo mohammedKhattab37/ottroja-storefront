@@ -13,13 +13,29 @@ import PaginationBar from './_components/pagination-bar'
 export default function ProductsPage({
   searchParams,
 }: {
-  searchParams: { per_page?: string; page?: string }
+  searchParams: {
+    per_page?: string
+    page?: string
+    category?: string
+    max?: string
+    min?: string
+    size?: string
+  }
 }) {
   const t = useTranslations('products')
+  const categoryT = useTranslations('categories')
+  const filtersT = useTranslations('filters')
   const locale = useLocale()
   const contentDirection = locale == 'ar' ? 'rtl' : 'ltr'
   const totalProducts = 100
+
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const filterParams = {
+    category: searchParams.category,
+    min: searchParams.min,
+    max: searchParams.max,
+    size: searchParams.size,
+  }
 
   const dummyProduct = {
     name: 'Royal Honey',
@@ -84,7 +100,12 @@ export default function ProductsPage({
       <div className="grid lg:grid-cols-4" dir={contentDirection}>
         <div className="col-span-1 hidden p-5 pt-20 lg:block xl:p-10">
           <p className="mb-32 font-semibold">{t('filters')}</p>
-          <FiltersSidebar dir={contentDirection} />
+          <FiltersSidebar
+            dir={contentDirection}
+            categoryT={categoryT}
+            filtersT={filtersT}
+            filters={filterParams}
+          />
         </div>
 
         <div className="col-span-full pt-20 lg:col-span-3 lg:border-s-2 lg:border-s-[#FBE9D1]">
@@ -155,7 +176,12 @@ export default function ProductsPage({
             </div>
 
             <div className="h-full overflow-y-auto p-5 pb-20">
-              <FiltersSidebar dir={contentDirection} />
+              <FiltersSidebar
+                dir={contentDirection}
+                categoryT={categoryT}
+                filtersT={filtersT}
+                filters={filterParams}
+              />
             </div>
           </div>
         </div>

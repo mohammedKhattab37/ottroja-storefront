@@ -9,11 +9,13 @@ export function cn(...inputs: ClassValue[]) {
 export function getCategoriesList(t: (key: string) => string){
   return [...Array(6)].map((_, index) => {
     const cat = 'cat' + (index + 1)
+    const slug=  Object.entries(categoriesSlugs).find((catSlug) => catSlug[0] == cat)?.[1] || cat
     return {
-      name: t(`categories.${cat}`),
+      name: t(`list.${cat}`),
+      slug:slug,
       image: `/assets/illustrations/categories/${cat}.svg`,
       url:
-        'categories/' + Object.entries(categoriesSlugs).find((catSlug) => catSlug[0] == cat)?.[1],
+        'categories/' +slug,
     }
   })
 }

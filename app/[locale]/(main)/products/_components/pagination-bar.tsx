@@ -8,10 +8,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { useRouter } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 
 interface paginationProps {
   currentPage: number
