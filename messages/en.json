@@ -21,14 +21,6 @@
       "available": "Available",
       "not-available": "Unavailable"
     },
-    "categories":{
-      "cat1":"Honey",
-      "cat2":"Mountain honey",
-      "cat3":"Honey mixtures",
-      "cat4":"Honey capsules",
-      "cat5":"Sesame tahini",
-      "cat6":"Natural oils"
-    },
     "footer":{
       "ottroja-description":"Ottroja is an online store offering the finest 100% pure natural honey, carefully extracted from local beehives and packaged according to the highest quality standards.",
       "links-groups":{
@@ -44,6 +36,25 @@
         "phone":"Phone"
       },
       "rights":"2025 Aturjah Honey Store. All rights reserved."
+    }
+  },
+  "categories":{
+    "name":"Categories",
+    "list":{
+      "cat1":"Honey",
+      "cat2":"Mountain honey",
+      "cat3":"Honey mixtures",
+      "cat4":"Honey capsules",
+      "cat5":"Sesame tahini",
+      "cat6":"Natural oils"
+    }
+  },
+  "filters":{
+    "size":"Size / Weight",
+    "price":{
+      "name":"Price",
+      "min": "Min",
+      "max":"Max"
     }
   },
   "products":{
