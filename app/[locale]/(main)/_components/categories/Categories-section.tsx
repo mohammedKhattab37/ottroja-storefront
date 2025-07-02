@@ -14,7 +14,7 @@ function CategoriesSection() {
   const t = useTranslations('homePage')
   const locale = useLocale()
 
-  const categoriesList = getCategoriesList(t)
+  const categoriesList = getCategoriesList(useTranslations('categories'))
 
   return (
     <div className="justify-items-center">

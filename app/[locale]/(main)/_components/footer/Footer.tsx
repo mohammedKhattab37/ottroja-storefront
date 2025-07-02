@@ -13,7 +13,7 @@ function Footer() {
   const t = useTranslations('homePage')
   const locale = useLocale()
   const direction = locale == 'ar' ? 'rtl' : 'ltr'
-  const allCategories = getCategoriesList(t)
+  const allCategories = getCategoriesList(useTranslations('categories'))
 
   const dummyFooterServices = [
     {

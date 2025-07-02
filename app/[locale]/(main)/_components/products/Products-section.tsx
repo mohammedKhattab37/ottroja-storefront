@@ -10,7 +10,7 @@ function ProductsSection() {
   const t = useTranslations('homePage')
   const locale = useLocale()
   const [selectedType, setSelectedType] = useState('All')
-  const categoriesList = getCategoriesList(t)
+  const categoriesList = getCategoriesList(useTranslations('categories'))
   const contentDirection = locale == 'ar' ? 'rtl' : 'ltr'
 
   const dummyProduct = {
