@@ -1,11 +1,71 @@
 {
   "homePage": {
-    "getStarted": "Get started by editing",
-    "saveAndSee": "Save and see your changes instantly.",
-    "deployNow": "Deploy now",
-    "readDocs": "Read our docs",
-    "learn": "Learn",
-    "examples": "Examples",
-    "goToNextjs": "Go to nextjs.org →"
+    "header":{
+      "user-button":"Hello,",
+      "search": "Find what you looking for"
+    },
+    "sections":{
+      "categories": "Explore Categories",
+      "products": "Products",
+      "offers": "Special Offers"
+    },
+    "buttons":{
+      "buy": "Buy now",
+      "all": "All"
+    },
+    "badges":{
+      "discount": "Save",
+      "customer-reviews": "Customer Reviews"
+    },
+    "status":{
+      "available": "Available",
+      "not-available": "Unavailable"
+    },
+    "footer":{
+      "ottroja-description":"Ottroja is an online store offering the finest 100% pure natural honey, carefully extracted from local beehives and packaged according to the highest quality standards.",
+      "links-groups":{
+        "categories":"Categories",
+        "important-links":"Important Links",
+        "information":"Information Center",
+        "newsletter":{"name":"Newsletter", "description":"Subscribe to our weekly newsletter and receive updates via email."},
+        "payment": "We Accept"
+      },
+      "contacts":{
+        "address":"Address",
+        "mail": "Email",
+        "phone":"Phone"
+      },
+      "rights":"2025 Aturjah Honey Store. All rights reserved."
+    }
+  },
+  "categories":{
+    "name":"Categories",
+    "list":{
+      "cat1":"Honey",
+      "cat2":"Mountain honey",
+      "cat3":"Honey mixtures",
+      "cat4":"Honey capsules",
+      "cat5":"Sesame tahini",
+      "cat6":"Natural oils"
+    }
+  },
+  "filters":{
+    "size":"Size / Weight",
+    "price":{
+      "name":"Price",
+      "min": "Min",
+      "max":"Max"
+    }
+  },
+  "products":{
+    "header":"Our Products",
+    "search": "Find what you looking for",
+    "filters":"Filters",
+    "pagination": {
+      "next":"Next",
+      "back":"Back",
+      "from":"From",
+      "per-page":"Per Page"
+    }
   }
 }
