@@ -8,6 +8,8 @@ import {
 import { cn } from '@/lib/utils'
 
 function ReviewsCarousel({ direction }: { direction: string }) {
+  const carouselBtnsClasses =
+    'bg-secondary text-secondary-foreground border-0  disabled:text-carousel-control-disabled-fg disabled:bg-carousel-control-disabled  disabled:opacity-100 hover:bg-secondary hover:text-secondary-foreground'
   const DummyItems = [
     {
       name: 'Yaser Ahmed',
@@ -55,12 +57,14 @@ function ReviewsCarousel({ direction }: { direction: string }) {
           <CarouselPrevious
             className={cn(
               'relative top-0 left-0 h-12 w-12 translate-x-0 translate-y-0 rounded-full',
+              carouselBtnsClasses,
             )}
           />
 
           <CarouselNext
             className={cn(
               'relative top-0 right-0 h-12 w-12 translate-x-0 translate-y-0 rounded-full',
+              carouselBtnsClasses,
             )}
           />
         </div>

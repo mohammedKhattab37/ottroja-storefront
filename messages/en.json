@@ -61,25 +61,11 @@
     "header":"Our Products",
     "search": "Find what you looking for",
     "filters":"Filters",
-    "related": "Related Products",
     "pagination": {
       "next":"Next",
       "back":"Back",
       "from":"From",
       "per-page":"Per Page"
-    },
-    "tabs":{
-      "details":"Product Details",
-      "reviews":"Reviews"
-    },
-    "description":{
-      "weight":"Weight / Packaging",
-      "benefits":"Health Benefits",
-      "ingredients":"Ingredients",
-      "warning": "Warning"
     }
-  },
-  "cart":{
-    "add":"Add to cart"
   }
 }

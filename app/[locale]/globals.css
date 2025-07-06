@@ -21,7 +21,6 @@
   --color-carousel-control-disabled-fg: var(--carousel-control-disabled-fg);
   --color-darker:var(--darker);
   --color-filter-trigger:var(--filter-trigger);
-  --color-product-gallery-ctrl: var(--product-gallery-ctrl);
   --color-sidebar: var(--sidebar);
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
@@ -71,7 +70,6 @@
   --secondary-foreground: hsla(0, 0%, 100%, 1);
   --darker:hsla(26, 42%, 15%, 1);
   --filter-trigger:hsla(44, 58%, 93%, 1);
-  --product-gallery-ctrl:hsla(0, 0%, 0%, 0.06);
   --muted: hsla(0, 0%, 57%, 1);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
