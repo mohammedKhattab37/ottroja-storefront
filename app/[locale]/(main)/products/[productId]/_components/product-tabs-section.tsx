@@ -6,7 +6,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { DummyReviews } from '@/lib/dummy-data'
+import { dummyReviews } from '@/lib/dummy-data'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 
@@ -97,7 +97,7 @@ function ProductTabsSection({ productT, direction, description }: ProductTabsPro
               }}
             >
               <CarouselContent>
-                {DummyReviews.map((item, i) => (
+                {dummyReviews.map((item, i) => (
                   <CarouselItem key={i} dir={direction} className="basis-full lg:basis-1/2">
                     <div className="text-secondary bg-card border-input-border grid h-full min-h-64 gap-6 overflow-hidden rounded-md rounded-tl-[5rem] rounded-br-[5rem] border px-10 pt-5 pb-8 text-sm">
                       <div className="flex items-center gap-4">

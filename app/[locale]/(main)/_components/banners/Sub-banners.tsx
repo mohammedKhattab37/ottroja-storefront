@@ -1,22 +1,8 @@
 import { Link } from '@/i18n/navigation'
+import { dummyBanners } from '@/lib/dummy-data'
 import Image from 'next/image'
 
 function SubBanners() {
-  const dummyBanners = [
-    {
-      image: '/assets/sub-banner.png',
-      url: '/',
-    },
-    {
-      image: '/assets/sub-banner.png',
-      url: '/',
-    },
-    {
-      image: '/assets/sub-banner.png',
-      url: '/',
-    },
-  ]
-
   return (
     <div className="-mt-20 grid grid-cols-3 gap-5">
       {dummyBanners.map((banner, i) => (

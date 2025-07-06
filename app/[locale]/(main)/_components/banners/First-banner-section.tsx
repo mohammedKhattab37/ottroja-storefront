@@ -1,3 +1,4 @@
+import { dummyBanner } from '@/lib/dummy-data'
 import { useLocale } from 'next-intl'
 import Image from 'next/image'
 import BannerDescription from './banner-description'
@@ -5,15 +6,6 @@ import BannerDescription from './banner-description'
 function FirstBannerSection() {
   const locale = useLocale()
   const contentDirection = locale == 'ar' ? 'rtl' : 'ltr'
-
-  const dummyBanner = {
-    title: 'Dont miss this Offer',
-    sub_title: 'Pure Honey with a special price',
-    image: '/assets/banner1.png',
-    items: ['Royal Honey', 'Mountain Honey (200 gm)'],
-    button_text: 'Get the offer now',
-    button_destination: '',
-  }
 
   return (
     <div

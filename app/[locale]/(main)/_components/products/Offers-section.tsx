@@ -1,6 +1,7 @@
 import BannerButton from '@/components/banner-button'
 import Header from '@/components/header'
 import ProductSmallCard from '@/components/product-small-card'
+import { dummyOfferCard, dummyProduct } from '@/lib/dummy-data'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 
@@ -8,26 +9,6 @@ function OffersSection() {
   const t = useTranslations('homePage')
   const locale = useLocale()
   const contentDirection = locale == 'ar' ? 'rtl' : 'ltr'
-
-  const dummyProduct = {
-    name: 'Royal Honey',
-    image: '/assets/product-card.png',
-    url: '#',
-    old_price: 300,
-    new_price: 190,
-    discount: 10,
-    currency: 'SAR',
-    rating: 4,
-  }
-
-  const dummyOfferCard = {
-    name: 'Sweeten your day',
-    title: 'With the honey offer !',
-    sub_title: 'Get natural and pure honey with a special price.',
-    image: '/assets/bee-icon.webp',
-    button_text: 'Shop Now',
-    button_destination: '',
-  }
 
   return (
     <div className="justify-items-center px-1 sm:px-0">

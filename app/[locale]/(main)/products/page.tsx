@@ -3,6 +3,7 @@
 import InputWithIcon from '@/components/input-with-icon'
 import ProductBigCard from '@/components/product-big-card'
 import { Button } from '@/components/ui/button'
+import { dummySmallProduct } from '@/lib/dummy-data'
 import { Filter, Search, X } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
@@ -35,16 +36,6 @@ export default function ProductsPage({
     min: searchParams.min,
     max: searchParams.max,
     size: searchParams.size,
-  }
-
-  const dummyProduct = {
-    name: 'Royal Honey',
-    image: '/assets/product-card.png',
-    url: '#',
-    price: 300,
-    currency: 'SAR',
-    rating: 4,
-    inStock: true,
   }
 
   return (
@@ -136,12 +127,12 @@ export default function ProductsPage({
 
             {/* Products Grid */}
             <div className="grid grid-cols-1 gap-x-5 gap-y-28 px-0 pt-32 sm:grid-cols-2 xl:grid-cols-3">
-              <ProductBigCard direction={contentDirection} data={dummyProduct} />
-              <ProductBigCard direction={contentDirection} data={dummyProduct} />
-              <ProductBigCard direction={contentDirection} data={dummyProduct} />
-              <ProductBigCard direction={contentDirection} data={dummyProduct} />
-              <ProductBigCard direction={contentDirection} data={dummyProduct} />
-              <ProductBigCard direction={contentDirection} data={dummyProduct} />
+              <ProductBigCard direction={contentDirection} data={dummySmallProduct} />
+              <ProductBigCard direction={contentDirection} data={dummySmallProduct} />
+              <ProductBigCard direction={contentDirection} data={dummySmallProduct} />
+              <ProductBigCard direction={contentDirection} data={dummySmallProduct} />
+              <ProductBigCard direction={contentDirection} data={dummySmallProduct} />
+              <ProductBigCard direction={contentDirection} data={dummySmallProduct} />
             </div>
           </div>
 

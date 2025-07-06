@@ -5,37 +5,15 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
+import { dummyReviews } from '@/lib/dummy-data'
 import { cn } from '@/lib/utils'
 
 function ReviewsCarousel({ direction }: { direction: string }) {
-  const DummyItems = [
-    {
-      name: 'Yaser Ahmed',
-      title: 'Its a great product',
-      content: 'great product with a lot of benefits i love it so much',
-    },
-    {
-      name: 'Yaser Ahmed',
-      title: 'Its a great product',
-      content: 'great product with a lot of benefits i love it so much',
-    },
-    {
-      name: 'Yaser Ahmed',
-      title: 'Its a great product',
-      content: 'great product with a lot of benefits i love it so much',
-    },
-    {
-      name: 'Yaser Ahmed',
-      title: 'Its a great product',
-      content: 'great product with a lot of benefits i love it so much',
-    },
-  ]
-
   return (
     <div className="w-full max-w-fit">
       <Carousel className="w-full">
         <CarouselContent className="h-72">
-          {DummyItems.map((item, i) => (
+          {dummyReviews.map((item, i) => (
             <CarouselItem key={i} dir={direction}>
               <div className="text-secondary grid gap-6 overflow-hidden rounded-lg">
                 <div className="mt-8 flex items-center gap-4">

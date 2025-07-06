@@ -1,3 +1,4 @@
+import { dummyBanner2 } from '@/lib/dummy-data'
 import { useLocale } from 'next-intl'
 import Image from 'next/image'
 import BannerDescription from './banner-description'
@@ -5,14 +6,6 @@ import BannerDescription from './banner-description'
 function SecondBannerSection() {
   const locale = useLocale()
   const contentDirection = locale == 'ar' ? 'rtl' : 'ltr'
-
-  const dummyBanner = {
-    title: 'Dont miss this Offer',
-    sub_title: 'Pure Honey with a special price',
-    image: '/assets/banner2.png',
-    button_text: 'Get the offer now',
-    button_destination: '',
-  }
 
   return (
     <div
@@ -46,11 +39,11 @@ function SecondBannerSection() {
         style={{ transform: contentDirection == 'ltr' ? 'scaleX(-1)' : undefined }}
       />
       <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-8 lg:gap-12">
-        {dummyBanner.image && (
+        {dummyBanner2.image && (
           <div className="order-first flex justify-center md:order-last md:justify-end">
             <Image
               alt="banner"
-              src={dummyBanner.image}
+              src={dummyBanner2.image}
               width={750}
               height={750}
               className="-mx-6 -my-0 h-auto w-full min-w-sm object-contain pt-0 md:-mx-8 md:-my-10 md:pt-10 lg:-mx-16"
@@ -58,10 +51,10 @@ function SecondBannerSection() {
           </div>
         )}
         <BannerDescription
-          title={dummyBanner.title}
-          sub_title={dummyBanner.sub_title}
-          button_text={dummyBanner.button_text}
-          button_destination={dummyBanner.button_destination}
+          title={dummyBanner2.title}
+          sub_title={dummyBanner2.sub_title}
+          button_text={dummyBanner2.button_text}
+          button_destination={dummyBanner2.button_destination}
         />
       </div>
     </div>

@@ -2,6 +2,7 @@ import InputWithIcon from '@/components/input-with-icon'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
 import { paymentIcons, socialsIcons } from '@/lib/constants'
+import { dummyContacts, dummyFooterServices, dummyImportantLinks } from '@/lib/dummy-data'
 import { formatContactsInfo } from '@/lib/fromat-contacts'
 import { getCategoriesList } from '@/lib/utils'
 import { Send } from 'lucide-react'
@@ -14,37 +15,6 @@ function Footer() {
   const locale = useLocale()
   const direction = locale == 'ar' ? 'rtl' : 'ltr'
   const allCategories = getCategoriesList(useTranslations('categories'))
-
-  const dummyFooterServices = [
-    {
-      title: 'Free Shipping',
-      description: 'On all orders over $50',
-    },
-    {
-      title: 'Easy Returns',
-      description: '30 days return policy',
-    },
-    {
-      title: 'Secure Payment',
-      description: '100% secure payment',
-    },
-    {
-      title: 'Customer Support',
-      description: '24/7 customer support',
-    },
-  ]
-
-  const dummyContacts = [
-    { title: 'address', value: '123 Main St, City' },
-    { title: 'mail', value: 'info@example.com' },
-    { title: 'phone', value: '+123456789' },
-  ]
-
-  const dummyImportantLinks = [
-    { name: 'address', url: '123 Main St, City' },
-    { name: 'mail', url: 'info@example.com' },
-    { name: 'phone', url: '+123456789' },
-  ]
 
   return (
     <footer className="bg-secondary text-secondary-foreground mt-64" dir={direction}>
