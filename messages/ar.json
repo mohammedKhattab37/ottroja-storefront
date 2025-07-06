@@ -61,25 +61,11 @@
     "header":"المنتجات الرائعة",
     "search": "ابحث عن ما تريد",
     "filters": "الترشيحات",
-    "related": "المنتجات ذات صلة",
     "pagination": {
       "next":"التالي",
       "back":"السابق",
       "from":"من",
       "per-page":"لكل صفحة"
-    },
-    "tabs":{
-      "details":"تفاصيل المنتج",
-      "reviews":"التقييمات"
-    },
-    "description":{
-      "weight":"الوزن / التعبئة",
-      "benefits":"الفوائد الصحية",
-      "ingredients":"المكونات",
-      "warning": "تنبيه"
     }
-  },
-  "cart":{
-    "add": "اضف الي العربة"
   }
 }
