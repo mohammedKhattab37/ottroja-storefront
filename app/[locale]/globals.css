@@ -154,3 +154,9 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .container-padding {
+    @apply px-5 md:px-20 xl:px-24 2xl:px-56;
+  }
+}

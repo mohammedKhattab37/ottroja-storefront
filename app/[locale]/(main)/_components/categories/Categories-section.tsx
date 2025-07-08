@@ -17,7 +17,7 @@ function CategoriesSection() {
   const categoriesList = getCategoriesList(useTranslations('categories'))
 
   return (
-    <div className="justify-items-center">
+    <div className="container-padding justify-items-center">
       <Header title={t('sections.categories')} direction={locale == 'ar' ? 'rtl' : 'ltr'} />
       <div
         className="mt-20 flex flex-wrap justify-center gap-16"

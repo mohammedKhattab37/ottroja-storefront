@@ -15,7 +15,7 @@ function ProductsSection() {
   const contentDirection = locale == 'ar' ? 'rtl' : 'ltr'
 
   return (
-    <div>
+    <div className="container-padding">
       <Header title={t('sections.products')} direction={contentDirection} />
       <div
         className={cn(

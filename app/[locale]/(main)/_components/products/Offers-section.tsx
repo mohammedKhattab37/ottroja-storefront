@@ -11,7 +11,7 @@ function OffersSection() {
   const contentDirection = locale == 'ar' ? 'rtl' : 'ltr'
 
   return (
-    <div className="justify-items-center px-1 sm:px-0">
+    <div className="container-padding justify-items-center sm:px-0">
       <Header title={t('sections.offers')} direction={contentDirection} />
       <div className="mt-20 grid grid-cols-1 gap-5 xl:grid-cols-3">
         <div className="grid gap-6">

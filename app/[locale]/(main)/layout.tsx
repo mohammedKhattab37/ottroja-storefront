@@ -32,15 +32,13 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-        <NextIntlClientProvider>
-          <body className={`${notoKufiArabic.variable} antialiased`}>
-            <div className="grid gap-y-16 px-5 md:px-20 xl:px-24 2xl:px-56">
-              <Header />
-              {children}
-              </div>
-            <Footer />
-          </body>
-        </NextIntlClientProvider>
+      <NextIntlClientProvider>
+        <body className={`${notoKufiArabic.variable} grid gap-y-16 antialiased`}>
+          <Header />
+          {children}
+          <Footer />
+        </body>
+      </NextIntlClientProvider>
     </html>
   )
 }

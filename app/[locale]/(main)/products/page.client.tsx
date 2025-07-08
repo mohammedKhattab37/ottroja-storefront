@@ -20,11 +20,7 @@ interface SearchParams {
   size?: string
 }
 
-export default function ProductsPageClient({
-  searchParams,
-}: {
-  searchParams: SearchParams
-}) {
+export default function ProductsPageClient({ searchParams }: { searchParams: SearchParams }) {
   const t = useTranslations('products')
   const categoryT = useTranslations('categories')
   const filtersT = useTranslations('filters')
@@ -41,7 +37,7 @@ export default function ProductsPageClient({
   }
 
   return (
-    <div className="text-secondary grid">
+    <div className="text-secondary container-padding grid">
       <div className="relative bg-[#F7F1E1] p-32">
         <div>
           <Image
@@ -181,4 +177,4 @@ export default function ProductsPageClient({
       )}
     </div>
   )
-} 
+}

@@ -29,7 +29,7 @@ function WhyChooseUs({ t }: { t: (key: string) => string }) {
   ]
 
   return (
-    <div>
+    <div className="container-padding">
       <div className="grid place-items-center gap-10 pb-20 text-center">
         <p className="text-2xl font-bold">{t('title')}</p>
         <span className="w-full text-justify text-sm leading-9 font-medium md:w-[90%] md:text-center lg:w-2/3">

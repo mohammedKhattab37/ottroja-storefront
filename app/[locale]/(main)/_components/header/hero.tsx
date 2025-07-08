@@ -40,7 +40,7 @@ function Hero() {
   }, [api, dummyHeroSlides])
 
   return (
-    <div className="bg-filter-trigger relative mt-6 rounded-sm py-8 drop-shadow-sm">
+    <div className="container-padding relative mt-6 rounded-sm py-8 drop-shadow-sm">
       <Carousel
         setApi={setApi}
         opts={{
@@ -52,7 +52,7 @@ function Hero() {
             delay: 5500,
           }),
         ]}
-        className="mx-auto w-full"
+        className="bg-filter-trigger mx-auto w-full pb-5"
       >
         <Image
           className="absolute top-6 right-10 xl:top-10 xl:right-20"
@@ -104,22 +104,21 @@ function Hero() {
               )
             })}
         </CarouselContent>
+        {dummyHeroSlides && dummyHeroSlides.length > 0 && count > 1 && (
+          <div className="flex justify-center space-x-2 pt-6">
+            {Array.from({ length: count }).map((_, index) => (
+              <button
+                key={index}
+                className={`bg-darker h-3 w-3 cursor-pointer rounded-full transition-all duration-300 hover:scale-110 ${
+                  index + 1 === current ? 'scale-110' : 'opacity-20'
+                }`}
+                onClick={() => api?.scrollTo(index)}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+        )}
       </Carousel>
-
-      {dummyHeroSlides && dummyHeroSlides.length > 0 && count > 1 && (
-        <div className="flex justify-center space-x-2 pt-6">
-          {Array.from({ length: count }).map((_, index) => (
-            <button
-              key={index}
-              className={`bg-darker h-3 w-3 cursor-pointer rounded-full transition-all duration-300 hover:scale-110 ${
-                index + 1 === current ? 'scale-110' : 'opacity-20'
-              }`}
-              onClick={() => api?.scrollTo(index)}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-      )}
     </div>
   )
 }
