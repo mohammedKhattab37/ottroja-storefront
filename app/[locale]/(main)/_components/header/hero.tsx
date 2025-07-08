@@ -40,7 +40,7 @@ function Hero() {
   }, [api, dummyHeroSlides])
 
   return (
-    <div className="container-padding relative mt-6 rounded-sm py-8 drop-shadow-sm">
+    <div className="container-padding relative rounded-sm py-6 drop-shadow-sm">
       <Carousel
         setApi={setApi}
         opts={{

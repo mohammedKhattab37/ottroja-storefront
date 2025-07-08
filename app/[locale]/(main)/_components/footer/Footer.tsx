@@ -17,8 +17,8 @@ function Footer() {
   const allCategories = getCategoriesList(useTranslations('categories'))
 
   return (
-    <footer className="bg-secondary text-secondary-foreground mt-64" dir={direction}>
-      <div className="relative mt-36 px-5 py-28 md:px-20 lg:px-32 xl:px-24 2xl:px-44">
+    <footer className="bg-secondary text-secondary-foreground" dir={direction}>
+      <div className="relative px-5 py-28 md:px-20 lg:px-32 xl:px-24 2xl:px-44">
         <FooterServices services={dummyFooterServices} />
         <div className="grid grid-cols-3 gap-10 xl:grid-cols-7 xl:gap-12">
           <div className="col-span-3 grid gap-4 xl:col-span-2">

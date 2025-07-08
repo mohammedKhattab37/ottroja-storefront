@@ -53,7 +53,7 @@ function ProductClient({
   }
 
   return (
-    <div className="container-padding overflow-hidden">
+    <div className="container-padding overflow-hidden pb-64">
       <div className="text-secondary grid grid-cols-1 gap-5 md:grid-cols-2">
         <div className={'order-2 md:order-1'}>
           <div className="bg-filter-trigger relative w-full overflow-hidden rounded-lg p-5">

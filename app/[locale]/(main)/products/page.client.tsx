@@ -97,7 +97,7 @@ export default function ProductsPageClient({ searchParams }: { searchParams: Sea
           />
         </div>
 
-        <div className="col-span-full pt-20 lg:col-span-3 lg:border-s-2 lg:border-s-[#FBE9D1]">
+        <div className="col-span-full pt-20 pb-64 lg:col-span-3 lg:border-s-2 lg:border-s-[#FBE9D1]">
           <div className="grid ps-4 lg:ps-10">
             <div className="flex items-center gap-4 lg:block">
               {/* Small screen filters btn */}
