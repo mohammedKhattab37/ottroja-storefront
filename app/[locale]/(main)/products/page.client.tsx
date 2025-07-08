@@ -1,10 +1,11 @@
 'use client'
 
+import CustomDrawer from '@/components/custom-drawer'
 import InputWithIcon from '@/components/input-with-icon'
 import ProductBigCard from '@/components/product-big-card'
 import { Button } from '@/components/ui/button'
 import { dummySmallProduct } from '@/lib/dummy-data'
-import { Filter, Search, X } from 'lucide-react'
+import { Filter, Search } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useState } from 'react'
@@ -145,35 +146,19 @@ export default function ProductsPageClient({ searchParams }: { searchParams: Sea
       </div>
 
       {isDrawerOpen && (
-        <div
-          className="fixed inset-0 z-50 bg-black/30 lg:hidden"
-          onClick={() => setIsDrawerOpen(false)}
+        <CustomDrawer
+          isDrawerOpen={isDrawerOpen}
+          setIsDrawerOpen={setIsDrawerOpen}
+          title={t('filters')}
+          contentDirection={contentDirection}
         >
-          {/* Drawer  */}
-          <div
-            className={`bg-background fixed top-0 bottom-0 z-60 w-80 max-w-[85vw] transform shadow-xl ${
-              contentDirection === 'rtl' ? 'right-0 translate-x-0' : 'left-0 translate-x-0'
-            }`}
-            onClick={(e) => e.stopPropagation()}
+          <FiltersSidebar
             dir={contentDirection}
-          >
-            <div className="flex items-center justify-between border-b border-gray-200 p-5">
-              <h2 className="text-secondary text-lg font-semibold">{t('filters')}</h2>
-              <Button onClick={() => setIsDrawerOpen(false)} variant={'outline'}>
-                <X className="text-secondary size-4" />
-              </Button>
-            </div>
-
-            <div className="h-full overflow-y-auto p-5 pb-20">
-              <FiltersSidebar
-                dir={contentDirection}
-                categoryT={categoryT}
-                filtersT={filtersT}
-                filters={filterParams}
-              />
-            </div>
-          </div>
-        </div>
+            categoryT={categoryT}
+            filtersT={filtersT}
+            filters={filterParams}
+          />
+        </CustomDrawer>
       )}
     </div>
   )
