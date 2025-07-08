@@ -81,5 +81,34 @@
   },
   "cart":{
     "add":"Add to cart"
+  },
+  "aboutPage":{
+    "about-us":"About Ottroja",
+    "founder": "Ottroja's Founder",
+    "founder-name":"Eng / Mohammed Khattab",
+    "about-founder":"Passionate about the world of natural honey and its health benefits, he was born out of a sincere desire to provide authentic and reliable products directly from the heart of nature to the consumer. After years of research and experimentation into the sources of mountain honey, sidr, and propolis, he founded ''Ottroja Page'' to be a specialized store that combines quality, honesty, and attention to the smallest details. His goal is to bring honey to every home, free of any additives or adulteration, and with the highest possible nutritional value.",
+    "followers":"Follower",
+    "customers":"Happy Customers",
+    "success":"Success Rate",
+    "orders":"Successful Orders",
+    "choose-us":{
+      "title":"Why Choose ''Ottroja''",
+      "content":"Because at Ottroja, we don't just sell honey, we offer you an experience of trust and quality. We carefully select our sources from the finest natural apiaries. We believe that real honey is both a cure and a nourishment, so we make sure to present it as God created it—raw, natural, and full of benefits.",
+      "packaging":"Reliability in every package",
+      "packaging-description":"At Ottroja, we adhere to the highest standards of honesty and transparency. Every package undergoes meticulous inspection and packaging to ensure that the honey you receive is the same honey that came out of the beehive, without any processing or additives.",
+      "quality":"Quality guaranteed with real testimonials and reviews",
+      "quality-description":"Our products are tested and certified by trusted analytical laboratories, and we provide certificates of analysis upon request. We also take pride in our customers' repeated trust and honest feedback, documenting their experience with us, whether through store reviews or direct messages on various platforms.",
+      "delivery":"Safe and fast delivery to your door",
+      "delivery-description":"We partner with reliable shipping companies to ensure your order arrives as quickly as possible, in perfect condition, without delay or damage. We carefully package each package so it arrives exactly as it left us, and we provide tracking options so you can rest assured about your order every step of the way.",
+      "support":"Professional and fast customer service",
+      "support-description":"Ottroja's customer service team is trained to respond to your inquiries quickly, respectfully, and in a friendly manner. We don't just provide a product; we accompany you after your purchase to ensure your complete satisfaction, responding to any comments as quickly as possible."
+    }
+  },
+  "ourJourney":{
+    "title":"Our Journey",
+    "line1":"We began in the heart of nature, amidst mountains and valleys and among beehives.",
+    "line2":"We document our steps from source to packaging, sharing real moments from our journey to select the finest honey.",
+    "instagram":"Follow us on Instagram",
+    "youtube":"Subscribe on Youtube"
   }
 }
