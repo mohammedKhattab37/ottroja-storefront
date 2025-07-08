@@ -78,7 +78,7 @@ function FiltersSidebar({
   }
 
   return (
-    <div className="grid gap-5">
+    <div className="grid gap-5 p-5">
       <CollapsibleFilter name={categoryT('name')} dir={dir} open={selectedCategories.length > 0}>
         {categories.map((item, index) => (
           <div className="flex items-center gap-3 px-0.5" key={index}>

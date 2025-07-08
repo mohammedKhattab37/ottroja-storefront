@@ -1,9 +1,13 @@
 'use client'
+import CustomDrawer from '@/components/custom-drawer'
 import InputWithIcon from '@/components/input-with-icon'
+import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
-import { Search, ShoppingBag, UserRound } from 'lucide-react'
+import { Search, ShoppingCart, UserRound } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
+import { useState } from 'react'
+import { Cart } from '../../checkout/_components/cart'
 import NavItems from './nav-items'
 
 interface NavItem {
@@ -13,7 +17,11 @@ interface NavItem {
 
 function Header({ navLinks }: { navLinks?: NavItem[] }) {
   const t = useTranslations('homePage')
+  const cartT = useTranslations('cart')
   const locale = useLocale()
+  const direction = locale == 'ar' ? 'rtl' : 'ltr'
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
   return (
     <div className="mt-8">
       <div className="container-padding flex flex-row-reverse items-center justify-between rounded-t-sm py-7 md:px-10">
@@ -23,7 +31,7 @@ function Header({ navLinks }: { navLinks?: NavItem[] }) {
               name="search"
               classNames="bg-hero border-input-border text-secondary placeholder:text-secondary w-xl py-3 ps-8"
               placeholder={t('header.search')}
-              direction={locale == 'ar' ? 'rtl' : 'ltr'}
+              direction={direction}
               icon={<Search className="size-5" />}
               iconWrapperClasses="top-1/5"
             />
@@ -40,22 +48,41 @@ function Header({ navLinks }: { navLinks?: NavItem[] }) {
         </div>
         <div className="text-secondary flex w-fit justify-end gap-2 sm:gap-3">
           <div className="flex items-center gap-1 sm:gap-2">
-            <span className="hidden text-sm md:block" dir={locale == 'ar' ? 'rtl' : 'ltr'}>
+            <span className="hidden text-sm md:block" dir={direction}>
               {t('header.user-button')} <span className="font-bold">Yaser</span>
             </span>
             <span className="border-secondary h-fit rounded-full border-[1.5px] p-2">
               <UserRound className="size-4" />
             </span>
           </div>
-          <span className="border-secondary relative h-fit rounded-full border-[1.5px] p-2">
+          <Button
+            variant={'vanilla'}
+            size={'icon'}
+            className="border-secondary relative h-fit rounded-full border-[1.5px] p-2"
+            onClick={() => setIsDrawerOpen(true)}
+          >
             <span className="bg-success absolute -top-1.5 -right-2 flex h-4 w-4 items-center justify-center rounded-full text-[10px] text-white sm:h-5 sm:w-5 sm:text-xs">
               3
             </span>
-            <ShoppingBag className="size-4" />
-          </span>
+            <ShoppingCart className="size-4" />
+          </Button>
         </div>
+        <CustomDrawer
+          setIsDrawerOpen={setIsDrawerOpen}
+          isDrawerOpen={isDrawerOpen}
+          title={
+            <div className="flex justify-items-center gap-2 text-sm font-bold">
+              <ShoppingCart className="size-5" />
+              {cartT('title')}
+            </div>
+          }
+          contentDirection={direction}
+          showInBigScreens={true}
+        >
+          <Cart t={cartT} />
+        </CustomDrawer>
       </div>
-      <NavItems direction={locale == 'ar' ? 'rtl' : 'ltr'} navLinks={navLinks} />
+      <NavItems direction={direction} navLinks={navLinks} />
     </div>
   )
 }

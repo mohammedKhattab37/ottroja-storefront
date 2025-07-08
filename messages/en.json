@@ -80,7 +80,10 @@
     }
   },
   "cart":{
-    "add":"Add to cart"
+    "title":"Cart",
+    "add":"Add to cart",
+    "total":"Total Price",
+    "go_payment":"Go to payment"
   },
   "aboutPage":{
     "about-us":"About Ottroja",
