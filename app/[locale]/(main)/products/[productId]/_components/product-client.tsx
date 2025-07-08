@@ -1,4 +1,5 @@
 'use client'
+import QuantityControls from '@/components/fragments/quantity-controls'
 import Header from '@/components/header'
 import ProductBigCard from '@/components/product-big-card'
 import { Button } from '@/components/ui/button'
@@ -11,7 +12,7 @@ import {
 } from '@/components/ui/carousel'
 import { dummyProducts } from '@/lib/dummy-data'
 import { cn } from '@/lib/utils'
-import { Minus, Plus, Star } from 'lucide-react'
+import { Star } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useState } from 'react'
@@ -44,13 +45,6 @@ function ProductClient({
   const [quantity, setQuantity] = useState(1)
   const t = useTranslations('cart')
   const productT = useTranslations('products')
-
-  const updateQuantity = (change: number) => {
-    if (quantity + change < 1) {
-      return
-    }
-    setQuantity((oldValue) => oldValue + change)
-  }
 
   return (
     <div className="container-padding overflow-hidden pb-64">
@@ -114,20 +108,7 @@ function ProductClient({
             <Button variant={'secondary'} className="flex-1 rounded-full p-5 text-xs font-semibold">
               {t('add')}
             </Button>
-            <div className="border-secondary flex items-center gap-2 rounded-lg border text-sm font-bold">
-              <Button
-                variant="ghost"
-                size="icon"
-                disabled={quantity == 1}
-                onClick={() => updateQuantity(-1)}
-              >
-                <Minus className="size-5" />
-              </Button>
-              <span className="w-8 text-center">{quantity}</span>
-              <Button variant="ghost" size="icon" onClick={() => updateQuantity(1)}>
-                <Plus className="size-5" />
-              </Button>
-            </div>
+            <QuantityControls quantity={quantity} setQuantity={setQuantity} />
           </div>
         </div>
 
