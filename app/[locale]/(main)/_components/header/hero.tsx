@@ -1,7 +1,9 @@
 'use client'
 import BannerButton from '@/components/banner-button'
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
+import { dummyHeroSlides } from '@/lib/dummy-data'
 import Autoplay from 'embla-carousel-autoplay'
+import { useLocale } from 'next-intl'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
@@ -11,22 +13,23 @@ interface HeroItem {
   sub_title: string
   button_destination: string
   button_text: string
-  images: string[]
+  image: string
 }
 
-function Hero({ direction, heroData }: { direction: string; heroData?: HeroItem[] }) {
+function Hero() {
+  const locale = useLocale()
+  const direction = locale == 'ar' ? 'rtl' : 'ltr'
+
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [count, setCount] = useState(0)
 
   useEffect(() => {
-    if (!api || !heroData || heroData.length === 0) {
+    if (!api || !dummyHeroSlides || dummyHeroSlides.length === 0) {
       return
     }
 
-    const validHeroItems = heroData.filter(
-      (hero) => hero.images && hero.images.length > 0 && hero.images[0]?.split('||')[0],
-    )
+    const validHeroItems = dummyHeroSlides.filter((hero) => hero.image && hero.image.split('||')[0])
 
     setCount(validHeroItems.length)
     setCurrent(api.selectedScrollSnap() + 1)
@@ -34,10 +37,10 @@ function Hero({ direction, heroData }: { direction: string; heroData?: HeroItem[
     api.on('select', () => {
       setCurrent(api.selectedScrollSnap() + 1)
     })
-  }, [api, heroData])
+  }, [api, dummyHeroSlides])
 
   return (
-    <div className="bg-hero border-header-border relative mt-6 rounded-sm border-[1px] py-8">
+    <div className="bg-filter-trigger relative mt-6 rounded-sm py-8 drop-shadow-sm">
       <Carousel
         setApi={setApi}
         opts={{
@@ -66,51 +69,44 @@ function Hero({ direction, heroData }: { direction: string; heroData?: HeroItem[
           height={50}
         />
         <CarouselContent>
-          {heroData &&
-            heroData.length > 0 &&
-            heroData
-              .filter(
-                (hero) => hero.images && hero.images.length > 0 && hero.images[0]?.split('||')[0],
-              )
-              .map((hero, index) => {
-                const imageSrc = hero.images[0]?.split('||')[0]
-                return (
-                  <CarouselItem key={hero.id || index} dir={direction == 'rtl' ? 'ltr' : 'rtl'}>
-                    <div className="container mx-auto px-6 sm:px-8 lg:px-16">
-                      <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-8 lg:gap-12">
-                        {imageSrc && (
-                          <div className="flex justify-center md:justify-start">
-                            <div className="flex h-[500px] w-[500px] items-center justify-center bg-transparent">
-                              <Image
-                                alt="hero"
-                                src={imageSrc}
-                                width={400}
-                                height={400}
-                                className="h-full w-full object-contain"
-                              />
-                            </div>
-                          </div>
-                        )}
-                        <div className="text-secondary space-y-6" dir={direction}>
-                          <div className="space-y-3">
-                            <h1 className="text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl">
-                              {hero.title}
-                            </h1>
-                            <p className="text-secondary/80 text-base leading-relaxed sm:text-lg">
-                              {hero.sub_title}
-                            </p>
-                          </div>
-                          <BannerButton text={hero.button_text} url={hero.button_destination} />
+          {dummyHeroSlides &&
+            dummyHeroSlides.length > 0 &&
+            dummyHeroSlides.map((hero, index) => {
+              return (
+                <CarouselItem key={hero.id || index} dir={direction == 'rtl' ? 'ltr' : 'rtl'}>
+                  <div className="container mx-auto px-6 sm:px-8 lg:px-16">
+                    <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-8 lg:gap-12">
+                      <div className="flex justify-center md:justify-start">
+                        <div className="flex h-[500px] w-[500px] items-center justify-center bg-transparent">
+                          <Image
+                            alt="hero"
+                            src={hero.image}
+                            width={400}
+                            height={400}
+                            className="h-full w-full object-contain"
+                          />
                         </div>
                       </div>
+                      <div className="text-secondary space-y-6" dir={direction}>
+                        <div className="space-y-3">
+                          <h1 className="text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl">
+                            {hero.title}
+                          </h1>
+                          <p className="text-secondary/80 text-base leading-relaxed sm:text-lg">
+                            {hero.sub_title}
+                          </p>
+                        </div>
+                        <BannerButton text={hero.button_text} url={hero.button_destination} />
+                      </div>
                     </div>
-                  </CarouselItem>
-                )
-              })}
+                  </div>
+                </CarouselItem>
+              )
+            })}
         </CarouselContent>
       </Carousel>
 
-      {heroData && heroData.length > 0 && count > 1 && (
+      {dummyHeroSlides && dummyHeroSlides.length > 0 && count > 1 && (
         <div className="flex justify-center space-x-2 pt-6">
           {Array.from({ length: count }).map((_, index) => (
             <button

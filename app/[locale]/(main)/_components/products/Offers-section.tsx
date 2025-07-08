@@ -34,7 +34,7 @@ function OffersSection() {
             <Image
               className="absolute bottom-0"
               alt={''}
-              src={'/assets/hero.png'}
+              src={'/assets/hero.svg'}
               width={300}
               height={300}
             />

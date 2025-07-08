@@ -4,7 +4,6 @@ import { Link } from '@/i18n/navigation'
 import { Search, ShoppingBag, UserRound } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
-import Hero from './hero'
 import NavItems from './nav-items'
 
 interface NavItem {
@@ -12,21 +11,7 @@ interface NavItem {
   url?: string
 }
 
-interface HeroItem {
-  id: string
-  title: string
-  sub_title: string
-  button_destination: string
-  button_text: string
-  images: string[]
-}
-
-interface HeaderProps {
-  navLinks?: NavItem[]
-  heroData?: HeroItem[]
-}
-
-function Header({ navLinks, heroData }: HeaderProps) {
+function Header({ navLinks }: { navLinks?: NavItem[] }) {
   const t = useTranslations('homePage')
   const locale = useLocale()
   return (
@@ -71,7 +56,6 @@ function Header({ navLinks, heroData }: HeaderProps) {
         </div>
       </div>
       <NavItems direction={locale == 'ar' ? 'rtl' : 'ltr'} navLinks={navLinks} />
-      <Hero direction={locale == 'ar' ? 'rtl' : 'ltr'} heroData={heroData} />
     </div>
   )
 }

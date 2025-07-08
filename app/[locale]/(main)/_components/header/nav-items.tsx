@@ -16,13 +16,11 @@ function NavItems({ direction, navLinks }: NavItemsProps) {
   // Use provided navLinks or fallback to default
   const defaultNavLinks = [
     { title: 'Home Page', url: '' },
-    { title: 'Special Offers', url: '#2' },
-    { title: 'Honey Types', url: '#3' },
-    { title: 'Honey Derivatives', url: '#4' },
-    { title: 'Other Products', url: '#5' },
+    { title: 'Products', url: '/products' },
+    { title: 'About us', url: '/about-us' },
   ]
 
-  const displayNavLinks = navLinks || defaultNavLinks
+  const displayNavLinks = defaultNavLinks
 
   const pathname = usePathname()
 
