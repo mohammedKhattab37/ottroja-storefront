@@ -1,3 +1,38 @@
+export const dummyHeroSlides = [
+  {
+    id: '1',
+    title: 'ذوق الأصالة عسل طبيعي يليق بك',
+    sub_title: 'منتجنا مش بس عسل، دي تجربة.',
+    button_destination: '/products',
+    button_text: 'تسوق الان',
+    image: '/assets/hero.svg',
+  },
+  {
+    id: '2',
+    title: 'ذوق الأصالة عسل طبيعي يليق بك',
+    sub_title: 'منتجنا مش بس عسل، دي تجربة.',
+    button_destination: '/products',
+    button_text: 'تسوق الان',
+    image: '/assets/hero.svg',
+  },
+  {
+    id: '3',
+    title: 'ذوق الأصالة عسل طبيعي يليق بك',
+    sub_title: 'منتجنا مش بس عسل، دي تجربة.',
+    button_destination: '/products',
+    button_text: 'تسوق الان',
+    image: '/assets/hero.svg',
+  },
+  {
+    id: '4',
+    title: 'ذوق الأصالة عسل طبيعي يليق بك',
+    sub_title: 'منتجنا مش بس عسل، دي تجربة.',
+    button_destination: '/products',
+    button_text: 'تسوق الان',
+    image: '/assets/hero.svg',
+  },
+]
+
 export const dummyBanner = {
   title: 'Dont miss this Offer',
   sub_title: 'Pure Honey with a special price',

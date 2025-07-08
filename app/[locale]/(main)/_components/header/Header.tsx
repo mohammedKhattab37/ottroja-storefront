@@ -16,12 +16,12 @@ function Header({ navLinks }: { navLinks?: NavItem[] }) {
   const locale = useLocale()
   return (
     <div className="mt-8">
-      <div className="border-header-border bg-hero flex flex-row-reverse items-center justify-between rounded-t-sm border-[1px] px-4 py-7 md:px-10">
+      <div className="flex flex-row-reverse items-center justify-between rounded-t-sm px-4 py-7 md:px-10">
         <div className="flex w-full items-center justify-end gap-4 sm:gap-6 md:mb-0 md:w-fit md:gap-8">
           <div className="hidden items-center lg:grid">
             <InputWithIcon
               name="search"
-              classNames="bg-input border-input-border text-secondary placeholder:text-secondary w-xl py-3 ps-8"
+              classNames="bg-hero border-input-border text-secondary placeholder:text-secondary w-xl py-3 ps-8"
               placeholder={t('header.search')}
               direction={locale == 'ar' ? 'rtl' : 'ltr'}
               icon={<Search className="size-5" />}
