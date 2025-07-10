@@ -1,20 +1,13 @@
 import Header from '@/components/header'
 import { Link } from '@/i18n/navigation'
-import { getCategoriesList } from '@/lib/utils'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 
-type categoryItem = {
-  name: string
-  image: string
-  slug: string
-}
+import type { Category } from '../../_actions/get-categories'
 
-function CategoriesSection() {
+function CategoriesSection({ NavCategories }: { NavCategories: Category[] }) {
   const t = useTranslations('homePage')
   const locale = useLocale()
-
-  const categoriesList = getCategoriesList(useTranslations('categories'))
 
   return (
     <div className="container-padding justify-items-center">
@@ -23,12 +16,13 @@ function CategoriesSection() {
         className="mt-20 flex flex-wrap justify-center gap-16"
         dir={locale == 'ar' ? 'rtl' : 'ltr'}
       >
-        {categoriesList.map((category, index) => (
+        {NavCategories.map((category, index) => (
           <CategoryItem
             key={index}
-            name={category.name}
-            slug={category.url}
-            image={category.image}
+            slug={category.slug}
+            image={category.imageUrl}
+            nameEn={category.nameEn}
+            nameAr={category.nameAr}
           />
         ))}
       </div>
@@ -38,11 +32,29 @@ function CategoriesSection() {
 
 export default CategoriesSection
 
-function CategoryItem({ name, slug, image }: categoryItem) {
+function CategoryItem({
+  slug,
+  image,
+  nameEn,
+  nameAr,
+}: {
+  slug: string
+  image: string | undefined
+  nameEn: string
+  nameAr: string
+}) {
+  const locale = useLocale()
   return (
     <Link href={slug} className="grid gap-y-6 text-center">
       <div className="relative justify-self-center rounded-full bg-[#FEF4CF] px-6 py-5">
-        <Image alt={name} src={image} width={58} height={58} quality={100} />
+        <Image
+          alt={'Category Image'}
+          src={image!}
+          width={58}
+          height={58}
+          quality={100}
+          className="aspect-square object-cover"
+        />
         <Image
           alt="border"
           src={'/assets/dashed-border.svg'}
@@ -52,7 +64,11 @@ function CategoryItem({ name, slug, image }: categoryItem) {
           quality={100}
         />
       </div>
-      <span className="text-md -mr-2 font-bold">{name}</span>
+      {locale == 'ar' ? (
+        <span className="text-md -mr-2 font-bold">{nameAr}</span>
+      ) : (
+        <span className="text-md -mr-2 font-bold">{nameEn}</span>
+      )}
     </Link>
   )
 }
