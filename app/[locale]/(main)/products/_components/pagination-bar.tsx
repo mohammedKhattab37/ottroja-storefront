@@ -142,7 +142,7 @@ const PaginationBar = ({
           <ChevronRight className={cn('h-4 w-4', direction == 'rtl' ? 'scale-x-[-1]' : '')} />
         </Button>
 
-        <div className="text-muted ms-2 text-xs font-normal">
+        <div className="text-muted ms-2 hidden text-xs font-normal md:block">
           {startItem}-{endItem} {t('from')} {totalProducts.toLocaleString()}
         </div>
       </div>
