@@ -7,6 +7,7 @@ import { Search, ShoppingCart, UserRound } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useState } from 'react'
+import AuthModal from '../../_auth/auth-modal'
 import { Cart } from '../../checkout/_components/cart'
 import NavItems from './nav-items'
 
@@ -17,10 +18,13 @@ interface NavItem {
 
 function Header({ navLinks }: { navLinks?: NavItem[] }) {
   const t = useTranslations('homePage')
+  const authT = useTranslations('auth')
   const cartT = useTranslations('cart')
   const locale = useLocale()
   const direction = locale == 'ar' ? 'rtl' : 'ltr'
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
+  const loggedIn = false
 
   return (
     <div className="mt-8">
@@ -47,14 +51,19 @@ function Header({ navLinks }: { navLinks?: NavItem[] }) {
           </Link>
         </div>
         <div className="text-secondary flex w-fit justify-end gap-2 sm:gap-3">
-          <div className="flex items-center gap-1 sm:gap-2">
-            <span className="hidden text-sm md:block" dir={direction}>
-              {t('header.user-button')} <span className="font-bold">Yaser</span>
-            </span>
-            <span className="border-secondary h-fit rounded-full border-[1.5px] p-2">
-              <UserRound className="size-4" />
-            </span>
-          </div>
+          {loggedIn ? (
+            <div className="flex items-center gap-1 sm:gap-2">
+              <span className="hidden text-sm md:block" dir={direction}>
+                {t('header.user-button')} <span className="font-bold">Yaser</span>
+              </span>
+              <span className="border-secondary h-fit rounded-full border-[1.5px] p-2">
+                <UserRound className="size-4" />
+              </span>
+            </div>
+          ) : (
+            <AuthModal t={authT} dir={direction} />
+          )}
+
           <Button
             variant={'vanilla'}
             size={'icon'}

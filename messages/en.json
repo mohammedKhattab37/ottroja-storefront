@@ -156,5 +156,35 @@
     "step3":{
       "name":"Confirm payment"
     }
+  },
+  "auth":{
+    "login":{
+      "btn":"Login",
+      "form":{
+        "email":"E-mail",
+        "password":"Password"
+      },
+      "dont-have-account":"Don't have and account?",
+      "redirect":"Create a new one!",
+      "title":"Welcome to ''Ottroja''",
+      "sub-title":"Log in to access our premium products, track your orders, and enjoy exclusive offers for natural honey lovers.",
+      "check-box":"Remember me",
+      "forgot-pass":"Forgot Your Password?"
+    },
+    "sign-up":{
+      "btn":"Create Account",
+      "form":{
+        "f-name":"First Name",
+        "l-name":"Last Name",
+        "email":"E-mail",
+        "password":"Password",
+        "re-password":"Re-enter Password"
+      },
+      "have-account":"Has an account?",
+      "redirect":"Register now!",
+      "title":"Create an account and start the journey",
+      "sub-title":"Create a free account to track your orders and take advantage of special offers on natural honey.",
+      "check-box":"I agree to the Terms and Conditions and Privacy Policy"
+    }
   }
 }
