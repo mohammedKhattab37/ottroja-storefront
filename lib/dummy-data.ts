@@ -234,3 +234,64 @@ export const dummyProductPage = {
     { id: '5', alt: 'product', src: '' },
   ],
 }
+
+// Mock data for dropdowns
+export const countries = [
+  { value: 'egypt', label: 'Egypt' },
+  { value: 'saudi', label: 'Saudi Arabia' },
+  { value: 'uae', label: 'United Arab Emirates' },
+]
+
+export const governorates = {
+  egypt: [
+    { value: 'cairo', label: 'Cairo' },
+    { value: 'alexandria', label: 'Alexandria' },
+    { value: 'giza', label: 'Giza' },
+  ],
+  saudi: [
+    { value: 'riyadh', label: 'Riyadh' },
+    { value: 'mecca', label: 'Mecca' },
+    { value: 'medina', label: 'Medina' },
+  ],
+  uae: [
+    { value: 'dubai', label: 'Dubai' },
+    { value: 'abudhabi', label: 'Abu Dhabi' },
+    { value: 'sharjah', label: 'Sharjah' },
+  ],
+}
+
+export const cities = {
+  cairo: [
+    { value: 'nasr_city', label: 'Nasr City' },
+    { value: 'heliopolis', label: 'Heliopolis' },
+    { value: 'maadi', label: 'Maadi' },
+  ],
+  alexandria: [
+    { value: 'downtown', label: 'Downtown' },
+    { value: 'montaza', label: 'Montaza' },
+    { value: 'smoha', label: 'Smoha' },
+  ],
+}
+
+export const dummyCartItems = [
+  {
+    id: 1,
+    name: 'Citrus honey',
+    category: 'Bee Honey',
+    image: '/assets/product-card.png',
+    url: '#',
+    price: 200,
+    currency: 'EGP',
+    quantity: 2,
+  },
+  {
+    id: 2,
+    name: 'Mountain Sidr honey',
+    category: 'Mountian Honey',
+    image: '/assets/product.png',
+    url: '#',
+    price: 300,
+    currency: 'EGP',
+    quantity: 1,
+  },
+]

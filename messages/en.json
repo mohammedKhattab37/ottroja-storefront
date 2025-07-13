@@ -113,5 +113,48 @@
     "line2":"We document our steps from source to packaging, sharing real moments from our journey to select the finest honey.",
     "instagram":"Follow us on Instagram",
     "youtube":"Subscribe on Youtube"
+  },
+  "checkoutPage":{
+    "header":"Payment",
+    "submit":"Confirm payment",
+    "next":"Next",
+    "back":"Back",
+    "promo":"Do you have a promo code?",
+    "promo-placeholder":"Enter the promo code",
+    "activate":"Use",
+    "sub-total":"Products Total",
+    "total":"Total Price",
+    "delivery-fee":"Delivery",
+    "step1":{
+      "name":"Delivery address details",
+      "title":"Address details",
+      "country":"Country",
+      "governorate":"Governorate",
+      "city":"City",
+      "district":"District",
+      "building":"Building No.",
+      "apartment":"Apartment No.",
+      "postal-code":"Zip code",
+      "extra-address":"Another extra address"
+    },
+    "step2":{
+      "name":"Payment details",
+      "method":"Payment method",
+      "cash":"Cash on delivery",
+      "card":{
+        "title":"Bank card",
+        "owner":"Name on card",
+        "number":"Card number",
+        "date":"Expiration date",
+        "ccv":"CCV"
+      },
+      "e-wallet":{
+        "title":"E-Wallet",
+        "number":"Phone number"
+      }
+    },
+    "step3":{
+      "name":"Confirm payment"
+    }
   }
 }
