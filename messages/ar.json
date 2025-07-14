@@ -40,7 +40,6 @@
   },
   "filters":{
     "categories":"الاصناف",
-    "size":"الحجم / الوزن",
      "price":{
       "name":"السعر",
       "min": "من",

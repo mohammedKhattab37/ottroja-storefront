@@ -74,7 +74,7 @@ const PaginationBar = ({
   const updateUrl = (params: { page?: number; perPage?: number }) => {
     const current = new URLSearchParams(searchParams.toString())
     if (params.page !== undefined) current.set('page', params.page.toString())
-    if (params.perPage !== undefined) current.set('per_page', params.perPage.toString())
+    if (params.perPage !== undefined) current.set('limit', params.perPage.toString())
     router.push(`?${current.toString()}`)
   }
 
