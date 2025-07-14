@@ -2,12 +2,12 @@
 import Header from '@/components/header'
 import ProductBigCard from '@/components/product-big-card'
 import { Button } from '@/components/ui/button'
-import { dummySmallProduct } from '@/lib/dummy-data'
 import { cn, getCategoriesList } from '@/lib/utils'
 import { useLocale, useTranslations } from 'next-intl'
 import { useState } from 'react'
+import { Product } from '../../_actions/get-featured-products'
 
-function ProductsSection() {
+function ProductsSection({ FeaturedProducts }: { FeaturedProducts: Product[] }) {
   const t = useTranslations('homePage')
   const locale = useLocale()
   const [selectedType, setSelectedType] = useState('All')
@@ -55,11 +55,15 @@ function ProductsSection() {
       </div>
 
       <div className="grid grid-cols-1 gap-x-5 gap-y-28 px-16 pt-40 sm:px-20 md:grid-cols-2 md:px-0 lg:grid-cols-3 xl:grid-cols-4">
-        <ProductBigCard direction={contentDirection} data={dummySmallProduct} />
-        <ProductBigCard direction={contentDirection} data={dummySmallProduct} />
-        <ProductBigCard direction={contentDirection} data={dummySmallProduct} />
-        <ProductBigCard direction={contentDirection} data={dummySmallProduct} />
-        <ProductBigCard direction={contentDirection} data={dummySmallProduct} />
+        {FeaturedProducts.map((product) => (
+          <ProductBigCard
+            key={product.id}
+            direction={contentDirection}
+            data={{
+              ...product,
+            }}
+          />
+        ))}
       </div>
     </div>
   )
