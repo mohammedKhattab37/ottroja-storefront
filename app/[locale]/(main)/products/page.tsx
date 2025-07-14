@@ -1,3 +1,4 @@
+import { getCategories } from '../_actions/get-categories'
 import { getProducts } from './_actions/get-products'
 import ProductsPageClient from './page.client'
 
@@ -22,12 +23,14 @@ export default async function ProductsPage({
     limit: resolvedSearchParams.per_page || '12',
     search: resolvedSearchParams.search,
   })
+  const categories = await getCategories()
 
   return (
     <ProductsPageClient
       products={productsData.products}
       totalProducts={productsData.total}
       searchParams={resolvedSearchParams}
+      categories={categories}
     />
   )
 }

@@ -7,6 +7,7 @@ import { Filter } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useState } from 'react'
+import { Category } from '../_actions/get-categories'
 import { Product } from './_actions/types'
 import FiltersSidebar from './_components/filters-sidebar'
 import PaginationBar from './_components/pagination-bar'
@@ -23,15 +24,16 @@ interface SearchParams {
 
 export default function ProductsPageClient({
   products,
+  categories,
   totalProducts,
   searchParams,
 }: {
   products: Product[]
+  categories: Category[]
   totalProducts: number
   searchParams: SearchParams
 }) {
   const t = useTranslations('products')
-  const categoryT = useTranslations('categories')
   const filtersT = useTranslations('filters')
   const locale = useLocale()
   const contentDirection = locale == 'ar' ? 'rtl' : 'ltr'
@@ -99,7 +101,7 @@ export default function ProductsPageClient({
           <p className="mb-32 font-semibold">{t('filters')}</p>
           <FiltersSidebar
             dir={contentDirection}
-            categoryT={categoryT}
+            categories={categories}
             filtersT={filtersT}
             filters={filterParams}
           />
@@ -155,7 +157,7 @@ export default function ProductsPageClient({
         >
           <FiltersSidebar
             dir={contentDirection}
-            categoryT={categoryT}
+            categories={categories}
             filtersT={filtersT}
             filters={filterParams}
           />
