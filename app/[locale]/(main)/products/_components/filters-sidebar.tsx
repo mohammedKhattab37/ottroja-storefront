@@ -19,7 +19,7 @@ function FiltersSidebar({
   dir: string
   categories: Category[]
   filtersT: (key: string) => string
-  filters: { category?: string; max?: string; min?: string; size?: string }
+  filters: { category?: string; max?: string; min?: string }
 }) {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -98,10 +98,6 @@ function FiltersSidebar({
         ))}
       </CollapsibleFilter>
 
-      <CollapsibleFilter name={filtersT('size')} dir={dir} open={!!filters.size}>
-        s
-      </CollapsibleFilter>
-
       <CollapsibleFilter
         name={filtersT('price.name')}
         dir={dir}
@@ -116,7 +112,9 @@ function FiltersSidebar({
               placeholder={filtersT('price.min')}
               value={minPrice}
               onChange={(e) => setMinPrice(e.target.value)}
-              onBlur={(e) => handlePriceChange('min', e.currentTarget.value)}
+              onBlur={(e) =>
+                e.currentTarget.value && handlePriceChange('min', e.currentTarget.value)
+              }
               className="border-input-border text-secondary placeholder:text-muted bg-card [&::-webkit-inner-spin-button]:appearance-none"
             />
           </div>
@@ -129,7 +127,9 @@ function FiltersSidebar({
               placeholder={filtersT('price.max')}
               value={maxPrice}
               onChange={(e) => setMaxPrice(e.target.value)}
-              onBlur={(e) => handlePriceChange('max', e.currentTarget.value)}
+              onBlur={(e) =>
+                e.currentTarget.value && handlePriceChange('max', e.currentTarget.value)
+              }
               className="border-input-border text-secondary placeholder:text-muted bg-card [&::-webkit-inner-spin-button]:appearance-none"
             />
           </div>

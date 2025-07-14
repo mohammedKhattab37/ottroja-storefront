@@ -2,14 +2,13 @@ import { getCategories } from '../_actions/get-categories'
 import { getProducts } from './_actions/get-products'
 import ProductsPageClient from './page.client'
 
-interface SearchParams {
+export interface SearchParams {
   search?: string
-  per_page?: string
+  limit?: string
   page?: string
   category?: string
   max?: string
   min?: string
-  size?: string
 }
 
 export default async function ProductsPage({
@@ -20,8 +19,11 @@ export default async function ProductsPage({
   const resolvedSearchParams = await searchParams
   const productsData = await getProducts({
     page: resolvedSearchParams.page || '1',
-    limit: resolvedSearchParams.per_page || '12',
+    limit: resolvedSearchParams.limit || '12',
     search: resolvedSearchParams.search,
+    category: resolvedSearchParams.category,
+    min: resolvedSearchParams.min,
+    max: resolvedSearchParams.max,
   })
   const categories = await getCategories()
 

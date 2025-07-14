@@ -40,7 +40,6 @@
   },
   "filters":{
     "categories":"Categories",
-    "size":"Size / Weight",
     "price":{
       "name":"Price",
       "min": "Min",

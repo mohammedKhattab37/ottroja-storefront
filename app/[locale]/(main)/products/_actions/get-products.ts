@@ -1,27 +1,34 @@
 'use server'
 
 import { apiUrl } from '@/lib/constants'
+import { SearchParams } from '../page'
 import { Product, ProductsResponse } from './types'
 
 export async function getProducts({
-  page,
-  limit,
+  page = '1',
+  limit = '12',
   search,
-}: {
-  page?: string
-  limit?: string
-  search?: string
-}): Promise<{ products: Product[]; total: number }> {
+  category,
+  min,
+  max,
+}: SearchParams): Promise<{ products: Product[]; total: number }> {
   try {
-    const response = await fetch(
-      `${apiUrl}/products?limit=${limit}&page=${page}${search ? '&search=' + search : ''}`,
-      {
-        next: {
-          revalidate: 3600, // 1 hour
-          tags: ['products'],
-        },
+    const queryParams = new URLSearchParams({
+      limit: limit.toString(),
+      page: page.toString(),
+      ...(search && { search }),
+      ...(category && { category }),
+      ...(min !== undefined && { min: min.toString() }),
+      ...(max !== undefined && { max: max.toString() }),
+    })
+
+    const url = `${apiUrl}/products?${queryParams.toString()}`
+    const response = await fetch(url, {
+      next: {
+        revalidate: 3600, // 1 hour
+        tags: ['products'],
       },
-    )
+    })
 
     if (!response.ok) {
       console.error('Failed to fetch products:', response.statusText)

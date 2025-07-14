@@ -12,15 +12,7 @@ import { Product } from './_actions/types'
 import FiltersSidebar from './_components/filters-sidebar'
 import PaginationBar from './_components/pagination-bar'
 import SearchInput from './_components/search-input'
-
-interface SearchParams {
-  per_page?: string
-  page?: string
-  category?: string
-  max?: string
-  min?: string
-  size?: string
-}
+import { SearchParams } from './page'
 
 export default function ProductsPageClient({
   products,
@@ -43,7 +35,6 @@ export default function ProductsPageClient({
     category: searchParams.category,
     min: searchParams.min,
     max: searchParams.max,
-    size: searchParams.size,
   }
 
   return (
@@ -142,7 +133,7 @@ export default function ProductsPageClient({
           <PaginationBar
             totalProducts={totalProducts}
             currentPage={Number(searchParams.page) || 1}
-            itemsPerPage={Number(searchParams.per_page) || 12}
+            itemsPerPage={Number(searchParams.limit) || 12}
             direction={contentDirection}
           />
         </div>
