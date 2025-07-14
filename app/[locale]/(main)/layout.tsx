@@ -4,6 +4,7 @@ import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { Noto_Kufi_Arabic } from 'next/font/google'
 import { notFound } from 'next/navigation'
 import '../globals.css'
+import { getCategories } from './_actions/get-categories'
 import Footer from './_components/footer/Footer'
 import Header from './_components/header/Header'
 
@@ -29,6 +30,7 @@ export default async function LocaleLayout({
   if (!hasLocale(routing.locales, locale)) {
     notFound()
   }
+  const categories = await getCategories()
 
   return (
     <html lang={locale}>
@@ -36,7 +38,7 @@ export default async function LocaleLayout({
         <body className={`${notoKufiArabic.variable} grid antialiased`}>
           <Header />
           {children}
-          <Footer />
+          <Footer categories={categories} />
         </body>
       </NextIntlClientProvider>
     </html>

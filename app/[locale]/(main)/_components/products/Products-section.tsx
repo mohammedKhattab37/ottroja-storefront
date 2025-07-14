@@ -2,7 +2,7 @@
 import Header from '@/components/header'
 import ProductBigCard from '@/components/product-big-card'
 import { Button } from '@/components/ui/button'
-import { cn, getCategoriesList } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 import { useLocale, useTranslations } from 'next-intl'
 import { useState } from 'react'
 import { Product } from '../../products/_actions/types'
@@ -11,7 +11,6 @@ function ProductsSection({ FeaturedProducts }: { FeaturedProducts: Product[] }) 
   const t = useTranslations('homePage')
   const locale = useLocale()
   const [selectedType, setSelectedType] = useState('All')
-  const categoriesList = getCategoriesList(useTranslations('categories'))
   const contentDirection = locale == 'ar' ? 'rtl' : 'ltr'
 
   return (
@@ -34,24 +33,6 @@ function ProductsSection({ FeaturedProducts }: { FeaturedProducts: Product[] }) 
         >
           {t('buttons.all')}
         </Button>
-        {categoriesList.map((item) => {
-          const isActive = selectedType == item.name
-
-          return (
-            <Button
-              onClick={() => setSelectedType(item.name)}
-              className={cn(
-                'w-fit rounded-full text-sm',
-                isActive
-                  ? 'text-secondary-foreground bg-secondary hover:bg-secondary/95'
-                  : 'text-primary border-[1px] border-[#A66E28] bg-transparent hover:bg-transparent',
-              )}
-              key={item.url}
-            >
-              {item.name}
-            </Button>
-          )
-        })}
       </div>
 
       <div className="grid grid-cols-1 gap-x-5 gap-y-28 px-16 pt-40 sm:px-20 md:grid-cols-2 md:px-0 lg:grid-cols-3 xl:grid-cols-4">

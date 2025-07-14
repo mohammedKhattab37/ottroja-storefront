@@ -4,17 +4,16 @@ import { Link } from '@/i18n/navigation'
 import { paymentIcons, socialsIcons } from '@/lib/constants'
 import { dummyContacts, dummyFooterServices, dummyImportantLinks } from '@/lib/dummy-data'
 import { formatContactsInfo } from '@/lib/fromat-contacts'
-import { getCategoriesList } from '@/lib/utils'
 import { Send } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
+import { Category } from '../../_actions/get-categories'
 import FooterServices from './footer-services'
 
-function Footer() {
+function Footer({ categories }: { categories: Category[] }) {
   const t = useTranslations('homePage')
   const locale = useLocale()
   const direction = locale == 'ar' ? 'rtl' : 'ltr'
-  const allCategories = getCategoriesList(useTranslations('categories'))
 
   return (
     <footer className="bg-secondary text-secondary-foreground" dir={direction}>
@@ -59,7 +58,13 @@ function Footer() {
             </div>
           </div>
 
-          <FooterSection title={t('footer.links-groups.categories')} items={allCategories} />
+          <FooterSection
+            title={t('footer.links-groups.categories')}
+            items={categories.map((cat) => ({
+              name: locale == 'ar' ? cat.nameAr : cat.nameEn,
+              url: '/products?category=' + cat.slug,
+            }))}
+          />
           <FooterSection
             title={t('footer.links-groups.important-links')}
             items={dummyImportantLinks}

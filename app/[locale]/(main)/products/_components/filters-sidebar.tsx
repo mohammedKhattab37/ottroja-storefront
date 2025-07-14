@@ -3,25 +3,27 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useRouter } from '@/i18n/navigation'
-import { cn, getCategoriesList } from '@/lib/utils'
+import { cn } from '@/lib/utils'
 import { ChevronRight } from 'lucide-react'
+import { useLocale } from 'next-intl'
 import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
+import { Category } from '../../_actions/get-categories'
 
 function FiltersSidebar({
   dir,
-  categoryT,
+  categories,
   filtersT,
   filters,
 }: {
   dir: string
-  categoryT: (key: string) => string
+  categories: Category[]
   filtersT: (key: string) => string
   filters: { category?: string; max?: string; min?: string; size?: string }
 }) {
-  const categories = getCategoriesList(categoryT)
   const router = useRouter()
   const searchParams = useSearchParams()
+  const locale = useLocale()
 
   const [minPrice, setMinPrice] = useState(filters.min || '')
   const [maxPrice, setMaxPrice] = useState(filters.max || '')
@@ -79,15 +81,19 @@ function FiltersSidebar({
 
   return (
     <div className="grid gap-5 p-5 lg:p-0">
-      <CollapsibleFilter name={categoryT('name')} dir={dir} open={selectedCategories.length > 0}>
+      <CollapsibleFilter
+        name={filtersT('categories')}
+        dir={dir}
+        open={selectedCategories.length > 0}
+      >
         {categories.map((item, index) => (
           <div className="flex items-center gap-3 px-0.5" key={index}>
             <Checkbox
-              id={item.name}
+              id={item.id}
               checked={selectedCategories.includes(item.slug)}
               onCheckedChange={(checked) => handleCategoryChange(item.slug, !!checked)}
             />
-            <Label htmlFor={item.name}>{item.name}</Label>
+            <Label htmlFor={item.id}>{locale == 'ar' ? item.nameAr : item.nameEn}</Label>
           </div>
         ))}
       </CollapsibleFilter>

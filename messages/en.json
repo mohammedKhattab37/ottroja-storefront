@@ -38,18 +38,8 @@
       "rights":"2025 Aturjah Honey Store. All rights reserved."
     }
   },
-  "categories":{
-    "name":"Categories",
-    "list":{
-      "cat1":"Honey",
-      "cat2":"Mountain honey",
-      "cat3":"Honey mixtures",
-      "cat4":"Honey capsules",
-      "cat5":"Sesame tahini",
-      "cat6":"Natural oils"
-    }
-  },
   "filters":{
+    "categories":"Categories",
     "size":"Size / Weight",
     "price":{
       "name":"Price",
