@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { cn, getCategoriesList } from '@/lib/utils'
 import { useLocale, useTranslations } from 'next-intl'
 import { useState } from 'react'
-import { Product } from '../../_actions/get-featured-products'
+import { Product } from '../../products/_actions/types'
 
 function ProductsSection({ FeaturedProducts }: { FeaturedProducts: Product[] }) {
   const t = useTranslations('homePage')

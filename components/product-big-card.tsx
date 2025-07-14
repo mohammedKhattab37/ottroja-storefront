@@ -1,4 +1,4 @@
-import { Product } from '@/app/[locale]/(main)/_actions/get-featured-products'
+import { Product } from '@/app/[locale]/(main)/products/_actions/types'
 import { Link } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
 import { ShoppingCart, Star } from 'lucide-react'
