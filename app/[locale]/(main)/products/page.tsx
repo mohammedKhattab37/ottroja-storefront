@@ -1,3 +1,4 @@
+import { getProducts } from './_actions/get-products'
 import ProductsPageClient from './page.client'
 
 interface SearchParams {
@@ -15,6 +16,16 @@ export default async function ProductsPage({
   searchParams: Promise<SearchParams>
 }) {
   const resolvedSearchParams = await searchParams
-  
-  return <ProductsPageClient searchParams={resolvedSearchParams} />
+  const productsData = await getProducts({
+    page: resolvedSearchParams.page || '1',
+    limit: resolvedSearchParams.per_page || '12',
+  })
+
+  return (
+    <ProductsPageClient
+      products={productsData.products}
+      totalProducts={productsData.total}
+      searchParams={resolvedSearchParams}
+    />
+  )
 }

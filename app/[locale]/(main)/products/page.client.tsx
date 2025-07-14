@@ -4,11 +4,11 @@ import CustomDrawer from '@/components/custom-drawer'
 import InputWithIcon from '@/components/input-with-icon'
 import ProductBigCard from '@/components/product-big-card'
 import { Button } from '@/components/ui/button'
-import { dummySmallProduct } from '@/lib/dummy-data'
 import { Filter, Search } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useState } from 'react'
+import { Product } from './_actions/types'
 import FiltersSidebar from './_components/filters-sidebar'
 import PaginationBar from './_components/pagination-bar'
 
@@ -21,13 +21,20 @@ interface SearchParams {
   size?: string
 }
 
-export default function ProductsPageClient({ searchParams }: { searchParams: SearchParams }) {
+export default function ProductsPageClient({
+  products,
+  totalProducts,
+  searchParams,
+}: {
+  products: Product[]
+  totalProducts: number
+  searchParams: SearchParams
+}) {
   const t = useTranslations('products')
   const categoryT = useTranslations('categories')
   const filtersT = useTranslations('filters')
   const locale = useLocale()
   const contentDirection = locale == 'ar' ? 'rtl' : 'ltr'
-  const totalProducts = 100
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const filterParams = {
@@ -126,12 +133,15 @@ export default function ProductsPageClient({ searchParams }: { searchParams: Sea
 
             {/* Products Grid */}
             <div className="grid grid-cols-1 gap-x-5 gap-y-28 px-0 pt-32 sm:grid-cols-2 xl:grid-cols-3">
-              <ProductBigCard direction={contentDirection} data={dummySmallProduct} />
-              <ProductBigCard direction={contentDirection} data={dummySmallProduct} />
-              <ProductBigCard direction={contentDirection} data={dummySmallProduct} />
-              <ProductBigCard direction={contentDirection} data={dummySmallProduct} />
-              <ProductBigCard direction={contentDirection} data={dummySmallProduct} />
-              <ProductBigCard direction={contentDirection} data={dummySmallProduct} />
+              {products.map((product) => (
+                <ProductBigCard
+                  key={product.id}
+                  direction={contentDirection}
+                  data={{
+                    ...product,
+                  }}
+                />
+              ))}
             </div>
           </div>
 
