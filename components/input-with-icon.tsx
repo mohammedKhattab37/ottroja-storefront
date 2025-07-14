@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { ReactNode } from 'react'
+import { ChangeEventHandler, ReactNode } from 'react'
 import { Input } from './ui/input'
 
 function InputWithIcon({
@@ -10,6 +10,8 @@ function InputWithIcon({
   placeholder,
   direction = 'ltr',
   icon,
+  onChange,
+  value,
 }: {
   classNames?: string
   iconWrapperClasses?: string
@@ -18,6 +20,8 @@ function InputWithIcon({
   placeholder?: string
   direction: string
   icon: ReactNode
+  onChange: ChangeEventHandler<HTMLInputElement>
+  value?: string
 }) {
   return (
     <div className="relative" dir={direction}>
@@ -27,6 +31,8 @@ function InputWithIcon({
         type={type}
         placeholder={placeholder}
         dir={direction}
+        onChange={onChange}
+        value={value}
         className={cn('ps-9', classNames)}
       />
     </div>

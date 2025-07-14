@@ -1,16 +1,16 @@
 'use client'
 
 import CustomDrawer from '@/components/custom-drawer'
-import InputWithIcon from '@/components/input-with-icon'
 import ProductBigCard from '@/components/product-big-card'
 import { Button } from '@/components/ui/button'
-import { Filter, Search } from 'lucide-react'
+import { Filter } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useState } from 'react'
 import { Product } from './_actions/types'
 import FiltersSidebar from './_components/filters-sidebar'
 import PaginationBar from './_components/pagination-bar'
+import SearchInput from './_components/search-input'
 
 interface SearchParams {
   per_page?: string
@@ -119,16 +119,7 @@ export default function ProductsPageClient({
               </Button>
 
               {/* Search Input */}
-              <div className="flex-1">
-                <InputWithIcon
-                  name="search"
-                  classNames="bg-input border-input-border text-secondary placeholder:text-secondary py-3 ps-8"
-                  placeholder={t('search')}
-                  direction={contentDirection}
-                  icon={<Search className="size-5" />}
-                  iconWrapperClasses="top-1/5"
-                />
-              </div>
+              <SearchInput placeholder={t('search')} contentDirection={contentDirection} />
             </div>
 
             {/* Products Grid */}
