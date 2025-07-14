@@ -9,6 +9,7 @@ import Image from 'next/image'
 import { useState } from 'react'
 import AuthModal from '../../_auth/auth-modal'
 import { Cart } from '../../checkout/_components/cart'
+import LangSwitch from './lang-switch'
 import NavItems from './nav-items'
 
 interface NavItem {
@@ -50,7 +51,7 @@ function Header({ navLinks }: { navLinks?: NavItem[] }) {
             />
           </Link>
         </div>
-        <div className="text-secondary flex w-fit justify-end gap-2 sm:gap-3">
+        <div className="text-secondary flex w-fit justify-end gap-3 sm:gap-4">
           {loggedIn ? (
             <div className="flex items-center gap-1 sm:gap-2">
               <span className="hidden text-sm md:block" dir={direction}>
@@ -75,6 +76,7 @@ function Header({ navLinks }: { navLinks?: NavItem[] }) {
             </span>
             <ShoppingCart className="size-4" />
           </Button>
+          <LangSwitch />
         </div>
         <CustomDrawer
           setIsDrawerOpen={setIsDrawerOpen}

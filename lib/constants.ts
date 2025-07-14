@@ -1,5 +1,10 @@
 export const apiUrl = process.env.API_URL || 'http://localhost:3000/api'
 
+export const locals = [
+  { name: 'en', flag: '/assets/locals/english.svg' },
+  { name: 'ar', flag: '/assets/locals/arabic.svg' },
+]
+
 export const categoriesSlugs = {
   cat1: 'honey',
   cat2: 'mountain-honey',
