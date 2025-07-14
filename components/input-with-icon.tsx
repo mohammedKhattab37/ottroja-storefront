@@ -20,7 +20,7 @@ function InputWithIcon({
   placeholder?: string
   direction: string
   icon: ReactNode
-  onChange: ChangeEventHandler<HTMLInputElement>
+  onChange?: ChangeEventHandler<HTMLInputElement>
   value?: string
 }) {
   return (
