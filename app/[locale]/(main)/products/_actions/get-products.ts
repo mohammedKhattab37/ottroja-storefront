@@ -6,17 +6,22 @@ import { Product, ProductsResponse } from './types'
 export async function getProducts({
   page,
   limit,
+  search,
 }: {
   page?: string
   limit?: string
+  search?: string
 }): Promise<{ products: Product[]; total: number }> {
   try {
-    const response = await fetch(`${apiUrl}/products?limit=${limit}&page=${page}`, {
-      next: {
-        revalidate: 3600, // 1 hour
-        tags: ['products'],
+    const response = await fetch(
+      `${apiUrl}/products?limit=${limit}&page=${page}${search ? '&search=' + search : ''}`,
+      {
+        next: {
+          revalidate: 3600, // 1 hour
+          tags: ['products'],
+        },
       },
-    })
+    )
 
     if (!response.ok) {
       console.error('Failed to fetch products:', response.statusText)

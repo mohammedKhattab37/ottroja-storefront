@@ -2,6 +2,7 @@ import { getProducts } from './_actions/get-products'
 import ProductsPageClient from './page.client'
 
 interface SearchParams {
+  search?: string
   per_page?: string
   page?: string
   category?: string
@@ -19,6 +20,7 @@ export default async function ProductsPage({
   const productsData = await getProducts({
     page: resolvedSearchParams.page || '1',
     limit: resolvedSearchParams.per_page || '12',
+    search: resolvedSearchParams.search,
   })
 
   return (
