@@ -25,7 +25,7 @@ function QuantityControls({
         size="icon"
         disabled={quantity == 1}
         onClick={() => updateQuantity(-1)}
-        className={size == 'big' ? 'size-5' : 'size-8'}
+        className={size == 'big' ? 'size-9' : 'size-8'}
       >
         <Minus className={size == 'big' ? 'size-5' : 'size-3'} />
       </Button>

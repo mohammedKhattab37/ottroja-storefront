@@ -2,11 +2,15 @@ export interface Category {
   id: string
   nameEn: string
   slug: string
+  nameAr?: string
 }
 
 export interface ProductVariant {
   id: string
   price: number
+  variant_name_en?: string
+  variant_name_ar?: string
+  compare_at_price?: number | null
 }
 
 export interface ProductImage {
@@ -22,8 +26,16 @@ export interface Product {
   slug: string
   description_en?: string
   description_ar?: string
-  brief_description_en?: string
-  brief_description_ar?: string
+  brief_title_en?: string
+  brief_title_ar?: string
+  brief_text_en?: string
+  brief_text_ar?: string
+  warnings_en?: string[]
+  warnings_ar?: string[]
+  benefits_en?: string[]
+  benefits_ar?: string[]
+  ingredients_en?: string[]
+  ingredients_ar?: string[]
   imageUrl?: string
   categoryId?: string
   isFeatured?: boolean
