@@ -10,12 +10,13 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { SignUpSchema } from '@/zod/auth-shcema'
+import { CustomerRegisterSchema } from '@/zod/auth-shcema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff } from 'lucide-react'
 import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
+import { registerCustomer } from '../_actions'
 
 function SignupForm({
   t,
@@ -25,20 +26,67 @@ function SignupForm({
   setHasAccount: React.Dispatch<React.SetStateAction<boolean>>
 }) {
   const [isPending, startTransition] = useTransition()
-  const [isVisible1, setIsVisible1] = useState<boolean>(false)
-  const [isVisible2, setIsVisible2] = useState<boolean>(false)
+  const [isVisible, setIsVisible] = useState<boolean>(false)
 
-  const form = useForm<z.infer<typeof SignUpSchema>>({
-    resolver: zodResolver(SignUpSchema),
+  const form = useForm<z.infer<typeof CustomerRegisterSchema>>({
+    resolver: zodResolver(CustomerRegisterSchema),
     defaultValues: {
-      first_name: '',
-      last_name: '',
+      name: '',
       email: '',
       password: '',
-      confirmPassword: '',
     },
   })
-  const { control } = form
+
+  function onSubmit(values: z.infer<typeof CustomerRegisterSchema>) {
+    startTransition(async () => {
+      try {
+        console.log('Form values before submission:', {
+          ...values,
+          password: '[REDACTED]',
+        })
+
+        const result = await registerCustomer(values)
+
+        console.log('Registration result:', {
+          success: result.success,
+          error: result.success ? null : result.error,
+        })
+
+        if (result.success) {
+          console.log('Registration successful:', result.message)
+          // Close the modal or redirect
+          window.location.reload() // Simple reload for now, you might want to use router.refresh() or close modal
+        } else {
+          console.error('Registration failed:', result.error)
+
+          // Handle field-specific errors
+          if (result.issues) {
+            result.issues.forEach((issue) => {
+              const fieldName = issue.path[0] as keyof typeof values
+              if (fieldName in values) {
+                form.setError(fieldName, {
+                  type: 'server',
+                  message: issue.message,
+                })
+              }
+            })
+          } else {
+            // Set a general error message
+            form.setError('root', {
+              type: 'server',
+              message: result.error,
+            })
+          }
+        }
+      } catch (error) {
+        console.error('Registration error:', error)
+        form.setError('root', {
+          type: 'server',
+          message: 'An unexpected error occurred',
+        })
+      }
+    })
+  }
 
   return (
     <div className="lg:ps-10">
@@ -47,18 +95,25 @@ function SignupForm({
         <DialogDescription>{t('sign-up.sub-title')}</DialogDescription>
       </DialogHeader>
       <Form {...form}>
-        <div className="grid grid-cols-1 gap-x-4 gap-y-8 py-10">
-          <div className="grid grid-cols-2 gap-4">
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="grid grid-cols-1 gap-x-4 gap-y-8 py-10">
+            {form.formState.errors.root && (
+              <div className="rounded-md bg-red-50 p-3">
+                <p className="text-sm text-red-600">{form.formState.errors.root.message}</p>
+              </div>
+            )}
+
             <FormField
-              control={control}
-              name="first_name"
+              control={form.control}
+              name="name"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>{t('sign-up.form.f-name')}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      placeholder={t('sign-up.form.f-name')}
+                      disabled={isPending}
+                      placeholder="Full Name"
                       className="bg-filter-trigger"
                     />
                   </FormControl>
@@ -68,15 +123,17 @@ function SignupForm({
             />
 
             <FormField
-              control={control}
-              name="last_name"
+              control={form.control}
+              name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>{t('sign-up.form.l-name')}</FormLabel>
+                  <FormLabel>{t('sign-up.form.email')}</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
-                      placeholder={t('sign-up.form.l-name')}
+                      disabled={isPending}
+                      placeholder="example@ex.com"
+                      type="email"
                       className="bg-filter-trigger"
                     />
                   </FormControl>
@@ -84,28 +141,7 @@ function SignupForm({
                 </FormItem>
               )}
             />
-          </div>
 
-          <FormField
-            control={control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>{t('sign-up.form.email')}</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    placeholder="example@ex.com"
-                    type="email"
-                    className="bg-filter-trigger"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <div className="grid grid-cols-2 gap-4">
             <FormField
               control={form.control}
               name="password"
@@ -119,19 +155,20 @@ function SignupForm({
                         disabled={isPending}
                         className="bg-filter-trigger pe-9"
                         placeholder="••••••••"
-                        type={isVisible1 ? 'text' : 'password'}
+                        type={isVisible ? 'text' : 'password'}
                       />
                       <Button
                         size={'icon'}
                         variant={'vanilla'}
                         type="button"
+                        disabled={isPending}
                         className="hover:text-foreground focus-visible:outline-ring/70 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-lg outline-offset-2 transition-colors focus:z-10 focus-visible:outline disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
-                        onClick={() => setIsVisible1(!isVisible1)}
-                        aria-label={isVisible1 ? 'Hide password' : 'Show password'}
-                        aria-pressed={isVisible1}
+                        onClick={() => setIsVisible(!isVisible)}
+                        aria-label={isVisible ? 'Hide password' : 'Show password'}
+                        aria-pressed={isVisible}
                         aria-controls="password"
                       >
-                        {isVisible1 ? <EyeOff className="size-5" /> : <Eye className="size-5" />}
+                        {isVisible ? <EyeOff className="size-5" /> : <Eye className="size-5" />}
                       </Button>
                     </div>
                   </FormControl>
@@ -140,62 +177,37 @@ function SignupForm({
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="confirmPassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('sign-up.form.re-password')}</FormLabel>
-                  <FormControl>
-                    <div className="relative">
-                      <Input
-                        {...field}
-                        disabled={isPending}
-                        className="bg-filter-trigger pe-9"
-                        placeholder="••••••••"
-                        type={isVisible2 ? 'text' : 'password'}
-                      />
-                      <Button
-                        size={'icon'}
-                        variant={'vanilla'}
-                        type="button"
-                        className="hover:text-foreground focus-visible:outline-ring/70 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-lg outline-offset-2 transition-colors focus:z-10 focus-visible:outline disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
-                        onClick={() => setIsVisible2(!isVisible2)}
-                        aria-label={isVisible2 ? 'Hide password' : 'Show password'}
-                        aria-pressed={isVisible2}
-                        aria-controls="password"
-                      >
-                        {isVisible2 ? <EyeOff className="size-5" /> : <Eye className="size-5" />}
-                      </Button>
-                    </div>
-                  </FormControl>
-                </FormItem>
-              )}
-            />
+            <div className="flex w-fit items-center gap-1">
+              <Checkbox id="remember_me" className="data-[state=checked]:bg-[#2DC38C]" />
+              <FormLabel htmlFor="remember_me">{t('sign-up.check-box')}</FormLabel>
+            </div>
           </div>
-          <div className="flex w-fit items-center gap-1">
-            <Checkbox id="remember_me" className="data-[state=checked]:bg-[#2DC38C]" />
-            <FormLabel htmlFor="remember_me">{t('sign-up.check-box')}</FormLabel>
-          </div>
-        </div>
+
+          <DialogFooter className="block">
+            <Button
+              variant={'secondary'}
+              className="w-full rounded-full py-5"
+              type="submit"
+              disabled={isPending}
+            >
+              {isPending ? 'Creating account...' : t('sign-up.btn')}
+            </Button>
+            <div className="flex items-center justify-center pt-4 text-xs">
+              <span>{t('sign-up.have-account')}</span>
+              <Button
+                type="button"
+                onClick={() => setHasAccount(true)}
+                size={'sm'}
+                variant={'vanilla'}
+                className="p-1 font-bold"
+                disabled={isPending}
+              >
+                {t('sign-up.redirect')}
+              </Button>
+            </div>
+          </DialogFooter>
+        </form>
       </Form>
-      <DialogFooter className="block">
-        <Button variant={'secondary'} className="w-full rounded-full py-5" type="submit">
-          {t('sign-up.btn')}
-        </Button>
-        <div className="flex items-center justify-center pt-4 text-xs">
-          <span>{t('sign-up.have-account')}</span>
-          <Button
-            type="button"
-            onClick={() => setHasAccount(true)}
-            size={'sm'}
-            variant={'vanilla'}
-            className="p-1 font-bold"
-          >
-            {t('sign-up.redirect')}
-          </Button>
-        </div>
-      </DialogFooter>
     </div>
   )
 }
