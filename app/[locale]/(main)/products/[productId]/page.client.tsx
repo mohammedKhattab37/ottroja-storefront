@@ -10,38 +10,59 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
-import { dummyProducts } from '@/lib/dummy-data'
 import { cn } from '@/lib/utils'
 import { Star } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useState } from 'react'
-import ProductImageGallery, { imagesData } from './product-image-gallery'
-import ProductTabsSection from './product-tabs-section'
+import { Product } from '../_actions/types'
+import ProductImageGallery from './_components/product-image-gallery'
+import ProductTabsSection from './_components/product-tabs-section'
 
-interface ProductData {
-  name: string
-  category: string
-  sub_title: string
-  brief_description: string
-  weight_packaging: string
-  benefits: string[]
-  ingredients: string[]
-  warnings: string[]
-  rating: number
-  variants: { value: string; price: number }[]
-  currency: string
-  images: imagesData[]
-}
-
-function ProductClient({
+function ProductPageClient({
   productData,
-  direction,
+  similarProducts,
 }: {
-  productData: ProductData
-  direction: string
+  productData: Product
+  similarProducts: Product[]
 }) {
-  const [selectedVariant, setSelectedVariant] = useState(productData.variants[0])
+  const locale = useLocale()
+  const direction = locale == 'ar' ? 'rtl' : 'ltr'
+
+  const translatedProduct =
+    locale == 'ar'
+      ? {
+          name: productData.name_ar,
+          brief_title: productData.brief_title_ar,
+          brief_text: productData.brief_text_ar,
+          category: productData.category?.nameAr,
+          variants: productData.variants.map((item) => ({
+            id: item.id,
+            price: item.price,
+            variant_name: item.variant_name_ar,
+            compare_at_price: item.compare_at_price,
+          })),
+          benefits: productData.benefits_ar,
+          ingredients: productData.ingredients_ar,
+          warnings: productData.warnings_ar,
+        }
+      : {
+          name: productData.name_en,
+          brief_title: productData.brief_title_en,
+          brief_text: productData.brief_text_en,
+          category: productData.category?.nameEn,
+          variants: productData.variants.map((item) => ({
+            id: item.id,
+            price: item.price,
+            variant_name: item.variant_name_en,
+            compare_at_price: item.compare_at_price,
+          })),
+          benefits: productData.benefits_en,
+          ingredients: productData.ingredients_en,
+          warnings: productData.warnings_en,
+        }
+
+  const [selectedVariant, setSelectedVariant] = useState(translatedProduct.variants[0])
   const [quantity, setQuantity] = useState(1)
   const t = useTranslations('cart')
   const productT = useTranslations('products')
@@ -66,38 +87,38 @@ function ProductClient({
                     stroke="currentColor"
                     className={cn(
                       'h-[1.2rem] w-[1.2rem]',
-                      i < productData.rating
+                      i < (productData.rating || 0)
                         ? 'fill-yellow-400 text-yellow-400'
                         : 'fill-white text-white',
                     )}
                   />
                 ))}
               </div>
-              <p className="text-xs font-semibold">{productData.category}</p>
-              <p className="text-2xl font-bold">{productData.name}</p>
+              <p className="text-xs font-semibold">{translatedProduct.category}</p>
+              <p className="text-2xl font-bold">{translatedProduct.name}</p>
             </div>
           </div>
           {/* brief Description */}
           <div className="py-5" dir={direction}>
-            <p className="text-sm leading-8 font-bold">{productData.sub_title}</p>
-            <span className="text-xs leading-8 font-medium">{productData.brief_description}</span>
+            <p className="text-sm leading-8 font-bold">{translatedProduct.brief_title}</p>
+            <span className="text-xs leading-8 font-medium">{translatedProduct.brief_text}</span>
           </div>
           {/* variants/prices */}
           <div className="bg-filter-trigger grid gap-5 rounded-lg p-5" dir={direction}>
             <p className="text-card-foreground text-sm font-bold">
-              <span className="text-2xl"> {selectedVariant.price}</span> / {productData.currency}
+              <span className="text-2xl"> {selectedVariant.price}</span> / جنيه مصري
             </p>
             <div className="grid auto-cols-auto grid-flow-col gap-2">
-              {productData.variants.map((variant) => {
-                const isActive = selectedVariant == variant
+              {translatedProduct.variants.map((variant) => {
+                const isActive = selectedVariant.id == variant.id
                 return (
                   <Button
                     onClick={() => setSelectedVariant(variant)}
                     className={'rounded-lg p-6 text-xs font-bold'}
                     variant={isActive ? 'secondary' : 'input'}
-                    key={variant.value}
+                    key={variant.id}
                   >
-                    {variant.value}
+                    {variant.variant_name}
                   </Button>
                 )
               })}
@@ -120,10 +141,10 @@ function ProductClient({
         productT={productT}
         direction={direction as 'ltr' | 'rtl' | undefined}
         description={{
-          weight_packaging: productData.weight_packaging,
-          benefits: productData.benefits,
-          ingredients: productData.ingredients,
-          warnings: productData.warnings,
+          weight_packaging: '',
+          benefits: translatedProduct.benefits,
+          ingredients: translatedProduct.ingredients,
+          warnings: translatedProduct.warnings,
         }}
       />
 
@@ -137,7 +158,7 @@ function ProductClient({
           }}
         >
           <CarouselContent className="pt-40">
-            {dummyProducts.map((item, i) => (
+            {similarProducts.map((item, i) => (
               <CarouselItem
                 key={i}
                 dir={direction}
@@ -167,4 +188,4 @@ function ProductClient({
   )
 }
 
-export default ProductClient
+export default ProductPageClient

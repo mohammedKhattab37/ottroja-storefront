@@ -14,10 +14,10 @@ interface ProductTabsProps {
   productT: (key: string) => string
   direction: 'ltr' | 'rtl' | undefined
   description: {
-    weight_packaging: string
-    benefits: string[]
-    ingredients: string[]
-    warnings: string[]
+    weight_packaging?: string
+    benefits?: string[]
+    ingredients?: string[]
+    warnings?: string[]
   }
 }
 
