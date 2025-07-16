@@ -30,6 +30,7 @@ export async function logoutCustomer(): Promise<LogoutResponse> {
         'Content-Type': 'application/json',
         Cookie: cookieHeader,
       },
+      credentials: 'include',
     })
 
     const result = await response.json()
@@ -42,7 +43,7 @@ export async function logoutCustomer(): Promise<LogoutResponse> {
     }
 
     // Clear the JWT token cookie
-    cookieStore.delete('auth-token')
+    cookieStore.delete('better-auth.session_token')
 
     return {
       success: true,
@@ -53,7 +54,7 @@ export async function logoutCustomer(): Promise<LogoutResponse> {
 
     // Even if the API call fails, clear the local token
     const cookieStore = await cookies()
-    cookieStore.delete('auth-token')
+    cookieStore.delete('better-auth.session_token')
 
     return {
       success: false,
