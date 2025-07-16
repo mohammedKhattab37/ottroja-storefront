@@ -17,14 +17,14 @@ type LogoutResponse = LogoutSuccessResponse | LogoutErrorResponse
 export async function logoutCustomer(): Promise<LogoutResponse> {
   try {
     // Get the base URL for the API call
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
+    const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
     // Get current cookies to send with the request
     const cookieStore = await cookies()
     const cookieHeader = cookieStore.toString()
 
     // Make the API call to logout the customer
-    const response = await fetch(`${baseUrl}/api/customers/auth/logout`, {
+    const response = await fetch(`${baseUrl}/customers/auth/logout`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

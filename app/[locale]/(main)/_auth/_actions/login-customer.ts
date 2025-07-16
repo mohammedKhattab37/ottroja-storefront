@@ -11,10 +11,10 @@ export async function loginCustomer(data: CustomerLoginInput): Promise<LoginResp
     const validatedData = CustomerLoginSchema.parse(data)
 
     // Get the base URL for the API call
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
+    const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
     // Make the API call to login the customer
-    const response = await fetch(`${baseUrl}/api/customers/auth/login`, {
+    const response = await fetch(`${baseUrl}/customers/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

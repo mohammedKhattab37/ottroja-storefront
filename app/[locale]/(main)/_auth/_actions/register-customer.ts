@@ -18,10 +18,10 @@ export async function registerCustomer(data: CustomerRegisterInput): Promise<Reg
     }
 
     // Get the base URL for the API call
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
+    const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
     // Make the API call to register the customer
-    const response = await fetch(`${baseUrl}/api/customers/auth/register`, {
+    const response = await fetch(`${baseUrl}/customers/auth/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
