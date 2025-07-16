@@ -3,14 +3,14 @@ import CustomDrawer from '@/components/custom-drawer'
 import InputWithIcon from '@/components/input-with-icon'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
-import { Search, ShoppingCart, UserRound } from 'lucide-react'
+import { Search, ShoppingCart } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useState } from 'react'
-import AuthModal from '../../_auth/auth-modal'
 import { Cart } from '../../checkout/_components/cart'
 import LangSwitch from './lang-switch'
 import NavItems from './nav-items'
+import { Profile } from './profile'
 
 interface NavItem {
   title: string
@@ -24,8 +24,6 @@ function Header({ navLinks }: { navLinks?: NavItem[] }) {
   const locale = useLocale()
   const direction = locale == 'ar' ? 'rtl' : 'ltr'
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-
-  const loggedIn = false
 
   return (
     <div className="mt-8">
@@ -52,18 +50,7 @@ function Header({ navLinks }: { navLinks?: NavItem[] }) {
           </Link>
         </div>
         <div className="text-secondary flex w-fit justify-end gap-3 sm:gap-4">
-          {loggedIn ? (
-            <div className="flex items-center gap-1 sm:gap-2">
-              <span className="hidden text-sm md:block" dir={direction}>
-                {t('header.user-button')} <span className="font-bold">Yaser</span>
-              </span>
-              <span className="border-secondary h-fit rounded-full border-[1.5px] p-2">
-                <UserRound className="size-4" />
-              </span>
-            </div>
-          ) : (
-            <AuthModal t={authT} dir={direction} />
-          )}
+          <Profile authT={authT} direction={direction} userButtonText={t('header.user-button')} />
 
           <Button
             variant={'vanilla'}
