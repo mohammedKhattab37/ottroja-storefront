@@ -1,4 +1,10 @@
 {
+  "navigation": {
+    "home": "Home Page",
+    "products": "Products",
+    "about": "About us",
+    "contact": "Contact us"
+  },
   "homePage": {
     "header":{
       "user-button":"Hello,",

@@ -1,26 +1,21 @@
 'use client'
 import { Link, usePathname } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
-
-interface NavItem {
-  title: string
-  url?: string
-}
+import { useTranslations } from 'next-intl'
 
 interface NavItemsProps {
   direction: string
-  navLinks?: NavItem[]
 }
 
-function NavItems({ direction, navLinks }: NavItemsProps) {
-  // Use provided navLinks or fallback to default
-  const defaultNavLinks = [
-    { title: 'Home Page', url: '' },
-    { title: 'Products', url: '/products' },
-    { title: 'About us', url: '/about-us' },
-  ]
+function NavItems({ direction }: NavItemsProps) {
+  const t = useTranslations('navigation')
 
-  const displayNavLinks = defaultNavLinks
+  const displayNavLinks = [
+    { title: t('home'), url: '' },
+    { title: t('products'), url: '/products' },
+    { title: t('about'), url: '/about-us' },
+    { title: t('contact'), url: '/contact-us' },
+  ]
 
   const pathname = usePathname()
 
