@@ -17,11 +17,6 @@ export async function registerCustomer(data: CustomerRegisterInput): Promise<Reg
       password: validatedData.password,
     }
 
-    // Log the data being sent for debugging
-    console.log('Sending registration data:', {
-      registrationData,
-    })
-
     // Get the base URL for the API call
     const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
 
@@ -45,15 +40,7 @@ export async function registerCustomer(data: CustomerRegisterInput): Promise<Reg
       }
     }
 
-    // Log the response for debugging
-    console.log('Registration API response:', {
-      status: response.status,
-      statusText: response.statusText,
-      success: result.success,
-      error: result.error,
-      hasCustomer: !!result.customer,
-      fullResponse: result,
-    })
+
 
     if (!response.ok) {
       // For 500 errors, provide more specific error message
