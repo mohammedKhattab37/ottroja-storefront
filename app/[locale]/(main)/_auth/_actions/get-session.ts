@@ -26,22 +26,15 @@ export async function getCustomerSession(): Promise<SessionResponse> {
       .map(({ name, value }) => `${name}=${value}`)
       .join('; ')
 
-    console.log('Making session request to:', `${baseUrl}/customers/auth/session`)
-    console.log('Cookie header:', cookieHeader)
-
     const response = await fetch(`${baseUrl}/customers/auth/session`, {
       method: 'GET',
       headers: {
         Cookie: cookieHeader,
       },
-      // Important: This ensures cookies work cross-origin
       credentials: 'include',
     })
 
     const result = await response.json()
-    console.log('Session response status:', response.status)
-    console.log('Session response data:', result)
-
     if (!response.ok) {
       return {
         success: false,

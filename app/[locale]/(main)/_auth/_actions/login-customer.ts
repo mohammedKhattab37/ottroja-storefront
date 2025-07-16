@@ -36,7 +36,7 @@ export async function loginCustomer(data: CustomerLoginInput): Promise<LoginResp
     if (result.token) {
       const cookieStore = await cookies()
       // Set the JWT token as an HttpOnly cookie for security
-      cookieStore.set('auth-token', result.token, {
+      cookieStore.set('better-auth.session_token', result.token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
