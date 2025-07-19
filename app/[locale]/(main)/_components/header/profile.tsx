@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
+import { useCartStore } from '@/stores/cart'
 import { LogOut, Settings, User, UserRound } from 'lucide-react'
 import { useLocale } from 'next-intl'
 import Image from 'next/image'
@@ -30,6 +31,7 @@ export function Profile({ authT, direction, userButtonText }: ProfileProps) {
   const [customer, setCustomer] = useState<CustomerUser | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
+  const { clearCartItems } = useCartStore()
 
   const checkSession = useCallback(async () => {
     try {
@@ -52,6 +54,9 @@ export function Profile({ authT, direction, userButtonText }: ProfileProps) {
     try {
       await logoutCustomer()
       setCustomer(null)
+      // Delete cart from local storage
+      localStorage.removeItem('cart-storage')
+      clearCartItems()
     } catch (error) {
       console.error('Logout failed:', error)
     } finally {

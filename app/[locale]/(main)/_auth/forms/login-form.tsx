@@ -11,12 +11,14 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Link } from '@/i18n/navigation'
+import { useCartStore } from '@/stores/cart'
 import { CustomerLoginSchema } from '@/zod/auth-shcema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff } from 'lucide-react'
 import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
+import { getServerCart } from '../../checkout/_components/_actions/cart-actions'
 import { loginCustomer } from '../_actions'
 
 function LoginForm({
@@ -28,6 +30,7 @@ function LoginForm({
 }) {
   const [isPending, startTransition] = useTransition()
   const [isVisible, setIsVisible] = useState<boolean>(false)
+  const { saveToServer, items, loadFromServer } = useCartStore()
 
   const form = useForm<z.infer<typeof CustomerLoginSchema>>({
     resolver: zodResolver(CustomerLoginSchema),
@@ -44,6 +47,13 @@ function LoginForm({
 
         if (result.success) {
           console.log('Login successful:', result.message)
+          //fetch customer cart
+          const serverCart = await getServerCart()
+          if (items.length != serverCart) {
+            await saveToServer()
+          } else {
+            await loadFromServer()
+          }
           // Close the modal or redirect
           window.location.reload() // Simple reload for now, you might want to use router.refresh() or close modal
         } else {
