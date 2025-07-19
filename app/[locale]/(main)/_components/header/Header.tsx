@@ -3,6 +3,7 @@ import CustomDrawer from '@/components/custom-drawer'
 import InputWithIcon from '@/components/input-with-icon'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
+import { useCartStore } from '@/stores/cart'
 import { Search, ShoppingCart } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
@@ -24,6 +25,7 @@ function Header({ navLinks }: { navLinks?: NavItem[] }) {
   const locale = useLocale()
   const direction = locale == 'ar' ? 'rtl' : 'ltr'
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const totalItems = useCartStore((state) => state.getTotalItems())
 
   return (
     <div className="mt-8">
@@ -58,9 +60,12 @@ function Header({ navLinks }: { navLinks?: NavItem[] }) {
             className="border-secondary relative h-fit rounded-full border-[1.5px] p-2"
             onClick={() => setIsDrawerOpen(true)}
           >
-            <span className="bg-success absolute -top-1.5 -right-2 flex h-4 w-4 items-center justify-center rounded-full text-[10px] text-white sm:h-5 sm:w-5 sm:text-xs">
-              3
-            </span>
+            {totalItems > 0 && (
+              <span className="bg-success absolute -top-1.5 -right-2 flex h-4 w-4 items-center justify-center rounded-full text-[10px] text-white sm:h-5 sm:w-5 sm:text-xs">
+                {totalItems}
+              </span>
+            )}
+
             <ShoppingCart className="size-4" />
           </Button>
           <LangSwitch />

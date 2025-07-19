@@ -11,6 +11,7 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel'
 import { cn } from '@/lib/utils'
+import { useCartStore } from '@/stores/cart'
 import { Star } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
@@ -66,6 +67,26 @@ function ProductPageClient({
   const [quantity, setQuantity] = useState(1)
   const t = useTranslations('cart')
   const productT = useTranslations('products')
+  const addItem = useCartStore((state) => state.addItem)
+
+  const handleAddToCart = async () => {
+    try {
+      addItem({
+        id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+        name_ar: productData.name_ar,
+        name_en: productData.name_en,
+        quantity,
+        slug: productData.slug,
+        image: productData.images[0].url,
+        productVariantId: selectedVariant.id,
+        productVariant: productData.variants.find((variant) => variant.id == selectedVariant.id),
+      })
+
+      console.log('Added to cart successfully!')
+    } catch (error) {
+      console.error('Failed to add to cart:', error)
+    }
+  }
 
   return (
     <div className="container-padding overflow-hidden pb-64">
@@ -126,10 +147,19 @@ function ProductPageClient({
           </div>
           {/* controls */}
           <div className="flex gap-5 pt-8">
-            <Button variant={'secondary'} className="flex-1 rounded-full p-5 text-xs font-semibold">
+            <Button
+              type="button"
+              onClick={handleAddToCart}
+              variant={'secondary'}
+              className="flex-1 rounded-full p-5 text-xs font-semibold"
+            >
               {t('add')}
             </Button>
-            <QuantityControls quantity={quantity} setQuantity={setQuantity} />
+            <QuantityControls
+              quantity={quantity}
+              addQuantity={() => setQuantity((old) => old + 1)}
+              removeQuantity={() => setQuantity((old) => old - 1)}
+            />
           </div>
         </div>
 
