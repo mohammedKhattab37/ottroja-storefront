@@ -4,27 +4,22 @@ import { Button } from '../ui/button'
 
 function QuantityControls({
   quantity,
-  setQuantity,
+  addQuantity,
+  removeQuantity,
   size = 'big',
 }: {
   quantity: number
-  setQuantity: React.Dispatch<React.SetStateAction<number>>
+  addQuantity: () => void
+  removeQuantity: () => void
   size?: 'small' | 'big'
 }) {
-  const updateQuantity = (change: number) => {
-    if (quantity + change < 1) {
-      return
-    }
-    setQuantity((oldValue) => oldValue + change)
-  }
-
   return (
     <div className="border-secondary bg-input flex items-center gap-2 overflow-hidden rounded-full border text-sm font-bold">
       <Button
         variant="vanilla"
         size="icon"
         disabled={quantity == 1}
-        onClick={() => updateQuantity(-1)}
+        onClick={removeQuantity}
         className={size == 'big' ? 'size-9' : 'size-8'}
       >
         <Minus className={size == 'big' ? 'size-5' : 'size-3'} />
@@ -33,7 +28,7 @@ function QuantityControls({
       <Button
         variant="vanilla"
         size="icon"
-        onClick={() => updateQuantity(1)}
+        onClick={addQuantity}
         className={size == 'big' ? 'size-9' : 'size-8'}
       >
         <Plus className={size == 'big' ? 'size-5' : 'size-3'} />

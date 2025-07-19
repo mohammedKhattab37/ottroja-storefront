@@ -3,27 +3,31 @@ import QuantityControls from '@/components/fragments/quantity-controls'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
 import { paymentIcons } from '@/lib/constants'
-import { dummyCartItems } from '@/lib/dummy-data'
+import { useCartStore } from '@/stores/cart'
 import { Trash } from 'lucide-react'
+import { useLocale } from 'next-intl'
 import Image from 'next/image'
-import { useState } from 'react'
+import { ProductVariant } from '../../products/_actions/types'
 
-export interface cartItem {
-  id: number
-  name: string
-  category: string
+export interface cartDrawerItem {
+  id: string
+  name_ar: string
+  name_en: string
   image: string
-  url: string
-  price: number
-  currency: string
+  slug: string
   quantity: number
+
+  productVariant?: ProductVariant
+  productVariantId?: string
 }
 
 export function Cart({ t }: { t: (key: string) => string }) {
+  const { items, getTotalPrice } = useCartStore()
+
   return (
     <div className="flex h-full flex-col justify-between">
       <div className="grid divide-y overflow-y-auto p-5">
-        {dummyCartItems.map((item: cartItem, index) => (
+        {items.map((item: Omit<cartDrawerItem, 'cartId'>, index) => (
           <CartItem key={index} item={item} />
         ))}
       </div>
@@ -31,10 +35,8 @@ export function Cart({ t }: { t: (key: string) => string }) {
         <div className="flex justify-between">
           <p className="font-bold">{t('total')}</p>
           <span className="content-end font-bold">
-            <span className="text-lg">
-              {dummyCartItems.reduce((acc, item) => (acc += item.price * item.quantity), 0)}
-            </span>
-            <span className="text-xs">/ {dummyCartItems[0].currency}</span>
+            <span className="text-lg">{getTotalPrice()} </span>
+            <span className="text-xs">/ جنيه مصري</span>
           </span>
         </div>
         <BannerButton
@@ -59,8 +61,9 @@ export function Cart({ t }: { t: (key: string) => string }) {
   )
 }
 
-export function CartItem({ item }: { item: cartItem }) {
-  const [quantity, setQuantity] = useState(item.quantity)
+export function CartItem({ item }: { item: cartDrawerItem }) {
+  const { updateQuantity, removeItem } = useCartStore()
+  const locale = useLocale()
 
   return (
     <div className="flex gap-3 py-4">
@@ -70,21 +73,37 @@ export function CartItem({ item }: { item: cartItem }) {
       <div className="w-full">
         <div className="flex justify-between">
           <div className="grid gap-2 py-2.5">
-            <Link href={item.url} className="text-sm font-bold">
-              {item.name}
+            <Link href={item.slug} className="text-sm font-bold">
+              {locale == 'ar' ? item.name_ar : item.name_en}
             </Link>
-            <span className="text-xs font-medium">{item.category}</span>
+            <span className="text-xs font-medium">
+              {locale == 'ar'
+                ? item.productVariant?.variant_name_ar
+                : item.productVariant?.variant_name_en}
+            </span>
           </div>
-          <Button variant={'vanilla'} size={'icon'}>
+          <Button
+            variant={'vanilla'}
+            size={'icon'}
+            type="button"
+            onClick={() => removeItem(item.id || '')}
+          >
             <Trash className="size-5" />
           </Button>
         </div>
         <div className="flex justify-between">
           <span className="content-end text-sm">
-            <span className="font-bold">{item.price} </span>
-            <span className="text-xs font-semibold">/ {item.currency}</span>
+            <span className="font-bold">{item.productVariant?.price} </span>
+            <span className="text-xs font-semibold">/ جنيه مصري</span>
           </span>
-          <QuantityControls quantity={quantity} setQuantity={setQuantity} size="small" />
+          {item.id && (
+            <QuantityControls
+              quantity={item.quantity}
+              addQuantity={() => updateQuantity(item.id, item.quantity + 1)}
+              removeQuantity={() => updateQuantity(item.id, item.quantity - 1)}
+              size="small"
+            />
+          )}
         </div>
       </div>
     </div>
