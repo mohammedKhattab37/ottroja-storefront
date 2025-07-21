@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Link } from '@/i18n/navigation'
+import { useAuthStore } from '@/stores/auth'
 import { useCartStore } from '@/stores/cart'
 import { CustomerLoginSchema } from '@/zod/auth-shcema'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -21,16 +22,11 @@ import z from 'zod'
 import { getServerCart } from '../../checkout/_components/_actions/cart-actions'
 import { loginCustomer } from '../_actions'
 
-function LoginForm({
-  t,
-  setHasAccount,
-}: {
-  t: (key: string) => string
-  setHasAccount: React.Dispatch<React.SetStateAction<boolean>>
-}) {
+function LoginForm({ t }: { t: (key: string) => string }) {
   const [isPending, startTransition] = useTransition()
   const [isVisible, setIsVisible] = useState<boolean>(false)
   const { saveToServer, items, loadFromServer } = useCartStore()
+  const { setAuthModalType } = useAuthStore()
 
   const form = useForm<z.infer<typeof CustomerLoginSchema>>({
     resolver: zodResolver(CustomerLoginSchema),
@@ -181,7 +177,7 @@ function LoginForm({
               <span>{t('login.dont-have-account')}</span>
               <Button
                 type="button"
-                onClick={() => setHasAccount(false)}
+                onClick={() => setAuthModalType('register')}
                 size={'sm'}
                 variant={'vanilla'}
                 className="p-1 font-bold"

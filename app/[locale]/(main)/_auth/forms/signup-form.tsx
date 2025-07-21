@@ -10,6 +10,7 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { useAuthStore } from '@/stores/auth'
 import { CustomerRegisterSchema } from '@/zod/auth-shcema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff } from 'lucide-react'
@@ -18,15 +19,10 @@ import { useForm } from 'react-hook-form'
 import z from 'zod'
 import { registerCustomer } from '../_actions'
 
-function SignupForm({
-  t,
-  setHasAccount,
-}: {
-  t: (key: string) => string
-  setHasAccount: React.Dispatch<React.SetStateAction<boolean>>
-}) {
+function SignupForm({ t }: { t: (key: string) => string }) {
   const [isPending, startTransition] = useTransition()
   const [isVisible, setIsVisible] = useState<boolean>(false)
+  const { setAuthModalType } = useAuthStore()
 
   const form = useForm<z.infer<typeof CustomerRegisterSchema>>({
     resolver: zodResolver(CustomerRegisterSchema),
@@ -196,7 +192,7 @@ function SignupForm({
               <span>{t('sign-up.have-account')}</span>
               <Button
                 type="button"
-                onClick={() => setHasAccount(true)}
+                onClick={() => setAuthModalType('login')}
                 size={'sm'}
                 variant={'vanilla'}
                 className="p-1 font-bold"

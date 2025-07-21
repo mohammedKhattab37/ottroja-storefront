@@ -1,16 +1,16 @@
 'use client'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import { useAuthStore } from '@/stores/auth'
 import Image from 'next/image'
-import { useState } from 'react'
 import LoginForm from './forms/login-form'
 import SignupForm from './forms/signup-form'
 
 function AuthModal({ t, dir }: { t: (key: string) => string; dir: string }) {
-  const [hasAccount, setHasAccount] = useState(true)
+  const { modal_type, open_modal, toggleModal } = useAuthStore()
 
   return (
-    <Dialog>
+    <Dialog open={open_modal} onOpenChange={toggleModal}>
       <DialogTrigger asChild>
         <Button variant="secondary" className="rounded-full px-5">
           {t('login.btn')}
@@ -28,11 +28,7 @@ function AuthModal({ t, dir }: { t: (key: string) => string; dir: string }) {
               className="hidden lg:block"
             />
           </div>
-          {hasAccount ? (
-            <LoginForm t={t} setHasAccount={setHasAccount} />
-          ) : (
-            <SignupForm t={t} setHasAccount={setHasAccount} />
-          )}
+          {modal_type == 'login' ? <LoginForm t={t} /> : <SignupForm t={t} />}
         </div>
       </DialogContent>
     </Dialog>
