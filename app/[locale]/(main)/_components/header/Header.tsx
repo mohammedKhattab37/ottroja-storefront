@@ -13,12 +13,12 @@ import LangSwitch from './lang-switch'
 import NavItems from './nav-items'
 import { Profile } from './profile'
 
-interface NavItem {
-  title: string
-  url?: string
-}
+// interface NavItem {
+//   title: string
+//   url?: string
+// }
 
-function Header({ navLinks }: { navLinks?: NavItem[] }) {
+function Header() {
   const t = useTranslations('homePage')
   const authT = useTranslations('auth')
   const cartT = useTranslations('cart')
@@ -85,7 +85,7 @@ function Header({ navLinks }: { navLinks?: NavItem[] }) {
           <Cart t={cartT} />
         </CustomDrawer>
       </div>
-      <NavItems direction={direction} navLinks={navLinks} />
+      <NavItems direction={direction} />
     </div>
   )
 }

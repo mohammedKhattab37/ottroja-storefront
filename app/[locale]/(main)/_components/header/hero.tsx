@@ -7,14 +7,14 @@ import { useLocale } from 'next-intl'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
-interface HeroItem {
-  id: string
-  title: string
-  sub_title: string
-  button_destination: string
-  button_text: string
-  image: string
-}
+// interface HeroItem {
+//   id: string
+//   title: string
+//   sub_title: string
+//   button_destination: string
+//   button_text: string
+//   image: string
+// }
 
 function Hero() {
   const locale = useLocale()
@@ -37,7 +37,7 @@ function Hero() {
     api.on('select', () => {
       setCurrent(api.selectedScrollSnap() + 1)
     })
-  }, [api, dummyHeroSlides])
+  }, [api])
 
   return (
     <div className="container-padding relative rounded-sm py-6 drop-shadow-sm">
