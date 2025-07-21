@@ -45,7 +45,7 @@ export async function CreateAddress(
 
     return {
       success: true,
-      address: result,
+      address: result.address,
     }
   } catch (error) {
     console.error('Address Creation error:', error)
