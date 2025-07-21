@@ -120,7 +120,27 @@
     "sub-total":"Products Total",
     "total":"Total Price",
     "delivery-fee":"Delivery",
+    "free":"Free",
+    "applying":"Applying",
+    "remove":"Remove",
+    "coupons":{
+      "applied":"Applied",
+      "discount":"Discount"
+    },
     "step1":{
+      "name":"Customer Details",
+      "title":"Choose a method",
+      "type":"Type",
+      "login":"My Account",
+      "register": "Register",
+      "guest":{
+        "title": "Guest",
+        "name": "Guest Name",
+        "email":"E-mail",
+        "phone":"Phone"
+      }
+    },
+    "step2":{
       "name":"Delivery address details",
       "title":"Address details",
       "country":"Country",
@@ -132,7 +152,7 @@
       "postal-code":"Zip code",
       "extra-address":"Another extra address"
     },
-    "step2":{
+    "step3":{
       "name":"Payment details",
       "method":"Payment method",
       "cash":"Cash on delivery",
@@ -148,8 +168,9 @@
         "number":"Phone number"
       }
     },
-    "step3":{
-      "name":"Confirm payment"
+    "result-step":{
+      "title":"Order Placed",
+      "sub-title":"Thank you. Your order has been successfully confirmed. "
     }
   },
   "auth":{

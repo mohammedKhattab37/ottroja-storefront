@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const addressSchema = z.object({
   country: z.string().min(1, 'Please choose a country'),
-  governorate: z.string().min(1, 'Please choose a governorate'),
+  state: z.string().min(1, 'Please choose a state'),
   city: z.string().min(1, 'Please choose a city'),
   district: z.string().min(1, 'Please enter a district'),
   building: z.string().min(1, 'Please enter the building No.'),
@@ -34,10 +34,39 @@ export const paymentSchema = z.discriminatedUnion('method', [
   eWalletPaymentSchema,
 ])
 
-export const completeFormSchema = z.object({
-  // Address fields (Step 1)
-  address: addressSchema,
-
-  // Payment fields (Step 2)
-  payment: paymentSchema,
-})
+export const authStepSchema = z
+  .object({
+    customer_type: z.enum(['login', 'register', 'guest']).optional(),
+    guest: z
+      .object({
+        email: z.string().email('Please enter a valid email address'),
+        phoneNumber: z.string(),
+        name: z.string(),
+      })
+      .optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.customer_type === 'guest' && data.guest) {
+      if (!data.guest.email) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ['guest.email'],
+          message: 'Email is required for guest',
+        })
+      }
+      if (!data.guest.phoneNumber) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ['guest.phone'],
+          message: 'Phone is required for guest',
+        })
+      }
+      if (!data.guest.name) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ['guest.name'],
+          message: 'Name is required for guest',
+        })
+      }
+    }
+  })

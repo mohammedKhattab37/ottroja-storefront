@@ -22,7 +22,7 @@ export interface cartDrawerItem {
 }
 
 export function Cart({ t }: { t: (key: string) => string }) {
-  const { items, getTotalPrice } = useCartStore()
+  const { items, getSubtotal } = useCartStore()
 
   return (
     <div className="flex h-full flex-col justify-between">
@@ -35,12 +35,13 @@ export function Cart({ t }: { t: (key: string) => string }) {
         <div className="flex justify-between">
           <p className="font-bold">{t('total')}</p>
           <span className="content-end font-bold">
-            <span className="text-lg">{getTotalPrice()} </span>
+            <span className="text-lg">{getSubtotal()} </span>
             <span className="text-xs">/ جنيه مصري</span>
           </span>
         </div>
         <BannerButton
           text={t('go_payment')}
+          disabled={items.length == 0}
           url="/checkout"
           size="sm"
           className="w-full flex-1 rounded-full font-semibold"
