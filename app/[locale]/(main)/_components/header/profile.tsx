@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
 import { useCartStore } from '@/stores/cart'
+import { useCheckoutStore } from '@/stores/checkout'
 import { LogOut, Settings, User, UserRound } from 'lucide-react'
 import { useLocale } from 'next-intl'
 import Image from 'next/image'
@@ -54,6 +55,8 @@ export function Profile({ authT, direction, userButtonText }: ProfileProps) {
     try {
       await logoutCustomer()
       setCustomer(null)
+      useCheckoutStore.setState({ customerId: null })
+
       // Delete cart from local storage
       localStorage.removeItem('cart-storage')
       clearCartItems()

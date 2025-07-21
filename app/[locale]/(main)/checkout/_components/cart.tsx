@@ -41,6 +41,7 @@ export function Cart({ t }: { t: (key: string) => string }) {
         </div>
         <BannerButton
           text={t('go_payment')}
+          disabled={items.length == 0}
           url="/checkout"
           size="sm"
           className="w-full flex-1 rounded-full font-semibold"
