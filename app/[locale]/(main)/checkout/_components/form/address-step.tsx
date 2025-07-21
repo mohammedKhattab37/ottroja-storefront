@@ -18,7 +18,7 @@ const AddressStep = ({
   t: (key: string) => string
   form: UseFormReturn<CheckoutFormData>
 }) => {
-  const { control, watch } = form
+  const { control } = form
   //const country = watch('address.country')
   //const governance = watch('address.governance')
 

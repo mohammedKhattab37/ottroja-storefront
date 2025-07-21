@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { dummyCartItems } from '@/lib/dummy-data'
-import { cartItem, CartItem } from './cart'
+import { CartItem } from './cart'
 
 function CheckoutItemsSummary({ t }: { t: (key: string) => string }) {
   return (
@@ -20,7 +20,8 @@ function CheckoutItemsSummary({ t }: { t: (key: string) => string }) {
       </div>
       <div className="bg-background h-fit rounded-lg">
         <div className="grid divide-y overflow-y-auto px-3">
-          {dummyCartItems.map((item: cartItem, index) => (
+          {/*  eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+          {dummyCartItems.map((item: any, index) => (
             <CartItem key={index} item={item} />
           ))}
         </div>

@@ -7,7 +7,7 @@ function BannerButton({
   url,
   size = 'md',
 }: {
-  className: string
+  className?: string
   text: string
   url: string
   size?: 'sm' | 'md' | 'lg'
