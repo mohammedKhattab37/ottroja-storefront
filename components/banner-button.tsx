@@ -8,7 +8,7 @@ function BannerButton({
   url,
   size = 'md',
 }: {
-  className: string
+  className?: string
   text: string
   disabled?: boolean
   url: string

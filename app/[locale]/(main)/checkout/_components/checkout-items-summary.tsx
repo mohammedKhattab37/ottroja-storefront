@@ -9,6 +9,7 @@ import { useState } from 'react'
 import { ApplyCoupon, couponDetails } from '../_actions/apply-coupon'
 import { cartDrawerItem, CartItem } from './cart'
 
+
 function CheckoutItemsSummary({ t }: { t: (key: string) => string }) {
   const { items, getTotalPrice, getSubtotal, delivery } = useCartStore()
   const { currentStep, customerId } = useCheckoutStore()
@@ -144,6 +145,7 @@ function CheckoutItemsSummary({ t }: { t: (key: string) => string }) {
       <div className="bg-background h-fit rounded-lg">
         <div className="grid divide-y overflow-y-auto px-3">
           {items.map((item: cartDrawerItem, index) => (
+
             <CartItem key={index} item={item} />
           ))}
         </div>
