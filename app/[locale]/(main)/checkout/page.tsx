@@ -1,6 +1,6 @@
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
-import CheckoutClient from './_components/checkout-client'
+import CheckoutPageClient from './page.client'
 
 export default function CheckoutPage() {
   const t = useTranslations('checkoutPage')
@@ -27,7 +27,7 @@ export default function CheckoutPage() {
         <p className="text-center text-2xl font-bold">{t('header')}</p>
       </div>
       <div className="pb-28">
-        <CheckoutClient />
+        <CheckoutPageClient />
       </div>
     </div>
   )
