@@ -28,6 +28,8 @@ export interface CartItem {
 
 interface CartState {
   items: CartItem[]
+  delivery: number
+  couponAmount: number
   isLoading: boolean
   error: string | null
   isUserLoggedIn: () => Promise<boolean>
@@ -40,7 +42,8 @@ interface CartState {
 
   // Computed values
   getTotalItems: () => number
-  getTotalPrice: () => number
+  getSubtotal: (noDelivery?: boolean) => number
+  getTotalPrice: (noDelivery?: boolean) => number
 
   // API actions
   saveToServer: () => Promise<void>
@@ -51,11 +54,12 @@ export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
       items: [],
+      delivery: 50,
+      couponAmount: 0,
       isLoading: false,
       error: null,
       isUserLoggedIn: async () => {
         const currentSession = await getCustomerSession()
-        console.log(currentSession)
         if (currentSession.success) {
           return true
         } else {
@@ -130,11 +134,21 @@ export const useCartStore = create<CartState>()(
         return get().items.reduce((total, item) => total + item.quantity, 0)
       },
 
-      getTotalPrice: () => {
+      getSubtotal: () => {
         return get().items.reduce(
           (total, item) => total + (item.productVariant?.price || 0) * item.quantity,
           0,
         )
+      },
+
+      getTotalPrice: (noDelivery = false) => {
+        const delivery = noDelivery ? 0 : get().delivery
+        const couponAmount = get().couponAmount
+        const totalPrice = get().items.reduce(
+          (total, item) => total + (item.productVariant?.price || 0) * item.quantity,
+          0,
+        )
+        return totalPrice + delivery - couponAmount
       },
 
       saveToServer: async () => {
