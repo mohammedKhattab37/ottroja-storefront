@@ -143,6 +143,7 @@
     "step2":{
       "name":"Delivery address details",
       "title":"Address details",
+      "previous":"Choose from previous addresses",
       "country":"Country",
       "governorate":"Governorate",
       "city":"City",
