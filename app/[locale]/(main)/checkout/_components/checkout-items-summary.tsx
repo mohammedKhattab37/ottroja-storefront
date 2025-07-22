@@ -9,10 +9,9 @@ import { useState } from 'react'
 import { ApplyCoupon, couponDetails } from '../_actions/apply-coupon'
 import { cartDrawerItem, CartItem } from './cart'
 
-
 function CheckoutItemsSummary({ t }: { t: (key: string) => string }) {
   const { items, getTotalPrice, getSubtotal, delivery } = useCartStore()
-  const { currentStep, customerId } = useCheckoutStore()
+  const { currentStep, customerId, isLastStep } = useCheckoutStore()
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [coupon, setCoupon] = useState<couponDetails>({
@@ -111,7 +110,7 @@ function CheckoutItemsSummary({ t }: { t: (key: string) => string }) {
                 placeholder={t('promo-placeholder')}
                 type="text"
                 id="promo"
-                disabled={isLoading || isCouponApplied}
+                disabled={isLoading || isCouponApplied || isLastStep()}
                 value={coupon.code}
                 onChange={handleCouponCodeChange}
               />
@@ -121,7 +120,7 @@ function CheckoutItemsSummary({ t }: { t: (key: string) => string }) {
             {!isCouponApplied ? (
               <Button
                 type="button"
-                disabled={isLoading || !coupon.code.trim()}
+                disabled={isLoading || !coupon.code.trim() || isLastStep()}
                 variant={'secondary'}
                 onClick={handleSubmit}
                 className="py-5"
@@ -145,8 +144,7 @@ function CheckoutItemsSummary({ t }: { t: (key: string) => string }) {
       <div className="bg-background h-fit rounded-lg">
         <div className="grid divide-y overflow-y-auto px-3">
           {items.map((item: cartDrawerItem, index) => (
-
-            <CartItem key={index} item={item} />
+            <CartItem key={index} item={item} disableControls={isLastStep()} />
           ))}
         </div>
       </div>

@@ -7,7 +7,6 @@ import { addressSchema, authStepSchema, paymentSchema } from '@/zod/checkout-sch
 import { create } from 'zustand'
 
 interface CheckoutState {
-  paymentMethod: 'CASH_ON_DELIVERY' | 'INSTAPAY' | 'CREDIT_CARD' | 'WALLET'
   shippingAddressId: string | null
   couponCode: string | null
   customerId: string | null
@@ -28,7 +27,6 @@ interface CheckoutState {
   // forms
   authForm: CheckoutCustomerData
   addressForm: CheckoutAddressData
-  paymentForm: CheckoutPaymentData
 
   // Methods
   submitAuthForm: (authForm: CheckoutCustomerData) => Promise<boolean>
@@ -37,7 +35,6 @@ interface CheckoutState {
 }
 
 export const useCheckoutStore = create<CheckoutState>((set, get) => ({
-  paymentMethod: 'CASH_ON_DELIVERY',
   shippingAddressId: null,
   couponCode: null,
   customerId: null,
@@ -72,9 +69,6 @@ export const useCheckoutStore = create<CheckoutState>((set, get) => ({
     apartment: '',
     postal_code: '',
     extra_address: undefined,
-  },
-  paymentForm: {
-    method: 'cash',
   },
 
   submitAuthForm: async (authForm) => {

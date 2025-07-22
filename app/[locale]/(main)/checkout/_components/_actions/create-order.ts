@@ -16,7 +16,7 @@ export interface OrderData {
     customerId?: string
     coupon_code: string
     shippingAddressId: string
-    paymentMethod: string
+    paymentMethod: 'CASH_ON_DELIVERY' | 'INSTAPAY' | 'CREDIT_CARD' | 'WALLET'
   }
 }
 

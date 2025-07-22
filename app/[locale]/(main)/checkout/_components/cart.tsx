@@ -62,7 +62,13 @@ export function Cart({ t }: { t: (key: string) => string }) {
   )
 }
 
-export function CartItem({ item }: { item: cartDrawerItem }) {
+export function CartItem({
+  item,
+  disableControls = false,
+}: {
+  item: cartDrawerItem
+  disableControls?: boolean
+}) {
   const { updateQuantity, removeItem } = useCartStore()
   const locale = useLocale()
 
@@ -83,21 +89,23 @@ export function CartItem({ item }: { item: cartDrawerItem }) {
                 : item.productVariant?.variant_name_en}
             </span>
           </div>
-          <Button
-            variant={'vanilla'}
-            size={'icon'}
-            type="button"
-            onClick={() => removeItem(item.id || '')}
-          >
-            <Trash className="size-5" />
-          </Button>
+          {!disableControls && (
+            <Button
+              variant={'vanilla'}
+              size={'icon'}
+              type="button"
+              onClick={() => removeItem(item.id || '')}
+            >
+              <Trash className="size-5" />
+            </Button>
+          )}
         </div>
         <div className="flex justify-between">
           <span className="content-end text-sm">
             <span className="font-bold">{item.productVariant?.price} </span>
             <span className="text-xs font-semibold">/ جنيه مصري</span>
           </span>
-          {item.id && (
+          {item.id && !disableControls && (
             <QuantityControls
               quantity={item.quantity}
               addQuantity={() => updateQuantity(item.id, item.quantity + 1)}

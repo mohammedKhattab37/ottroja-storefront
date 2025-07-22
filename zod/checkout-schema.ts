@@ -12,11 +12,15 @@ export const addressSchema = z.object({
 })
 
 const cashPaymentSchema = z.object({
-  method: z.literal('cash'),
+  method: z.literal('CASH_ON_DELIVERY'),
+})
+
+const instapayPaymentSchema = z.object({
+  method: z.literal('INSTAPAY'),
 })
 
 const cardPaymentSchema = z.object({
-  method: z.literal('card'),
+  method: z.literal('CREDIT_CARD'),
   cardNumber: z.string().min(16).max(19),
   cardHolder: z.string().min(2),
   expiryDate: z.string().regex(/^\d{2}\/\d{2}$/),
@@ -24,12 +28,13 @@ const cardPaymentSchema = z.object({
 })
 
 const eWalletPaymentSchema = z.object({
-  method: z.literal('e-wallet'),
+  method: z.literal('WALLET'),
   walletPhoneNo: z.string(),
 })
 
 export const paymentSchema = z.discriminatedUnion('method', [
   cashPaymentSchema,
+  instapayPaymentSchema,
   cardPaymentSchema,
   eWalletPaymentSchema,
 ])

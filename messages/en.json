@@ -156,6 +156,17 @@
       "name":"Payment details",
       "method":"Payment method",
       "cash":"Cash on delivery",
+      "instapay":{
+        "title": "Instapay",
+        "link-btn":"Pay Now",
+        "link-title":"Click here to pay",
+        "link-description":"You will be redirected to our instapay account",
+        "or":"OR",
+        "send-number-title":"Send to this number",
+        "copy":"Copy",
+        "copied":"Copied",
+        "receipt-number":"After choosing a method please send Receipt via WhatsApp to the above number"
+      },
       "card":{
         "title":"Bank card",
         "owner":"Name on card",

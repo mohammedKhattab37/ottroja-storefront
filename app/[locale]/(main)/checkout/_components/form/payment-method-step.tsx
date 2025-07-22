@@ -13,7 +13,9 @@ import { useCartStore } from '@/stores/cart'
 import { useCheckoutStore } from '@/stores/checkout'
 import { paymentSchema } from '@/zod/checkout-schema'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { CheckCircle, Copy, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
 import { createOrder } from '../_actions/create-order'
@@ -21,9 +23,9 @@ import { createOrder } from '../_actions/create-order'
 export type CheckoutPaymentData = z.infer<typeof paymentSchema>
 
 function PaymentMethodStep({ t }: { t: (key: string) => string }) {
-  const { next, customerId, couponCode, shippingAddressId, paymentMethod, isSubmitting } =
-    useCheckoutStore()
+  const { next, customerId, couponCode, shippingAddressId, isSubmitting } = useCheckoutStore()
   const { isUserLoggedIn, items } = useCartStore()
+  const [copied, setCopied] = useState(false)
 
   const form = useForm<CheckoutPaymentData>({
     resolver: zodResolver(paymentSchema),
@@ -32,19 +34,25 @@ function PaymentMethodStep({ t }: { t: (key: string) => string }) {
   })
   const { control, watch } = form
   const paymentMethodField = watch('method')
-  const availableMethods: { value: 'cash' | 'card' | 'e-wallet'; label: string }[] = [
-    { value: 'cash', label: t('step3.cash') },
-    { value: 'card', label: t('step3.card.title') },
-    { value: 'e-wallet', label: t('step3.e-wallet.title') },
+  const availableMethods: {
+    value: 'CASH_ON_DELIVERY' | 'INSTAPAY' | 'CREDIT_CARD' | 'WALLET'
+    label: string
+  }[] = [
+    { value: 'CASH_ON_DELIVERY', label: t('step3.cash') },
+    { value: 'INSTAPAY', label: t('step3.instapay.title') },
+    { value: 'CREDIT_CARD', label: t('step3.card.title') },
+    { value: 'WALLET', label: t('step3.e-wallet.title') },
   ]
 
   const PaymentMethodIcon = ({ method }: { method: string }) => {
     switch (method) {
-      case 'cash':
+      case 'CASH_ON_DELIVERY':
         return <Image src={'/assets/payment/cash-method.svg'} alt="" width={30} height={30} />
-      case 'card':
+      case 'INSTAPAY':
+        return <Image src={'/assets/payment/instapay.svg'} alt="" width={45} height={45} />
+      case 'CREDIT_CARD':
         return <Image src={'/assets/payment/card-method.svg'} alt="" width={30} height={30} />
-      case 'e-wallet':
+      case 'WALLET':
         return <Image src={'/assets/payment/e-wallet-method.svg'} alt="" width={30} height={30} />
       default:
         return <Image src={'/assets/payment/cash-method.svg'} alt="" width={30} height={30} />
@@ -66,7 +74,7 @@ function PaymentMethodStep({ t }: { t: (key: string) => string }) {
           customerId: customerId || undefined,
           coupon_code: couponCode || '',
           shippingAddressId: shippingAddressId || '',
-          paymentMethod: paymentMethod,
+          paymentMethod: paymentMethodField,
         },
       })
 
@@ -75,7 +83,13 @@ function PaymentMethodStep({ t }: { t: (key: string) => string }) {
       console.log('Validation error:', error)
       form.trigger()
     }
-    useCheckoutStore.setState({ isSubmitting: true })
+    useCheckoutStore.setState({ isSubmitting: false })
+  }
+
+  const handleCopyNumber = () => {
+    navigator.clipboard.writeText('01113274044')
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
   }
 
   return (
@@ -87,7 +101,7 @@ function PaymentMethodStep({ t }: { t: (key: string) => string }) {
 
         <div>
           <FormLabel>{t('step3.method')}</FormLabel>
-          <div className="mt-2 grid grid-cols-1 gap-3 lg:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-2 grid grid-cols-1 gap-3 lg:grid-cols-2">
             {availableMethods.map((method) => (
               <button
                 key={method.value}
@@ -122,7 +136,55 @@ function PaymentMethodStep({ t }: { t: (key: string) => string }) {
           </div>
         </div>
 
-        {paymentMethodField === 'card' && (
+        {paymentMethodField === 'INSTAPAY' && (
+          <div>
+            <Image
+              src={'/assets/payment/instapay.svg'}
+              className="bg-background mb-10 justify-self-center rounded-full"
+              alt=""
+              width={200}
+              height={200}
+            />
+            <div className="grid gap-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="mb-1 font-medium">{t('step3.instapay.link-title')}</h4>
+                  <p className="text-card-foreground text-xs font-normal">
+                    {t('step3.instapay.link-description')}
+                  </p>
+                </div>
+                <Button
+                  variant="secondary"
+                  onClick={() =>
+                    window.open('https://ipn.eg/S/ehabshamseldin/instapay/8ElqWG', '_blank')
+                  }
+                >
+                  {t('step3.instapay.link-btn')} <ExternalLink size={16} className="ml-2" />
+                </Button>
+              </div>
+              <span className="bg-background aspect-square w-fit justify-self-center rounded-full p-4 text-center drop-shadow-xs">
+                {t('step3.instapay.or')}
+              </span>
+              <div>
+                <h4 className="my-1 text-sm font-medium">
+                  {t('step3.instapay.send-number-title')}
+                </h4>
+                <div className="bg-background border-border flex items-center justify-between rounded-md border p-3">
+                  <span className="font-mono text-lg">01113274044</span>
+                  <Button variant="outline" size="sm" onClick={() => handleCopyNumber()}>
+                    {copied ? <CheckCircle size={16} /> : <Copy size={16} />}
+                    {copied ? t('step3.instapay.copied') : t('step3.instapay.copy')}
+                  </Button>
+                </div>
+              </div>
+              <div className="text-card-foreground mt-4 text-center text-sm font-semibold">
+                {t('step3.instapay.receipt-number')}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {paymentMethodField === 'CREDIT_CARD' && (
           <div className="grid grid-cols-2 gap-4">
             <FormField
               control={control}
@@ -186,7 +248,7 @@ function PaymentMethodStep({ t }: { t: (key: string) => string }) {
           </div>
         )}
 
-        {paymentMethodField === 'e-wallet' && (
+        {paymentMethodField === 'WALLET' && (
           <div className="grid grid-cols-2">
             <FormField
               control={control}
