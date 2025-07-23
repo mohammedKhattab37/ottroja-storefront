@@ -29,6 +29,7 @@ function ProductPageClient({
 }) {
   const locale = useLocale()
   const direction = locale == 'ar' ? 'rtl' : 'ltr'
+  const translatedCurrency = locale == 'ar' ? 'جنيه مصري' : 'EGP'
 
   const translatedProduct =
     locale == 'ar'
@@ -127,7 +128,7 @@ function ProductPageClient({
           {/* variants/prices */}
           <div className="bg-filter-trigger grid gap-5 rounded-lg p-5" dir={direction}>
             <p className="text-card-foreground text-sm font-bold">
-              <span className="text-2xl"> {selectedVariant.price}</span> / جنيه مصري
+              <span className="text-2xl"> {selectedVariant.price}</span> / {translatedCurrency}
             </p>
             <div className="grid auto-cols-auto grid-flow-col gap-2">
               {translatedProduct.variants.map((variant) => {

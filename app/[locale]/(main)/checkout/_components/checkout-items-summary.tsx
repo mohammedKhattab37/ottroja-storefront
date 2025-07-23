@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils'
 import { useCartStore } from '@/stores/cart'
 import { useCheckoutStore } from '@/stores/checkout'
 import { Check } from 'lucide-react'
+import { useLocale } from 'next-intl'
 import { useState } from 'react'
 import { ApplyCoupon, couponDetails } from '../_actions/apply-coupon'
 import { cartDrawerItem, CartItem } from './cart'
@@ -22,6 +23,9 @@ function CheckoutItemsSummary({ t }: { t: (key: string) => string }) {
     value: '',
     amount: 0,
   })
+
+  const locale = useLocale()
+  const translatedCurrency = locale == 'ar' ? 'جنيه مصري' : 'EGP'
 
   const isCouponApplied = coupon.amount > 0 || coupon.type === 'FREE_SHIPPING'
 
@@ -155,7 +159,7 @@ function CheckoutItemsSummary({ t }: { t: (key: string) => string }) {
             <p className="text-sm font-normal">{t('sub-total')}</p>
             <span className="content-end text-xs">
               <span className="font-bold">{getSubtotal()} </span>
-              <span className="font-semibold">/ جنيه مصري</span>
+              <span className="font-semibold">/ {translatedCurrency}</span>
             </span>
           </div>
 
@@ -173,7 +177,7 @@ function CheckoutItemsSummary({ t }: { t: (key: string) => string }) {
                   )}
                 >
                   <span className="font-bold">{delivery} </span>
-                  <span className="font-semibold">/ جنيه مصري</span>
+                  <span className="font-semibold">/ {translatedCurrency}</span>
                 </span>
               </div>
             </div>
@@ -185,7 +189,7 @@ function CheckoutItemsSummary({ t }: { t: (key: string) => string }) {
 
               <span className="text-success content-end text-xs">
                 <span className="font-bold">{coupon.amount}- </span>
-                <span className="font-semibold">/ جنيه مصري</span>
+                <span className="font-semibold">/ {translatedCurrency}</span>
               </span>
             </div>
           )}
@@ -194,7 +198,7 @@ function CheckoutItemsSummary({ t }: { t: (key: string) => string }) {
           <p>{t('total')}</p>
           <span className="content-end">
             <span className="text-[16px]">{getTotalPrice(coupon.type == 'FREE_SHIPPING')} </span>
-            <span>/ جنيه مصري</span>
+            <span>/{translatedCurrency}</span>
           </span>
         </div>
       </div>
