@@ -66,6 +66,7 @@
     "filters": "الترشيحات",
     "related": "المنتجات ذات صلة",
     "bundle-details":"تفاصيل العرض",
+    "bundle-items": "المحتويات",
     "pagination": {
       "next":"التالي",
       "back":"السابق",

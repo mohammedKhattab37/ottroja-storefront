@@ -66,6 +66,7 @@
     "filters":"Filters",
     "related": "Related Products",
     "bundle-details":"Bundle Details",
+    "bundle-items":"Items",
     "pagination": {
       "next":"Next",
       "back":"Back",
