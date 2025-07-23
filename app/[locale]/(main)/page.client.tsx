@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 
+import { Bundle } from './_actions/get-bundles'
 import type { Category } from './_actions/get-categories'
 import FirstBannerSection from './_components/banners/First-banner-section'
 import SecondBannerSection from './_components/banners/Second-banner-section'
@@ -16,9 +17,11 @@ import { Product } from './products/_actions/types'
 export default function HomePage({
   NavCategories,
   FeaturedProducts,
+  FeaturedBundles,
 }: {
   NavCategories: Category[]
   FeaturedProducts: Product[]
+  FeaturedBundles: Bundle[]
 }) {
   return (
     <div className="grid gap-y-32">
@@ -26,7 +29,7 @@ export default function HomePage({
       <CategoriesSection NavCategories={NavCategories} />
       <ProductsSection FeaturedProducts={FeaturedProducts} />
       {/* <OffersSection /> */}
-      <FirstBannerSection />
+      <FirstBannerSection bundleData={FeaturedBundles[0]} />
       <SubBanners />
       <SecondBannerSection />
       <ReviewsSection />

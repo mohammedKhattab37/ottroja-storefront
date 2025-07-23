@@ -1,13 +1,32 @@
 import Header from '@/components/header'
-import { dummyBanner } from '@/lib/dummy-data'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
+import { Bundle } from '../../_actions/get-bundles'
 import BannerDescription from './banner-description'
 
-function FirstBannerSection() {
+function FirstBannerSection({ bundleData }: { bundleData: Bundle }) {
   const t = useTranslations('homePage')
   const locale = useLocale()
   const contentDirection = locale == 'ar' ? 'rtl' : 'ltr'
+
+  const translatedBundle =
+    locale == 'ar'
+      ? {
+          title: bundleData.nameAr,
+          sub_title: bundleData.briefTitleAr,
+          bannerItems: bundleData.bundleItems.map(
+            (item) => item.variant.product.name_ar + ' ' + item.variant.variant_name_ar,
+          ),
+          button_destination: bundleData.slug,
+        }
+      : {
+          title: bundleData.nameEn,
+          sub_title: bundleData.briefTitleEn,
+          bannerItems: bundleData.bundleItems.map(
+            (item) => item.variant.product.name_en + ' ' + item.variant.variant_name_en,
+          ),
+          button_destination: bundleData.slug,
+        }
 
   return (
     <div className="container-padding">
@@ -28,18 +47,18 @@ function FirstBannerSection() {
           <div className="flex justify-center md:justify-start lg:h-full">
             <Image
               alt="banner"
-              src={dummyBanner.image}
+              src={bundleData.imageUrl || ''}
               width={574}
               height={415}
               className="h-auto w-full min-w-sm object-contain lg:h-full lg:object-cover"
             />
           </div>
           <BannerDescription
-            title={t('banners.summer_offer.title')}
-            sub_title={t('banners.summer_offer.sub_title')}
-            bannerItems={t.raw('banners.summer_offer.items')}
+            title={translatedBundle.title}
+            sub_title={translatedBundle.sub_title}
+            bannerItems={translatedBundle.bannerItems}
             button_text={t('banners.summer_offer.button_text')}
-            button_destination={t('banners.summer_offer.button_destination')}
+            button_destination={'/bundles/' + translatedBundle.button_destination}
           />
         </div>
       </div>
