@@ -47,7 +47,7 @@ function SecondBannerSection() {
                 src={dummyBanner2.image}
                 width={750}
                 height={750}
-                className="-mx-6 -my-0 h-auto w-full min-w-sm object-contain pt-0 md:-mx-8 md:-my-10 md:pt-10 lg:-mx-16"
+                className="-mx-6 -my-0 h-auto w-full min-w-sm object-contain pt-0 md:-mx-8 md:-my-10 lg:-mx-16"
               />
             </div>
           )}

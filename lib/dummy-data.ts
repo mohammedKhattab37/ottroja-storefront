@@ -1,66 +1,50 @@
 export const dummyHeroSlides = [
   {
     id: '1',
-    title: 'ذوق الأصالة عسل طبيعي يليق بك',
-    sub_title: 'منتجنا مش بس عسل، دي تجربة.',
-    button_destination: '/products',
-    button_text: 'تسوق الان',
-    image: '/assets/hero.svg',
+    image: '/assets/1.jpg',
   },
   {
     id: '2',
-    title: 'ذوق الأصالة عسل طبيعي يليق بك',
-    sub_title: 'منتجنا مش بس عسل، دي تجربة.',
-    button_destination: '/products',
-    button_text: 'تسوق الان',
-    image: '/assets/hero.svg',
+    image: '/assets/2.jpg',
   },
   {
     id: '3',
-    title: 'ذوق الأصالة عسل طبيعي يليق بك',
-    sub_title: 'منتجنا مش بس عسل، دي تجربة.',
-    button_destination: '/products',
-    button_text: 'تسوق الان',
-    image: '/assets/hero.svg',
+    image: '/assets/4.jpg',
   },
   {
     id: '4',
-    title: 'ذوق الأصالة عسل طبيعي يليق بك',
-    sub_title: 'منتجنا مش بس عسل، دي تجربة.',
-    button_destination: '/products',
-    button_text: 'تسوق الان',
-    image: '/assets/hero.svg',
+    image: '/assets/5.jpg',
   },
 ]
 
 export const dummyBanner = {
-  title: 'Dont miss this Offer',
-  sub_title: 'Pure Honey with a special price',
-  image: '/assets/banner1.png',
-  items: ['Royal Honey', 'Mountain Honey (200 gm)'],
-  button_text: 'Get the offer now',
+  title: 'عرض الصيف الذهبي ... ساري حتى نفاذ الكمية',
+  sub_title: 'عسل كشميري طبيعي 100٪',
+  image: '/assets/bundle-offer.svg',
+  items: ['عسل سدر كشميري ٨٥٠ جم', 'عسل سدر كشميري ٤٥٠ جم'],
+  button_text: 'احصل على العرض الآن',
   button_destination: '',
 }
 
 export const dummyBanner2 = {
-  title: 'Dont miss this Offer',
-  sub_title: 'Pure Honey with a special price',
-  image: '/assets/banner2.png',
-  button_text: 'Get the offer now',
+  title: 'عملناها في حجم صغير علشان تكون معاك في كل مكان',
+  sub_title: '',
+  image: '/assets/mini.png',
+  button_text: 'اطلبها الآن',
   button_destination: '',
 }
 
 export const dummyBanners = [
   {
-    image: '/assets/sub-banner.png',
+    image: '/assets/sub-banner-1.jpg',
     url: '/',
   },
   {
-    image: '/assets/sub-banner.png',
+    image: '/assets/sub-banner-2.jpg',
     url: '/',
   },
   {
-    image: '/assets/sub-banner.png',
+    image: '/assets/sub-banner-3.jpg',
     url: '/',
   },
 ]

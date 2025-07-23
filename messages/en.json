@@ -42,6 +42,14 @@
         "phone":"Phone"
       },
       "rights":"2025 Aturjah Honey Store. All rights reserved."
+    },
+    "banners":{
+      "summer_offer":{
+        "title": "Golden Summer Offer ... Valid until stock runs out",
+        "sub_title": "100% Natural Kashmiri Honey",
+        "items": ["Kashmiri Sidr Honey 850g", "Kashmiri Sidr Honey 450g"],
+        "button_text": "Get the offer now"
+      }
     }
   },
   "filters":{
