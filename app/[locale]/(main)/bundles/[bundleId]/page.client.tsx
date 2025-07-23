@@ -83,15 +83,19 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
               <span className="text-2xl"> {bundleData.bundlePrice}</span> / جنيه مصري
               <span className="text-xs line-through"> {bundleData.originalPrice} / جنيه مصري</span>
             </p>
-            <div className="grid auto-cols-auto grid-flow-col gap-2">
+            <div className="grid grid-cols-2 gap-2 p-4">
+              <p className="text-card-foreground col-span-2 pb-4 font-bold">
+                {productT('bundle-items')}
+              </p>
               {translatedBundle.items.map((item) => {
                 return (
-                  <div
-                    className={
-                      'bg-input border-input-border text-secondary rounded-lg border p-6 text-xs font-bold'
-                    }
-                    key={item.id}
-                  >
+                  <div key={item.variant_name} className="flex items-center gap-4">
+                    <Image
+                      alt="list item"
+                      src={'/assets/illustrations/list-indicator.svg'}
+                      width={25}
+                      height={20}
+                    />
                     {item.variant_name}
                   </div>
                 )
@@ -117,14 +121,17 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
         </div>
 
         <ProductImageGallery
-          productImages={bundleData.bundleItems
-            .map((item) => item.variant.product.images)
-            .flatMap((arr) => arr.map((img) => img))}
+          productImages={Array.from(
+            new Map(
+              bundleData.bundleItems
+                .flatMap((item) => item.variant.product.images)
+                .map((img) => [img.id, img]),
+            ).values(),
+          )}
         />
       </div>
 
       {/* Bundle details */}
-
       <BundleDescription bundle={bundleData} language={locale} t={productT} />
     </div>
   )
