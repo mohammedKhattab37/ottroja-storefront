@@ -1,8 +1,8 @@
 import InputWithIcon from '@/components/input-with-icon'
 import { Button } from '@/components/ui/button'
 import { Link } from '@/i18n/navigation'
-import { paymentIcons, socialsIcons } from '@/lib/constants'
-import { dummyContacts, dummyFooterServices, dummyImportantLinks } from '@/lib/dummy-data'
+import { importantLinks, infoCenterLinks, paymentIcons, socialsIcons } from '@/lib/constants'
+import { dummyContacts } from '@/lib/dummy-data'
 import { formatContactsInfo } from '@/lib/fromat-contacts'
 import { Send } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
@@ -11,20 +11,29 @@ import { Category } from '../../_actions/get-categories'
 import FooterServices from './footer-services'
 
 function Footer({ categories }: { categories: Category[] }) {
-  const t = useTranslations('homePage')
+  const t = useTranslations('homePage.footer')
   const locale = useLocale()
   const direction = locale == 'ar' ? 'rtl' : 'ltr'
+
+  const footerServices = [...Array(4)].map((_, index) => {
+    const service = 'service' + (index + 1)
+    return {
+      title: t(`services.${service}.title`),
+      description: t(`services.${service}.description`),
+      image: `/assets/illustrations/footer-services/${service}.svg`,
+    }
+  })
 
   return (
     <footer className="bg-secondary text-secondary-foreground" dir={direction}>
       <div className="relative px-5 py-28 md:px-20 lg:px-32 xl:px-24 2xl:px-44">
-        <FooterServices services={dummyFooterServices} />
-        <div className="grid grid-cols-3 gap-10 xl:grid-cols-7 xl:gap-12">
+        <FooterServices services={footerServices} />
+        <div className="mt-16 grid grid-cols-3 gap-10 lg:mt-0 xl:grid-cols-7 xl:gap-12">
           <div className="col-span-3 grid gap-4 xl:col-span-2">
             <Link href={'/'}>
               <Image src={'/assets/logo/footer-logo.svg'} width={100} height={100} alt="Ottroja" />
             </Link>
-            <p className="text-xs leading-6 font-normal">{t('footer.ottroja-description')}</p>
+            <p className="text-xs leading-6 font-normal">{t('ottroja-description')}</p>
             {/* Social links */}
             <div className="flex items-center gap-3">
               {socialsIcons.map((icon) => (
@@ -59,26 +68,33 @@ function Footer({ categories }: { categories: Category[] }) {
           </div>
 
           <FooterSection
-            title={t('footer.links-groups.categories')}
+            title={t('links-groups.categories')}
             items={categories.map((cat) => ({
               name: locale == 'ar' ? cat.nameAr : cat.nameEn,
               url: '/products?category=' + cat.slug,
             }))}
           />
           <FooterSection
-            title={t('footer.links-groups.important-links')}
-            items={dummyImportantLinks}
+            title={t('links-groups.important-links')}
+            items={importantLinks.map((link) => ({
+              name: locale == 'ar' ? link.name_ar : link.name_en,
+              url: link.url,
+            }))}
           />
-          <FooterSection title={t('footer.links-groups.information')} items={dummyImportantLinks} />
+          <FooterSection
+            title={t('links-groups.information')}
+            items={infoCenterLinks.map((link) => ({
+              name: locale == 'ar' ? link.name_ar : link.name_en,
+              url: link.url,
+            }))}
+          />
 
           <div className="col-span-3 flex flex-col justify-between gap-10 xl:col-span-2">
             <div className="grid gap-10">
               <div>
-                <p className="pt-8 pb-4 text-sm font-bold">
-                  {t('footer.links-groups.newsletter.name')}
-                </p>
+                <p className="pt-8 pb-4 text-sm font-bold">{t('links-groups.newsletter.name')}</p>
                 <p className="top- text-xs leading-6 font-normal">
-                  {t('footer.links-groups.newsletter.description')}
+                  {t('links-groups.newsletter.description')}
                 </p>
               </div>
               <InputWithIcon
@@ -97,7 +113,7 @@ function Footer({ categories }: { categories: Category[] }) {
             </div>
 
             <div>
-              <p className="mb-2 text-xs font-semibold">{t('footer.links-groups.payment')}</p>
+              <p className="mb-2 text-xs font-semibold">{t('links-groups.payment')}</p>
               <div className="flex w-fit gap-2 rounded-md bg-white px-2 py-0">
                 {paymentIcons.map((icon) => (
                   <Image
@@ -115,7 +131,7 @@ function Footer({ categories }: { categories: Category[] }) {
       </div>
 
       <div className="bottom-0 w-full bg-[#3B3735] p-4 text-center text-xs font-normal">
-        {t('footer.rights')}
+        {t('rights')}
       </div>
     </footer>
   )

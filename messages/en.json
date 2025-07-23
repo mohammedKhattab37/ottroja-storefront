@@ -29,6 +29,24 @@
     },
     "footer":{
       "ottroja-description":"Ottroja is an online store offering the finest 100% pure natural honey, carefully extracted from local beehives and packaged according to the highest quality standards.",
+      "services":{
+        "service1":{
+          "title":"100% Quality Guaranteed",
+          "description":"We offer you raw, natural honey from trusted apiaries, with laboratory testing certificates."
+        },
+        "service2":{
+          "title":"Ongoing offers and gifts",
+          "description":"Enjoy exclusive discounts and gifts on your first order, and follow us to find out about new offers."
+        },
+        "service3":{
+          "title":"Fast and secure delivery",
+          "description":"We carefully package each order to ensure it reaches you in the best condition and as quickly as possible."
+        },
+        "service4":{
+          "title":"Responsive customer support",
+          "description":"Our team is ready to serve you and answer your inquiries 7 days a week."
+        }
+      },
       "links-groups":{
         "categories":"Categories",
         "important-links":"Important Links",

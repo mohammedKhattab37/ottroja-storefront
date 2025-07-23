@@ -10,15 +10,15 @@ export function formatContactsInfo({
   const contactMeta: Record<string, { icon: React.ReactNode; label: string }> = {
     address: {
       icon: <MapPin className="size-5" />,
-      label: t('footer.contacts.address'),
+      label: t('contacts.address'),
     },
     mail: {
       icon: <Mail className="size-5" />,
-      label: t('footer.contacts.mail'),
+      label: t('contacts.mail'),
     },
     phone: {
       icon: <Phone className="size-5" />,
-      label: t('footer.contacts.phone'),
+      label: t('contacts.phone'),
     },
   }
   return contacts.map((contact) => {
