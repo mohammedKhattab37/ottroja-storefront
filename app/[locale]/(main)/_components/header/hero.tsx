@@ -1,9 +1,7 @@
 'use client'
-import BannerButton from '@/components/banner-button'
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import { dummyHeroSlides } from '@/lib/dummy-data'
 import Autoplay from 'embla-carousel-autoplay'
-import { useLocale } from 'next-intl'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
@@ -17,8 +15,6 @@ import { useEffect, useState } from 'react'
 // }
 
 function Hero() {
-  const locale = useLocale()
-  const direction = locale == 'ar' ? 'rtl' : 'ltr'
 
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
@@ -52,65 +48,34 @@ function Hero() {
             delay: 5500,
           }),
         ]}
-        className="bg-filter-trigger mx-auto w-full pb-5"
+        className="bg-filter-trigger mx-auto w-full relative"
       >
-        <Image
-          className="absolute top-6 right-10 xl:top-10 xl:right-20"
-          alt="fl"
-          src={'/assets/Hero-icon.webp'}
-          width={80}
-          height={80}
-        />
-        <Image
-          className="absolute right-[45%] bottom-2 xl:bottom-20"
-          alt="fl"
-          src={'/assets/Hero-icon.webp'}
-          width={50}
-          height={50}
-        />
         <CarouselContent>
           {dummyHeroSlides &&
             dummyHeroSlides.length > 0 &&
             dummyHeroSlides.map((hero, index) => {
               return (
-                <CarouselItem key={hero.id || index} dir={direction == 'rtl' ? 'ltr' : 'rtl'}>
-                  <div className="container mx-auto px-6 sm:px-8 lg:px-16">
-                    <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-8 lg:gap-12">
-                      <div className="flex justify-center md:justify-start">
-                        <div className="flex h-[500px] w-[500px] items-center justify-center bg-transparent">
-                          <Image
-                            alt="hero"
-                            src={hero.image}
-                            width={400}
-                            height={400}
-                            className="h-full w-full object-contain"
-                          />
-                        </div>
-                      </div>
-                      <div className="text-secondary space-y-6" dir={direction}>
-                        <div className="space-y-3">
-                          <h1 className="text-3xl leading-tight font-bold sm:text-4xl lg:text-5xl">
-                            {hero.title}
-                          </h1>
-                          <p className="text-secondary/80 text-base leading-relaxed sm:text-lg">
-                            {hero.sub_title}
-                          </p>
-                        </div>
-                        <BannerButton text={hero.button_text} url={hero.button_destination} />
-                      </div>
-                    </div>
+                <CarouselItem key={hero.id || index}>
+                  <div className="w-full">
+                    <Image
+                      alt="hero"
+                      src={hero.image}
+                      width={1920}
+                      height={600}
+                      className="h-[400px] w-full object-cover md:h-[500px] lg:h-[600px] rounded-[5px]"
+                    />
                   </div>
                 </CarouselItem>
               )
             })}
         </CarouselContent>
         {dummyHeroSlides && dummyHeroSlides.length > 0 && count > 1 && (
-          <div className="flex justify-center space-x-2 pt-6">
+          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
             {Array.from({ length: count }).map((_, index) => (
               <button
                 key={index}
-                className={`bg-darker h-3 w-3 cursor-pointer rounded-full transition-all duration-300 hover:scale-110 ${
-                  index + 1 === current ? 'scale-110' : 'opacity-20'
+                className={`bg-white h-3 w-3 cursor-pointer rounded-full transition-all duration-300 hover:scale-110 shadow-md ${
+                  index + 1 === current ? 'scale-110' : 'opacity-60'
                 }`}
                 onClick={() => api?.scrollTo(index)}
                 aria-label={`Go to slide ${index + 1}`}
