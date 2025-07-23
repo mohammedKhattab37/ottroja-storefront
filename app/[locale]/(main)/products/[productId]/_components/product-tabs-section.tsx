@@ -139,7 +139,7 @@ function ProductTabsSection({ productT, direction, description }: ProductTabsPro
 
 export default ProductTabsSection
 
-function DescriptionSection({
+export function DescriptionSection({
   title,
   content,
   itemsPerLine = 1,
