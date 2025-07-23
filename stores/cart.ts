@@ -9,6 +9,7 @@ import {
   updateItemInDB,
 } from '@/app/[locale]/(main)/checkout/_components/_actions/cart-item-actions'
 import { ProductVariant } from '@/app/[locale]/(main)/products/_actions/types'
+import { zoneDelivery } from '@/lib/constants'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -35,6 +36,7 @@ interface CartState {
   isUserLoggedIn: () => Promise<boolean>
 
   // Actions
+  getDeliveryFee: (zone: string) => void
   addItem: (item: CartItem) => void
   removeItem: (itemId: string) => void
   updateQuantity: (itemId: string, quantity: number) => void
@@ -54,7 +56,7 @@ export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
       items: [],
-      delivery: 50,
+      delivery: 0,
       couponAmount: 0,
       isLoading: false,
       error: null,
@@ -65,6 +67,11 @@ export const useCartStore = create<CartState>()(
         } else {
           return false
         }
+      },
+
+      getDeliveryFee: (zone) => {
+        const fee = zoneDelivery.find((deliveryZone) => deliveryZone.name == zone)?.fee
+        set({ delivery: fee || 0 })
       },
 
       addItem: async (newItem) => {
