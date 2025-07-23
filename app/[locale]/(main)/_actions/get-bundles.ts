@@ -1,6 +1,7 @@
 'use server'
 
 import { apiUrl } from '@/lib/constants'
+import { ProductImage } from '../products/_actions/types'
 
 export interface Bundle {
   id: string
@@ -33,7 +34,13 @@ export interface BundleItem {
       name_en: string
       name_ar: string
       slug: string
-      images: string[]
+      images: ProductImage[]
+      warnings_en?: string[]
+      warnings_ar?: string[]
+      benefits_en?: string[]
+      benefits_ar?: string[]
+      ingredients_en?: string[]
+      ingredients_ar?: string[]
     }
   }
 }
