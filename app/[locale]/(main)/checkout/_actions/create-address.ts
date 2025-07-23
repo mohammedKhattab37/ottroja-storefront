@@ -12,6 +12,7 @@ interface AddressDataInput {
   building: string
   apartment: string
   extra_address?: string
+  zone: string
   postal_code: string
 }
 

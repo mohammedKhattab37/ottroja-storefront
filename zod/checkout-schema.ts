@@ -9,6 +9,7 @@ export const addressSchema = z.object({
   apartment: z.string().min(1, 'Please enter the apartment No.'),
   postal_code: z.string().min(1, 'Please enter the postal code'),
   extra_address: z.string().optional(),
+  zone: z.string(),
 })
 
 const cashPaymentSchema = z.object({
