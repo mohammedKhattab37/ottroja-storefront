@@ -46,3 +46,34 @@ export const socialsIcons = [
     size: 18,
   },
 ]
+
+export const zoneDelivery = [
+  {
+    name: 'Zone 1',
+    fee: 64,
+  },
+  {
+    name: 'Zone 2',
+    fee: 69,
+  },
+  {
+    name: 'Zone 3',
+    fee: 75,
+  },
+  {
+    name: 'Zone 4',
+    fee: 87,
+  },
+  {
+    name: 'Zone 5',
+    fee: 100,
+  },
+  {
+    name: 'Zone 6',
+    fee: 103,
+  },
+  {
+    name: 'Zone 7',
+    fee: 116,
+  },
+]

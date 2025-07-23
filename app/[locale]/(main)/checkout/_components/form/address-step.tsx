@@ -15,12 +15,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { countries, governorates } from '@/lib/dummy-data'
+import { countries } from '@/lib/dummy-data'
+import { deliveryZones } from '@/lib/states-zones'
 import { cn } from '@/lib/utils'
+import { useCartStore } from '@/stores/cart'
 import { useCheckoutStore } from '@/stores/checkout'
 import { addressSchema } from '@/zod/checkout-schema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Home } from 'lucide-react'
+import { useLocale } from 'next-intl'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
@@ -29,9 +32,13 @@ import { AddressData, GetCustomerAddresses } from '../../_actions/get-addresses'
 export type CheckoutAddressData = z.infer<typeof addressSchema>
 
 const AddressStep = ({ t }: { t: (key: string) => string }) => {
+  const locale = useLocale()
   const { submitAddressForm, next, isSubmitting, customerId } = useCheckoutStore()
+  const { getDeliveryFee } = useCartStore()
   const [previousAddresses, setPreviousAddresses] = useState<AddressData[] | undefined>()
-  const [selectedAddressId, setSelectedAddressId] = useState<string | undefined>()
+  const [selectedAddressId, setSelectedAddressId] = useState<
+    { id: string; zone: string } | undefined
+  >()
 
   const form = useForm<CheckoutAddressData>({
     resolver: zodResolver(addressSchema),
@@ -39,7 +46,7 @@ const AddressStep = ({ t }: { t: (key: string) => string }) => {
     mode: 'onChange',
   })
   const { control, watch } = form
-  //const country = watch('country')
+  const currentState = watch('state')
 
   useEffect(() => {
     const fetchAddresses = async () => {
@@ -55,14 +62,22 @@ const AddressStep = ({ t }: { t: (key: string) => string }) => {
   const handleNext = async () => {
     try {
       if (selectedAddressId) {
-        useCheckoutStore.setState({ shippingAddressId: selectedAddressId })
+        useCheckoutStore.setState({ shippingAddressId: selectedAddressId.id })
+        getDeliveryFee(selectedAddressId.zone)
       } else {
-        const addressCreated = await submitAddressForm(form.getValues())
+        const zone =
+          deliveryZones.find(
+            (d_zone) => (locale == 'ar' ? d_zone.name_ar : d_zone.name_en) == currentState,
+          )?.defaultZone || ''
+
+        const addressCreated = await submitAddressForm({ ...form.getValues(), zone: zone })
 
         if (!addressCreated) {
           form.trigger()
           return
         }
+
+        getDeliveryFee(zone)
       }
       next()
     } catch (error) {
@@ -84,13 +99,13 @@ const AddressStep = ({ t }: { t: (key: string) => string }) => {
             <div
               key={idx}
               onClick={() =>
-                selectedAddressId == address.id
+                selectedAddressId?.id == address.id
                   ? setSelectedAddressId(undefined)
-                  : setSelectedAddressId(address.id)
+                  : setSelectedAddressId({ id: address.id, zone: address.zone })
               }
               className={cn(
                 'bg-background flex h-full w-full cursor-pointer gap-4 rounded-md p-4 text-start drop-shadow-xs',
-                address.id == selectedAddressId ? 'border-primary border-2' : '',
+                address.id == selectedAddressId?.id ? 'border-primary border-2' : '',
               )}
             >
               <div className="self-center">
@@ -181,11 +196,14 @@ const AddressStep = ({ t }: { t: (key: string) => string }) => {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className="text-secondary bg-background">
-                    {governorates.egypt.map((choice) => (
-                      <SelectItem key={choice.value} value={choice.value}>
-                        {choice.label}
-                      </SelectItem>
-                    ))}
+                    {deliveryZones.map((gov) => {
+                      const name = locale == 'ar' ? gov.name_ar : gov.name_en
+                      return (
+                        <SelectItem key={gov.id} value={name}>
+                          {name}
+                        </SelectItem>
+                      )
+                    })}
                   </SelectContent>
                 </Select>
                 <FormMessage />
