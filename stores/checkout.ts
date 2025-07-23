@@ -68,6 +68,7 @@ export const useCheckoutStore = create<CheckoutState>((set, get) => ({
     building: '',
     apartment: '',
     postal_code: '',
+    zone: '',
     extra_address: undefined,
   },
 
