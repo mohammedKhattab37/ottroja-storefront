@@ -12,7 +12,6 @@ import { cn } from '@/lib/utils'
 import { useCartStore } from '@/stores/cart'
 import { useCheckoutStore } from '@/stores/checkout'
 import { LogOut, Settings, User, UserRound } from 'lucide-react'
-import { useLocale } from 'next-intl'
 import Image from 'next/image'
 import { useCallback, useEffect, useState } from 'react'
 import { getCustomerSession } from '../../_auth/_actions/get-session'
@@ -27,8 +26,7 @@ interface ProfileProps {
 }
 
 export function Profile({ authT, direction, userButtonText }: ProfileProps) {
-  const locale = useLocale()
-  const isRTL = locale === 'ar'
+  const isRTL = direction === 'rtl'
   const [customer, setCustomer] = useState<CustomerUser | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
@@ -89,7 +87,7 @@ export function Profile({ authT, direction, userButtonText }: ProfileProps) {
         </span>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="border-secondary focus:ring-primary h-fit rounded-full border-[1.5px] p-2 transition-colors hover:bg-gray-50 focus:ring-2 focus:outline-none">
+            <button className="border-secondary focus:ring-primary h-fit min-w-8 rounded-full border-[1.5px] transition-colors hover:bg-gray-50 focus:ring-2 focus:outline-none">
               {customer.image ? (
                 <Image
                   src={customer.image}
@@ -99,12 +97,18 @@ export function Profile({ authT, direction, userButtonText }: ProfileProps) {
                   className="size-4 rounded-full object-cover"
                 />
               ) : (
-                <UserRound className="size-4" />
+                <Image
+                  src={'/assets/user-avatar.png'}
+                  alt={''}
+                  width={20}
+                  height={20}
+                  className="size-8 rounded-full"
+                />
               )}
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            align={isRTL ? 'start' : 'end'}
+            align={isRTL ? 'end' : 'start'}
             className={cn('w-56', isRTL && 'text-right')}
           >
             <DropdownMenuLabel className="font-normal">
