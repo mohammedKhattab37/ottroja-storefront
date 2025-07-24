@@ -1,3 +1,4 @@
+import { Bundle } from '@/app/[locale]/(main)/_actions/get-bundles'
 import { getCustomerSession } from '@/app/[locale]/(main)/_auth/_actions/get-session'
 import {
   getServerCart,
@@ -24,7 +25,8 @@ export interface CartItem {
 
   productVariant?: ProductVariant
   productVariantId?: string
-  //bundle?: Bundle
+  bundle?: Bundle
+  bundleId?: string
 }
 
 interface CartState {
@@ -82,10 +84,12 @@ export const useCartStore = create<CartState>()(
           get().loadFromServer()
         } else {
           const items = get().items
-          const existingItem = items.find(
-            (item) =>
-              item.id === newItem.id && item.productVariant?.id === newItem.productVariant?.id,
-          )
+          const existingItem = newItem.bundleId
+            ? items.find((item) => item.id === newItem.id && item.bundle?.id === newItem.bundle?.id)
+            : items.find(
+                (item) =>
+                  item.id === newItem.id && item.productVariant?.id === newItem.productVariant?.id,
+              )
 
           // Update quantity of existing item
           if (existingItem) {
@@ -143,7 +147,8 @@ export const useCartStore = create<CartState>()(
 
       getSubtotal: () => {
         return get().items.reduce(
-          (total, item) => total + (item.productVariant?.price || 0) * item.quantity,
+          (total, item) =>
+            total + (item.productVariant?.price || item.bundle?.bundlePrice || 0) * item.quantity,
           0,
         )
       },
@@ -152,7 +157,8 @@ export const useCartStore = create<CartState>()(
         const delivery = noDelivery ? 0 : get().delivery
         const couponAmount = get().couponAmount
         const totalPrice = get().items.reduce(
-          (total, item) => total + (item.productVariant?.price || 0) * item.quantity,
+          (total, item) =>
+            total + (item.productVariant?.price || item.bundle?.bundlePrice || 0) * item.quantity,
           0,
         )
         return totalPrice + delivery - couponAmount

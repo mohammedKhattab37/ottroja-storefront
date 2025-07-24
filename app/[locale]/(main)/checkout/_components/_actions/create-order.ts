@@ -10,8 +10,8 @@ export interface OrderData {
     orderItems?: {
       quantity: number
       unitPrice: number
-      productVariantId: string
-      //bundleId:string
+      productVariantId?: string
+      bundleId?: string
     }[]
     customerId?: string
     coupon_code: string

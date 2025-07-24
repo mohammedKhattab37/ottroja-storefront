@@ -7,6 +7,7 @@ import { useCartStore } from '@/stores/cart'
 import { Trash } from 'lucide-react'
 import { useLocale } from 'next-intl'
 import Image from 'next/image'
+import { Bundle } from '../../_actions/get-bundles'
 import { ProductVariant } from '../../products/_actions/types'
 
 export interface cartDrawerItem {
@@ -19,6 +20,8 @@ export interface cartDrawerItem {
 
   productVariant?: ProductVariant
   productVariantId?: string
+  bundle?: Bundle
+  bundleId?: string
 }
 
 export function Cart({ t }: { t: (key: string) => string }) {
@@ -88,8 +91,8 @@ export function CartItem({
             </Link>
             <span className="text-xs font-medium">
               {locale == 'ar'
-                ? item.productVariant?.variant_name_ar
-                : item.productVariant?.variant_name_en}
+                ? item.productVariant?.variant_name_ar || item.bundle?.briefTitleAr
+                : item.productVariant?.variant_name_en || item.bundle?.briefTitleEn}
             </span>
           </div>
           {!disableControls && (
@@ -105,7 +108,9 @@ export function CartItem({
         </div>
         <div className="flex justify-between">
           <span className="content-end text-sm">
-            <span className="font-bold">{item.productVariant?.price} </span>
+            <span className="font-bold">
+              {item.productVariant?.price || item.bundle?.bundlePrice}{' '}
+            </span>
             <span className="text-xs font-semibold">/ {translatedCurrency}</span>
           </span>
           {item.id && !disableControls && (
