@@ -12,19 +12,16 @@ function NavItems({ direction }: NavItemsProps) {
 
   const displayNavLinks = [
     { title: t('home'), url: '' },
-    { title: t('products'), url: '/products' },
     { title: t('about'), url: '/about-us' },
-    { title: t('contact'), url: '/contact-us' },
+    { title: t('products'), url: '/products' },
   ]
 
   const pathname = usePathname()
 
   return (
     <div
-      className={cn(
-        'text-secondary border-t-header-border container-padding flex flex-wrap justify-center gap-5 rounded-b-sm border-t py-5 md:gap-10',
-        direction == 'rtl' ? 'flex-row-reverse' : '',
-      )}
+      dir={direction}
+      className="text-secondary border-t-header-border container-padding flex flex-wrap justify-center gap-5 rounded-b-sm border-t py-5 md:gap-10"
     >
       {displayNavLinks.map((link) => {
         const linkUrl = link.url || '/'

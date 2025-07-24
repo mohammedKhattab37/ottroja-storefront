@@ -1,12 +1,12 @@
-import BannerButton from '@/components/banner-button'
 import QuantityControls from '@/components/fragments/quantity-controls'
 import { Button } from '@/components/ui/button'
-import { Link } from '@/i18n/navigation'
+import { Link, useRouter } from '@/i18n/navigation'
 import { paymentIcons } from '@/lib/constants'
 import { useCartStore } from '@/stores/cart'
 import { Trash } from 'lucide-react'
 import { useLocale } from 'next-intl'
 import Image from 'next/image'
+import { Dispatch, SetStateAction } from 'react'
 import { Bundle } from '../../_actions/get-bundles'
 import { ProductVariant } from '../../products/_actions/types'
 
@@ -24,13 +24,25 @@ export interface cartDrawerItem {
   bundleId?: string
 }
 
-export function Cart({ t }: { t: (key: string) => string }) {
-  const { items, getSubtotal } = useCartStore()
+export function Cart({
+  t,
+  setIsDrawerOpen,
+}: {
+  t: (key: string) => string
+  setIsDrawerOpen: Dispatch<SetStateAction<boolean>>
+}) {
+  const { items, getSubtotal, isLoading } = useCartStore()
   const locale = useLocale()
   const translatedCurrency = locale == 'ar' ? 'جنيه مصري' : 'EGP'
+  const router = useRouter()
 
   return (
     <div className="flex h-full flex-col justify-between">
+      {isLoading && (
+        <div className="bg-filter-trigger/50 align-items-center absolute h-full w-full content-center">
+          <div className="border-t-input m-auto h-10 w-10 animate-spin rounded-full border-4 border-black/40"></div>
+        </div>
+      )}
       <div className="grid divide-y overflow-y-auto p-5">
         {items.map((item: Omit<cartDrawerItem, 'cartId'>, index) => (
           <CartItem key={index} item={item} />
@@ -44,13 +56,17 @@ export function Cart({ t }: { t: (key: string) => string }) {
             <span className="text-xs">/ {translatedCurrency}</span>
           </span>
         </div>
-        <BannerButton
-          text={t('go_payment')}
+        <Button
           disabled={items.length == 0}
-          url="/checkout"
-          size="sm"
+          variant={'secondary'}
+          onClick={() => {
+            router.push('/checkout')
+            setIsDrawerOpen(false)
+          }}
           className="w-full flex-1 rounded-full font-semibold"
-        />
+        >
+          {t('go_payment')}
+        </Button>
         <div className="flex w-fit gap-2 justify-self-center rounded-md px-2 py-0">
           {paymentIcons.map((icon) => (
             <Image

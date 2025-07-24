@@ -1,5 +1,6 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -44,18 +45,15 @@ function LangSwitch() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button
-          type="button"
-          className="border-secondary focus:ring-primary h-fit rounded-full border-[1.5px] p-2 transition-colors hover:bg-gray-50 focus:ring-2 focus:outline-none"
-        >
+        <Button type="button" size={'icon'} variant={'vanilla'} className="h-fit w-fit self-center">
           <Image
             src={currentLang.flag}
             alt={currentLang.name}
-            width={16}
-            height={16}
-            className="size-4"
+            width={30}
+            height={30}
+            //className="h-full w-full"
           />
-        </button>
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-36">
         {routing.locales.map((lang) => {
@@ -69,9 +67,9 @@ function LangSwitch() {
               <Image
                 src={langInfo.flag}
                 alt={langInfo.name}
-                width={16}
-                height={16}
-                className={cn('mr-2 size-4', locale !== lang ? 'opacity-75' : '')}
+                width={20}
+                height={20}
+                className={cn('mr-2 size-5', locale !== lang ? 'opacity-75' : '')}
               />
               <span className={cn('text-sm', locale === lang ? 'font-medium' : '')}>
                 {getLanguageDisplayName(lang)}

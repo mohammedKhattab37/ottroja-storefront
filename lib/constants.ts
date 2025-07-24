@@ -75,7 +75,6 @@ export const zoneDelivery = [
 ]
 
 export const importantLinks = [
-  { name_en: 'Our Team', name_ar: 'فريقنا', url: '/our-team' },
   { name_en: 'Terms & Conditions', name_ar: 'الشروط و الاحكام', url: '/terms-conditions' },
   { name_en: 'Privacy Policy', name_ar: 'سياسة الخصوصية', url: '/privacy-policy' },
   { name_en: 'Return Policy', name_ar: 'سياسة الإسترجاع', url: '/return-policy' },
@@ -84,6 +83,4 @@ export const importantLinks = [
 export const infoCenterLinks = [
   { name_en: 'About Ottroja', name_ar: 'عن اترجة', url: '/about-us' },
   { name_en: 'Products', name_ar: 'المنتجات', url: '/products' },
-  { name_en: 'Ratings', name_ar: 'التقييمات', url: '/ratings' },
-  { name_en: 'Images', name_ar: 'الصور', url: '/images' },
 ]

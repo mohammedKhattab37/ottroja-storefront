@@ -7,18 +7,20 @@ function QuantityControls({
   addQuantity,
   removeQuantity,
   size = 'big',
+  disabled = false,
 }: {
   quantity: number
   addQuantity: () => void
   removeQuantity: () => void
   size?: 'small' | 'big'
+  disabled?: boolean
 }) {
   return (
     <div className="border-secondary bg-input flex items-center gap-2 overflow-hidden rounded-full border text-sm font-bold">
       <Button
         variant="vanilla"
         size="icon"
-        disabled={quantity == 1}
+        disabled={quantity == 1 || disabled}
         onClick={removeQuantity}
         className={size == 'big' ? 'size-9' : 'size-8'}
       >
@@ -28,6 +30,7 @@ function QuantityControls({
       <Button
         variant="vanilla"
         size="icon"
+        disabled={disabled}
         onClick={addQuantity}
         className={size == 'big' ? 'size-9' : 'size-8'}
       >
