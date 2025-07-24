@@ -28,9 +28,10 @@ function ProductBigCard({ direction, data }: { direction: string; data: Product 
         <Image
           alt="product"
           src={data.images[0].url}
-          width={120}
-          height={210}
-          className="absolute -top-20"
+          width={0}
+          height={240}
+          sizes="100vw"
+          className="absolute -top-20 h-[180px] w-auto"
         />
       </div>
       <div className="grid justify-items-center gap-y-7 pt-36">
