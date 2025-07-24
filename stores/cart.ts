@@ -77,6 +77,7 @@ export const useCartStore = create<CartState>()(
       },
 
       addItem: async (newItem) => {
+        set({ isLoading: true })
         const isLoggedIn = await get().isUserLoggedIn()
         // save on server if customer registered
         if (isLoggedIn) {
@@ -105,10 +106,12 @@ export const useCartStore = create<CartState>()(
             const item: CartItem = newItem
             set({ items: [...items, item] })
           }
+          set({ isLoading: false })
         }
       },
 
       removeItem: async (itemId) => {
+        set({ isLoading: true })
         const isLoggedIn = await get().isUserLoggedIn()
 
         set({
@@ -117,6 +120,7 @@ export const useCartStore = create<CartState>()(
 
         // remove from server if customer registered
         if (isLoggedIn) removeItemFromDB(itemId)
+        set({ isLoading: false })
       },
 
       clearCartItems: () => {

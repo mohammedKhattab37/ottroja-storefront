@@ -68,7 +68,7 @@ function ProductPageClient({
   const [quantity, setQuantity] = useState(1)
   const t = useTranslations('cart')
   const productT = useTranslations('products')
-  const addItem = useCartStore((state) => state.addItem)
+  const { addItem, isLoading } = useCartStore()
 
   const handleAddToCart = async () => {
     try {
@@ -130,13 +130,13 @@ function ProductPageClient({
             <p className="text-card-foreground text-sm font-bold">
               <span className="text-2xl"> {selectedVariant.price}</span> / {translatedCurrency}
             </p>
-            <div className="grid auto-cols-auto grid-flow-col gap-2">
+            <div className="flex w-full flex-wrap gap-2">
               {translatedProduct.variants.map((variant) => {
                 const isActive = selectedVariant.id == variant.id
                 return (
                   <Button
                     onClick={() => setSelectedVariant(variant)}
-                    className={'rounded-lg p-6 text-xs font-bold'}
+                    className={'flex-1 rounded-lg p-6 text-xs font-bold'}
                     variant={isActive ? 'secondary' : 'input'}
                     key={variant.id}
                   >
@@ -152,12 +152,14 @@ function ProductPageClient({
               type="button"
               onClick={handleAddToCart}
               variant={'secondary'}
+              disabled={isLoading}
               className="flex-1 rounded-full p-5 text-xs font-semibold"
             >
               {t('add')}
             </Button>
             <QuantityControls
               quantity={quantity}
+              disabled={isLoading}
               addQuantity={() => setQuantity((old) => old + 1)}
               removeQuantity={() => setQuantity((old) => old - 1)}
             />
