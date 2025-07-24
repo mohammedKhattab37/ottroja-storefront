@@ -24,7 +24,7 @@ export type CheckoutPaymentData = z.infer<typeof paymentSchema>
 
 function PaymentMethodStep({ t }: { t: (key: string) => string }) {
   const { next, customerId, couponCode, shippingAddressId, isSubmitting } = useCheckoutStore()
-  const { isUserLoggedIn, items, delivery } = useCartStore()
+  const { isUserLoggedIn, items, delivery, clearCartItems } = useCartStore()
   const [copied, setCopied] = useState(false)
 
   const form = useForm<CheckoutPaymentData>({
@@ -70,6 +70,7 @@ function PaymentMethodStep({ t }: { t: (key: string) => string }) {
             quantity: item.quantity,
             unitPrice: item.productVariant?.price || 0,
             productVariantId: item.productVariantId || '',
+            bundleId: item.bundleId || '',
           })),
           customerId: customerId || undefined,
           coupon_code: couponCode || '',
@@ -78,7 +79,11 @@ function PaymentMethodStep({ t }: { t: (key: string) => string }) {
         },
       })
 
-      if (result) next()
+      if (result) {
+        next()
+        clearCartItems()
+        localStorage.removeItem('cart-storage')
+      }
     } catch (error) {
       console.log('Validation error:', error)
       form.trigger()
