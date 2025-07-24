@@ -464,6 +464,6 @@ Make sure your frontend URL is configured in the environment variables:
 
 ```bash
 FRONTEND_URL="http://localhost:3000"
-NEXT_PUBLIC_API_URL="http://localhost:3000"
+NEXT_PUBLIC_BACKEND_URL="http://localhost:3000"
 BETTER_AUTH_SECRET="your-secret-key-here"
 ```

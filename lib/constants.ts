@@ -1,4 +1,4 @@
-export const apiUrl = process.env.API_URL || 'http://localhost:3000/api'
+export const apiUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3000/api'
 
 export const locals = [
   { name: 'en', flag: '/assets/locals/english.svg' },
@@ -6,10 +6,6 @@ export const locals = [
 ]
 
 export const paymentIcons = [
-  {
-    name: 'paypal.svg',
-    size: 50,
-  },
   {
     name: 'visa.svg',
     size: 28,
