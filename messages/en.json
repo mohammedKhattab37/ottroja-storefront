@@ -2,7 +2,7 @@
   "navigation": {
     "home": "Home Page",
     "products": "Products",
-    "about": "About us",
+    "about": "About Ottroja",
     "contact": "Contact us"
   },
   "homePage": {
@@ -210,7 +210,8 @@
     },
     "result-step":{
       "title":"Order Placed",
-      "sub-title":"Thank you. Your order has been successfully confirmed. "
+      "sub-title":"Thank you. Your order has been successfully confirmed. ",
+      "redirect":"Redirecting you to the Homepage in:"
     }
   },
   "auth":{
