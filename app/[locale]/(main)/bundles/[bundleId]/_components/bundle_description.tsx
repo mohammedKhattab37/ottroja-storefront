@@ -69,13 +69,18 @@ function BundleDescription({
                 content={item.ingredients}
               />
             ))}
-            {formattedItems.map((item) => (
-              <DescriptionSection
-                key={item.name}
-                title={t('description.warning')}
-                content={item.warnings}
-              />
-            ))}
+
+            <div className="rounded-lg bg-[#F2A31914] p-4">
+              {formattedItems.map((item) => (
+                <DescriptionSection
+                  key={item.name}
+                  title={t('description.warning')}
+                  text_color="text-[#B1750C]"
+                  list_indicator="/assets/illustrations/warning-list.svg"
+                  content={item.warnings}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

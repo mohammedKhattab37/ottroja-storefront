@@ -11,7 +11,7 @@ function ProductBigCard({ direction, data }: { direction: string; data: Product 
   const locale = useLocale()
 
   return (
-    <div className="bg-card border-border text-card-foreground relative rounded-sm border-[1px] p-6 drop-shadow-md">
+    <div className="bg-card border-border text-card-foreground relative rounded-sm border-[1px] p-4 drop-shadow-md">
       <div className="absolute top-0 left-0 h-20 w-full overflow-hidden">
         <div
           className={cn(
@@ -53,16 +53,20 @@ function ProductBigCard({ direction, data }: { direction: string; data: Product 
             {locale === 'ar' ? data.name_ar : data.name_en}
           </Link>
         </div>
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-5">
           <Button
             dir={direction}
+            onClick={() => window.open(`/products/${data.slug}`, '_self')}
             className="border-card-foreground hover:border-primary hover:text-primary text-card-foreground rounded-full border-[1px] bg-transparent p-3 text-sm hover:bg-transparent"
           >
             <ShoppingCart />
             {t('buttons.buy')}
           </Button>
           <span dir={direction}>
-            <span className="font-bold">{data.variants[0].price} </span>
+            <span className="text-sm font-bold">
+              {data.variants[0].price}{' '}
+              <span className="font-semibold">/ {locale == 'ar' ? 'جنية مصري' : 'EGP'}</span>
+            </span>
           </span>
         </div>
       </div>

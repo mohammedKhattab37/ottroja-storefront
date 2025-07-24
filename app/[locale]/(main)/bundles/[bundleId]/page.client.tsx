@@ -12,6 +12,7 @@ import BundleDescription from './_components/bundle_description'
 function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
   const locale = useLocale()
   const direction = locale == 'ar' ? 'rtl' : 'ltr'
+  const translatedCurrency = locale == 'ar' ? 'جنيه مصري' : 'EGP'
 
   const translatedBundle =
     locale == 'ar'
@@ -80,8 +81,10 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
           {/* item/price */}
           <div className="bg-filter-trigger grid gap-5 rounded-lg p-5" dir={direction}>
             <p className="text-card-foreground flex items-center gap-2 font-bold">
-              <span className="text-2xl"> {bundleData.bundlePrice}</span> / جنيه مصري
-              <span className="text-xs line-through"> {bundleData.originalPrice} / جنيه مصري</span>
+              <span className="text-2xl"> {bundleData.bundlePrice}</span> /{translatedCurrency}
+              <span className="text-xs line-through">
+                {bundleData.originalPrice} / {translatedCurrency}
+              </span>
             </p>
             <div className="grid grid-cols-2 gap-2 p-4">
               <p className="text-card-foreground col-span-2 pb-4 font-bold">

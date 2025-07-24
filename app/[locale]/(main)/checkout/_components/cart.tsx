@@ -23,6 +23,8 @@ export interface cartDrawerItem {
 
 export function Cart({ t }: { t: (key: string) => string }) {
   const { items, getSubtotal } = useCartStore()
+  const locale = useLocale()
+  const translatedCurrency = locale == 'ar' ? 'جنيه مصري' : 'EGP'
 
   return (
     <div className="flex h-full flex-col justify-between">
@@ -36,7 +38,7 @@ export function Cart({ t }: { t: (key: string) => string }) {
           <p className="font-bold">{t('total')}</p>
           <span className="content-end font-bold">
             <span className="text-lg">{getSubtotal()} </span>
-            <span className="text-xs">/ جنيه مصري</span>
+            <span className="text-xs">/ {translatedCurrency}</span>
           </span>
         </div>
         <BannerButton
@@ -71,6 +73,7 @@ export function CartItem({
 }) {
   const { updateQuantity, removeItem } = useCartStore()
   const locale = useLocale()
+  const translatedCurrency = locale == 'ar' ? 'جنيه مصري' : 'EGP'
 
   return (
     <div className="flex gap-3 py-4">
@@ -103,7 +106,7 @@ export function CartItem({
         <div className="flex justify-between">
           <span className="content-end text-sm">
             <span className="font-bold">{item.productVariant?.price} </span>
-            <span className="text-xs font-semibold">/ جنيه مصري</span>
+            <span className="text-xs font-semibold">/ {translatedCurrency}</span>
           </span>
           {item.id && !disableControls && (
             <QuantityControls

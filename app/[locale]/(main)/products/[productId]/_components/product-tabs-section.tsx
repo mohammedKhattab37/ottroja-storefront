@@ -72,12 +72,17 @@ function ProductTabsSection({ productT, direction, description }: ProductTabsPro
                     content={description.ingredients}
                   />
                 )}
-                {description.warnings && (
-                  <DescriptionSection
-                    title={productT('description.warning')}
-                    content={description.warnings}
-                  />
-                )}
+
+                <div className="rounded-lg bg-[#F2A31914] p-4">
+                  {description.warnings && (
+                    <DescriptionSection
+                      title={productT('description.warning')}
+                      text_color="text-[#B1750C]"
+                      list_indicator="/assets/illustrations/warning-list.svg"
+                      content={description.warnings}
+                    />
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -141,15 +146,19 @@ export default ProductTabsSection
 
 export function DescriptionSection({
   title,
+  text_color,
   content,
+  list_indicator = '/assets/illustrations/list-indicator.svg',
   itemsPerLine = 1,
 }: {
   title: string
+  text_color?: string
   content: string | string[]
+  list_indicator?: string
   itemsPerLine?: number
 }) {
   return (
-    <div>
+    <div className={text_color ? text_color : ''}>
       <p className="font-bold">{title}</p>
       {Array.isArray(content) ? (
         <ul
@@ -157,12 +166,8 @@ export function DescriptionSection({
         >
           {content.map((item, idx) => (
             <li className="flex items-start gap-2" key={idx}>
-              <Image
-                src={'/assets/illustrations/list-indicator.svg'}
-                alt={''}
-                width={20}
-                height={20}
-              />
+              <Image src={list_indicator} alt={''} width={20} height={20} />
+
               <span className="leading-6">{item}</span>
             </li>
           ))}

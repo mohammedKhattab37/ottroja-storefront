@@ -8,7 +8,7 @@ function SecondBannerSection() {
   const contentDirection = locale == 'ar' ? 'rtl' : 'ltr'
 
   return (
-    <div className="container-padding">
+    <div className="container-padding -mt-20">
       <div
         className="bg-card border-border relative overflow-hidden rounded-md border-[1px] px-6 py-10 sm:px-8 lg:px-16"
         dir={contentDirection}
@@ -39,7 +39,7 @@ function SecondBannerSection() {
           className="absolute end-0 top-3/4 block md:end-[45%] md:top-1/2 md:hidden lg:block"
           style={{ transform: contentDirection == 'ltr' ? 'scaleX(-1)' : undefined }}
         />
-        <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-8 lg:gap-12">
+        <div className="relative z-10 grid grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-8 lg:gap-12">
           {dummyBanner2.image && (
             <div className="order-first flex justify-center md:order-last md:justify-end">
               <Image

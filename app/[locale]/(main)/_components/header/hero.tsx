@@ -15,7 +15,6 @@ import { useEffect, useState } from 'react'
 // }
 
 function Hero() {
-
   const [api, setApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
   const [count, setCount] = useState(0)
@@ -48,7 +47,7 @@ function Hero() {
             delay: 5500,
           }),
         ]}
-        className="bg-filter-trigger mx-auto w-full relative"
+        className="bg-filter-trigger relative mx-auto w-full"
       >
         <CarouselContent>
           {dummyHeroSlides &&
@@ -56,13 +55,13 @@ function Hero() {
             dummyHeroSlides.map((hero, index) => {
               return (
                 <CarouselItem key={hero.id || index}>
-                  <div className="w-full">
+                  <div className="h-full w-full">
                     <Image
                       alt="hero"
                       src={hero.image}
                       width={1920}
                       height={600}
-                      className="h-[400px] w-full object-cover md:h-[500px] lg:h-[600px] rounded-[5px]"
+                      className="rounded-[5px] object-cover"
                     />
                   </div>
                 </CarouselItem>
@@ -70,11 +69,11 @@ function Hero() {
             })}
         </CarouselContent>
         {dummyHeroSlides && dummyHeroSlides.length > 0 && count > 1 && (
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+          <div className="absolute bottom-4 left-1/2 z-10 flex -translate-x-1/2 transform space-x-2">
             {Array.from({ length: count }).map((_, index) => (
               <button
                 key={index}
-                className={`bg-white h-3 w-3 cursor-pointer rounded-full transition-all duration-300 hover:scale-110 shadow-md ${
+                className={`h-3 w-3 cursor-pointer rounded-full bg-white shadow-md transition-all duration-300 hover:scale-110 ${
                   index + 1 === current ? 'scale-110' : 'opacity-60'
                 }`}
                 onClick={() => api?.scrollTo(index)}
