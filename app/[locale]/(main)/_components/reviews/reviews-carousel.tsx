@@ -43,16 +43,16 @@ function ReviewsCarousel({ direction }: { direction: string }) {
             <CarouselItem
               key={i}
               dir={direction}
-              className="flex flex-shrink-0 basis-1/3 justify-center"
+              className="flex flex-shrink-0 basis-full md:basis-1/3 justify-center"
             >
               <div
                 className={cn(
                   'text-secondary border-border bg-card grid overflow-hidden transition-all duration-500',
                   {
-                    // Side reviews - exact specifications
-                    'h-[270px] w-[575px] rounded-[10px] border-[1px] opacity-50': i !== current - 1,
-                    // Center review - full size with exact specifications
-                    'h-[311px] w-[661px] scale-100 rounded-[11.5px] border-[1.15px] opacity-100':
+                    // Side reviews - responsive sizing
+                    'h-[270px] w-[300px] md:w-[575px] rounded-[10px] border-[1px] opacity-50': i !== current - 1,
+                    // Center review - responsive sizing
+                    'h-[311px] w-[330px] md:w-[661px] scale-100 rounded-[11.5px] border-[1.15px] opacity-100':
                       i === current - 1,
                   },
                 )}
@@ -102,7 +102,7 @@ function ReviewsCarousel({ direction }: { direction: string }) {
                 </div>
                 <div className="flex flex-col items-start">
                   <p className="mb-[20px] font-bold">{item.title}</p>
-                  <p className="text-sm font-normal">{item.content}</p>
+                  <p className="text-sm font-normal line-clamp-4 md:line-clamp-none">{item.content}</p>
                 </div>
               </div>
             </CarouselItem>
