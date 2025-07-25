@@ -27,7 +27,7 @@ function ReviewsCarousel({ direction }: { direction: string }) {
   }, [api])
 
   return (
-    <div className="mt-16 w-screen max-w-full overflow-x-hidden">
+    <div className="mt-16 flex h-[400px] w-screen max-w-full items-center overflow-x-hidden">
       <Carousel
         setApi={setApi}
         className="w-full max-w-full"
@@ -38,36 +38,41 @@ function ReviewsCarousel({ direction }: { direction: string }) {
           dragFree: true,
         }}
       >
-        <CarouselContent className="flex items-center">
+        <CarouselContent className="flex h-full items-center">
           {dummyReviews.map((item, i) => (
             <CarouselItem
               key={i}
               dir={direction}
-              className="flex justify-center basis-1/3 flex-shrink-0"
+              className="flex flex-shrink-0 basis-1/3 justify-center"
             >
               <div
                 className={cn(
                   'text-secondary border-border bg-card grid overflow-hidden transition-all duration-500',
                   {
                     // Side reviews - exact specifications
-                    'w-[575px] h-[270px] rounded-[10px] border-[1px] opacity-50': i !== current - 1,
+                    'h-[270px] w-[575px] rounded-[10px] border-[1px] opacity-50': i !== current - 1,
                     // Center review - full size with exact specifications
-                    'w-[661px] h-[311px] rounded-[11.5px] border-[1.15px] opacity-100 scale-100': i === current - 1,
+                    'h-[311px] w-[661px] scale-100 rounded-[11.5px] border-[1.15px] opacity-100':
+                      i === current - 1,
                   },
                 )}
-                style={i === current - 1 ? {
-                  gap: '11.5px',
-                  paddingTop: '39.12px',
-                  paddingRight: '40.27px',
-                  paddingBottom: '39.12px',
-                  paddingLeft: '40.27px',
-                } : {
-                  gap: '10px',
-                  paddingTop: '34px',
-                  paddingRight: '35px',
-                  paddingBottom: '34px',
-                  paddingLeft: '35px',
-                }}
+                style={
+                  i === current - 1
+                    ? {
+                        gap: '11.5px',
+                        paddingTop: '39.12px',
+                        paddingRight: '40.27px',
+                        paddingBottom: '39.12px',
+                        paddingLeft: '40.27px',
+                      }
+                    : {
+                        gap: '10px',
+                        paddingTop: '34px',
+                        paddingRight: '35px',
+                        paddingBottom: '34px',
+                        paddingLeft: '35px',
+                      }
+                }
               >
                 <div className="flex items-center gap-4">
                   <Image
@@ -95,9 +100,9 @@ function ReviewsCarousel({ direction }: { direction: string }) {
                     </div>
                   </div>
                 </div>
-                <div className="grid gap-7">
-                  <p className="font-bold">{item.title}</p>
-                  <p className="line-clamp-2 text-sm font-normal">{item.content}</p>
+                <div className="flex flex-col items-start">
+                  <p className="mb-[20px] font-bold">{item.title}</p>
+                  <p className="text-sm font-normal">{item.content}</p>
                 </div>
               </div>
             </CarouselItem>
