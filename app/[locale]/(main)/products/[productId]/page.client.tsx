@@ -43,6 +43,7 @@ function ProductPageClient({
             price: item.price,
             variant_name: item.variant_name_ar,
             compare_at_price: item.compare_at_price,
+            images: item.images,
           })),
           benefits: productData.benefits_ar,
           ingredients: productData.ingredients_ar,
@@ -58,6 +59,7 @@ function ProductPageClient({
             price: item.price,
             variant_name: item.variant_name_en,
             compare_at_price: item.compare_at_price,
+            images: item.images,
           })),
           benefits: productData.benefits_en,
           ingredients: productData.ingredients_en,
@@ -78,7 +80,7 @@ function ProductPageClient({
         name_en: productData.name_en,
         quantity,
         slug: productData.slug,
-        image: productData.images[0].url,
+        image: selectedVariant.images[0].url,
         productVariantId: selectedVariant.id,
         productVariant: productData.variants.find((variant) => variant.id == selectedVariant.id),
       })
@@ -90,7 +92,7 @@ function ProductPageClient({
   }
 
   return (
-    <div className="overflow-hidden pb-64">
+    <div className="max-width-container overflow-hidden pb-64">
       <div className="text-secondary grid grid-cols-1 gap-5 md:grid-cols-2">
         <div className={'order-2 md:order-1'}>
           <div className="bg-filter-trigger relative w-full overflow-hidden rounded-lg p-5">
@@ -166,7 +168,7 @@ function ProductPageClient({
           </div>
         </div>
 
-        <ProductImageGallery productImages={productData.images} />
+        <ProductImageGallery productImages={selectedVariant.images} />
       </div>
 
       {/* Product details & reviews */}

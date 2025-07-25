@@ -1,13 +1,21 @@
 import { Button } from '@/components/ui/button'
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ProductImage } from '../../_actions/types'
 
 const ProductImageGallery = ({ productImages }: { productImages: ProductImage[] }) => {
   const [selectedImage, setSelectedImage] = useState(productImages[0])
   const [startIndex, setStartIndex] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
+
+  // Auto-select first image when variant changes
+  useEffect(() => {
+    if (productImages.length > 0) {
+      setSelectedImage(productImages[0])
+      setStartIndex(0)
+    }
+  }, [productImages])
 
   const visibleThumbnails = 4
 

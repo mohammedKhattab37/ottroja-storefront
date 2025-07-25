@@ -11,6 +11,7 @@ export interface ProductVariant {
   variant_name_en?: string
   variant_name_ar?: string
   compare_at_price?: number | null
+  images: ProductImage[]
 }
 
 export interface ProductImage {
@@ -45,7 +46,6 @@ export interface Product {
   updatedAt: string
   category?: Category
   variants: ProductVariant[]
-  images: ProductImage[]
 }
 
 export interface ProductsResponse {

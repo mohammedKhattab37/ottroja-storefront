@@ -27,7 +27,7 @@ function ProductBigCard({ direction, data }: { direction: string; data: Product 
       <div className="flex justify-center">
         <Image
           alt="product"
-          src={data.images[0].url}
+          src={data.variants[0].images[0].url}
           width={180}
           height={180}
           quality={90}
