@@ -27,7 +27,7 @@ function ReviewsCarousel({ direction }: { direction: string }) {
   }, [api])
 
   return (
-    <div className="mt-16 w-screen max-w-full overflow-hidden">
+    <div className="mt-16 w-screen max-w-full overflow-x-hidden">
       <Carousel
         setApi={setApi}
         className="w-full max-w-full"
