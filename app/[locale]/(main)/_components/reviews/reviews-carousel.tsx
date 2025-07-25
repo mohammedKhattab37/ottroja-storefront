@@ -38,7 +38,14 @@ function ReviewsCarousel({ direction }: { direction: string }) {
       >
         <CarouselContent className="h-max min-h-96 p-20 lg:p-0">
           {dummyReviews.map((item, i) => (
-            <CarouselItem key={i} dir={direction} className="content-center lg:basis-1/2 lg:ps-20">
+            <CarouselItem
+              key={i}
+              dir={direction}
+              className={cn(
+                'content-center lg:basis-1/2',
+                direction == 'rtl' ? 'lg:ps-20' : 'lg:pe-20',
+              )}
+            >
               <div
                 className={cn(
                   'text-secondary border-border bg-card grid scale-120 gap-6 overflow-hidden rounded-lg border p-10 transition-all duration-500',
