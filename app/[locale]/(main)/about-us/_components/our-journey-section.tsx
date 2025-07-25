@@ -3,8 +3,8 @@ import Image from 'next/image'
 
 function OurJourneySection({ t }: { t: (key: string) => string }) {
   return (
-    <div className="full-width-section bg-filter-trigger pt-20 pb-40">
-      <div className="place-items-center pt-20 text-center">
+    <div className="bg-filter-trigger w-full pt-20 pb-40">
+      <div className="max-width-container place-items-center pt-20 text-center">
         <p className="pb-10 text-2xl font-bold">{t('title')}</p>
         <div className="w-full text-sm leading-9 font-medium md:w-[90%] lg:w-2/3">
           <p>{t('line1')}</p>
