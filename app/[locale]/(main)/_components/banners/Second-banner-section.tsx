@@ -8,7 +8,7 @@ function SecondBannerSection() {
   const contentDirection = locale == 'ar' ? 'rtl' : 'ltr'
 
   return (
-    <div className="container-padding -mt-20">
+    <div className="max-width-container -mt-20">
       <div
         className="bg-card border-border relative overflow-hidden rounded-md border-[1px] px-6 py-10 sm:px-8 lg:px-16"
         dir={contentDirection}

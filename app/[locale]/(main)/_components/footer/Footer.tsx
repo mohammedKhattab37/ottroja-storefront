@@ -26,7 +26,7 @@ function Footer({ categories }: { categories: Category[] }) {
 
   return (
     <footer className="bg-secondary text-secondary-foreground" dir={direction}>
-      <div className="relative px-5 py-28 md:px-20 lg:px-32 xl:px-24 2xl:px-44">
+      <div className="max-width-container relative py-28">
         <FooterServices services={footerServices} />
         <div className="mt-16 grid grid-cols-3 gap-10 lg:mt-0 xl:grid-cols-7 xl:gap-12">
           <div className="col-span-3 grid gap-4 xl:col-span-2">

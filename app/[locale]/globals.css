@@ -163,4 +163,12 @@
   .container-padding {
     @apply px-5 md:px-20 xl:px-24 2xl:px-56;
   }
+  
+  .max-width-container {
+    @apply mx-auto max-w-[1260px] ;
+  }
+  
+  .max-width-wrapper {
+    @apply mx-auto max-w-[1260px];
+  }
 }

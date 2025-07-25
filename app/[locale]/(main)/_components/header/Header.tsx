@@ -32,7 +32,7 @@ function Header() {
 
   return (
     <div className="mt-8" dir={locale != 'ar' ? 'rtl' : 'ltr'}>
-      <div className="container-padding flex flex-row-reverse items-center justify-between rounded-t-sm py-7 md:px-10">
+      <div className="max-width-container flex flex-row-reverse items-center justify-between rounded-t-sm py-7 md:px-10">
         <div className="flex w-full items-center justify-end gap-4 sm:gap-6 md:mb-0 md:w-fit md:gap-8">
           <div className="hidden items-center lg:grid">
             <InputWithIcon

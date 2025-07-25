@@ -35,7 +35,7 @@ function Hero() {
   }, [api])
 
   return (
-    <div className="container-padding relative rounded-sm py-6 drop-shadow-sm">
+    <div className="max-width-container relative rounded-sm py-6 drop-shadow-sm">
       <Carousel
         setApi={setApi}
         opts={{

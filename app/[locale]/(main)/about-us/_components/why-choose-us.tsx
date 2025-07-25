@@ -29,7 +29,7 @@ function WhyChooseUs({ t }: { t: (key: string) => string }) {
   ]
 
   return (
-    <div className="container-padding">
+    <div className="max-width-container">
       <div className="grid place-items-center gap-2 pb-20 text-center">
         <p className="mb-10 text-2xl font-bold">من نحن – شركة أترجة</p>
         <span className="w-full text-justify text-sm leading-9 font-medium md:w-[90%] md:text-right lg:w-2/3">

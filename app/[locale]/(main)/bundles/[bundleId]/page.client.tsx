@@ -59,7 +59,7 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
   }
 
   return (
-    <div className="container-padding overflow-hidden pb-64">
+    <div className="max-width-container overflow-hidden pb-64">
       <div className="text-secondary grid grid-cols-1 gap-5 md:grid-cols-2">
         <div className={'order-2 md:order-1'}>
           <div className="bg-filter-trigger relative min-h-32 w-full overflow-hidden rounded-lg p-5">

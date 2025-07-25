@@ -29,7 +29,7 @@ function FirstBannerSection({ bundleData }: { bundleData: Bundle }) {
         }
 
   return (
-    <div className="container-padding">
+    <div className="max-width-container">
       <Header title={t('sections.offers')} direction={contentDirection} />
       <div
         className="bg-card border-border relative mt-20 rounded-md border-[1px] px-6 py-10 sm:px-20 lg:px-16"

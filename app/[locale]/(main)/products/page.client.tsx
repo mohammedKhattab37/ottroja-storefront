@@ -38,7 +38,7 @@ export default function ProductsPageClient({
   }
 
   return (
-    <div className="text-secondary container-padding grid">
+    <div className="text-secondary max-width-container grid">
       <div className="relative bg-[#F7F1E1] p-32">
         <div>
           <Image
@@ -117,15 +117,17 @@ export default function ProductsPageClient({
 
             {/* Products Grid */}
             <div className="grid grid-cols-1 gap-x-5 gap-y-28 px-0 pt-32 sm:grid-cols-2 xl:grid-cols-3">
-              {products.filter(product => product.isActive).map((product) => (
-                <ProductBigCard
-                  key={product.id}
-                  direction={contentDirection}
-                  data={{
-                    ...product,
-                  }}
-                />
-              ))}
+              {products
+                .filter((product) => product.isActive)
+                .map((product) => (
+                  <ProductBigCard
+                    key={product.id}
+                    direction={contentDirection}
+                    data={{
+                      ...product,
+                    }}
+                  />
+                ))}
             </div>
           </div>
 

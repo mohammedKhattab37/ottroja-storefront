@@ -9,7 +9,7 @@ function ProductsSection({ FeaturedProducts }: { FeaturedProducts: Product[] }) 
   const contentDirection = locale == 'ar' ? 'rtl' : 'ltr'
 
   return (
-    <div className="container-padding">
+    <div>
       <Header title={t('sections.products')} direction={contentDirection} />
 
       <div className="grid grid-cols-1 gap-x-5 gap-y-28 px-16 pt-40 sm:px-20 md:grid-cols-2 md:px-0 lg:grid-cols-3 xl:grid-cols-4">

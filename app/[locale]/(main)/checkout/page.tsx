@@ -8,7 +8,7 @@ export default function CheckoutPage() {
   const direction = locale == 'ar' ? 'rtl' : 'ltr'
 
   return (
-    <div className="container-padding" dir={direction}>
+    <div className="max-width-container" dir={direction}>
       <div className="text-secondary relative justify-items-center rounded-sm bg-[#F7F1E1] p-16 md:pb-48">
         <Image
           src={'/assets/illustrations/checkout/green-star.svg'}

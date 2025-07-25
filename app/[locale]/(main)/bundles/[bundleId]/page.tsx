@@ -10,7 +10,7 @@ export default async function BundlePage({ params }: BundlePageProps) {
   const bundleData = await getBundle(bundleId)
 
   return (
-    <div className="grid gap-y-32">
+    <div className="max-width-wrapper grid gap-y-32">
       <ProductPageClient bundleData={bundleData} />
     </div>
   )

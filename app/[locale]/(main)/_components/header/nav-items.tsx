@@ -21,7 +21,7 @@ function NavItems({ direction }: NavItemsProps) {
   return (
     <div
       dir={direction}
-      className="text-secondary border-t-header-border container-padding flex flex-wrap justify-center gap-5 rounded-b-sm border-t py-5 md:gap-10"
+      className="text-secondary border-t-header-border max-width-container flex flex-wrap justify-center gap-5 rounded-b-sm border-t py-5 md:gap-10"
     >
       {displayNavLinks.map((link) => {
         const linkUrl = link.url || '/'

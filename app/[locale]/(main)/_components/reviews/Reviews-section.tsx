@@ -9,7 +9,7 @@ function ReviewsSection() {
   const direction = locale == 'ar' ? 'rtl' : 'ltr'
 
   return (
-    <div className="container-padding grid grid-cols-1 items-center gap-6 md:gap-8 lg:grid-cols-2 lg:gap-12">
+    <div className="max-width-container grid grid-cols-1 items-center gap-6 md:gap-8 lg:grid-cols-2 lg:gap-12">
       <div
         className={cn('pt-10', direction == 'ltr' ? 'justify-items-start' : 'justify-items-end')}
       >

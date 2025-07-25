@@ -3,7 +3,7 @@ import Image from 'next/image'
 function FounderSection({ t, direction }: { t: (key: string) => string; direction: string }) {
   return (
     <div
-      className="container-padding grid justify-items-center gap-10 p-2 sm:p-10 md:p-0 lg:flex lg:gap-20"
+      className="max-width-wrapper grid justify-items-center gap-10 p-2 sm:p-10 md:p-0 lg:flex lg:gap-20"
       dir={direction}
     >
       <Image

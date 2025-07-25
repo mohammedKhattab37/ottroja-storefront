@@ -12,7 +12,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const similarProducts = await getProducts({ limit: '6', category: productData.category?.slug })
 
   return (
-    <div className="grid gap-y-32">
+    <div className="max-width-container grid gap-y-32">
       <ProductPageClient productData={productData} similarProducts={similarProducts.products} />
     </div>
   )
