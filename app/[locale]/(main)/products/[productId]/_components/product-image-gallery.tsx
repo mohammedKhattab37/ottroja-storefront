@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button'
-import { ChevronDown, ChevronUp } from 'lucide-react'
+import { Dialog, DialogContent } from '@/components/ui/dialog'
+import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { ProductImage } from '../../_actions/types'
@@ -8,6 +9,8 @@ const ProductImageGallery = ({ productImages }: { productImages: ProductImage[] 
   const [selectedImage, setSelectedImage] = useState(productImages[0])
   const [startIndex, setStartIndex] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false)
+  const [previewImageIndex, setPreviewImageIndex] = useState(0)
 
   // Auto-select first image when variant changes
   useEffect(() => {
@@ -28,6 +31,20 @@ const ProductImageGallery = ({ productImages }: { productImages: ProductImage[] 
     }
   }
 
+  const openPreview = () => {
+    const currentImageIndex = productImages.findIndex((img) => img.id === selectedImage.id)
+    setPreviewImageIndex(currentImageIndex)
+    setIsPreviewOpen(true)
+  }
+
+  const nextImage = () => {
+    setPreviewImageIndex((prev) => (prev + 1) % productImages.length)
+  }
+
+  const prevImage = () => {
+    setPreviewImageIndex((prev) => (prev - 1 + productImages.length) % productImages.length)
+  }
+
   const scrollUp = () => {
     if (startIndex > 0) {
       setStartIndex(startIndex - 1)
@@ -43,75 +60,129 @@ const ProductImageGallery = ({ productImages }: { productImages: ProductImage[] 
   const visibleImages = productImages.slice(startIndex, startIndex + visibleThumbnails)
 
   return (
-    <div className="order-1 flex h-[98%] min-h-[400px] w-full items-center gap-1 self-center md:order-2 md:gap-3">
-      {/* Main Image */}
-      <div className="bg-filter-trigger relative h-[98%] flex-1 overflow-hidden rounded-lg contain-size">
-        {isLoading && (
-          <div className="bg-opacity-70 bg-filter-trigger absolute inset-0 z-10 flex items-center justify-center">
-            <div className="h-8 w-8 animate-spin rounded-full border-3 border-t-transparent"></div>
-          </div>
-        )}
-        <Image
-          src={selectedImage.url}
-          alt={''}
-          fill
-          quality={95}
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className={`rounded object-contain transition-opacity duration-200 ${
-            isLoading ? 'opacity-50' : 'opacity-100'
-          }`}
-        />
-      </div>
-
-      {/* Thumbnail Slider */}
-      <div className="flex h-full flex-col items-center md:h-[95%]">
-        <Button
-          onClick={scrollUp}
-          variant={'vanilla'}
-          size={'sm'}
-          disabled={startIndex === 0}
-          className={
-            'bg-product-gallery-ctrl w-full cursor-pointer justify-items-center rounded-none rounded-t-md text-black'
-          }
-        >
-          <ChevronUp className="size-5" />
-        </Button>
-
-        {/* Rest of Images */}
-        <div className="flex h-full flex-col gap-3 overflow-hidden">
-          {visibleImages.map((image) => (
-            <div
-              key={image.id}
-              onClick={() => handleImageSelect(image)}
-              className={`bg-filter-trigger relative h-full w-20 cursor-pointer overflow-hidden transition-all duration-200 contain-size ${
-                selectedImage.id === image.id ? 'opacity-100' : 'opacity-75'
-              }`}
-            >
-              <Image
-                src={image.url}
-                alt={''}
-                fill
-                quality={90}
-                sizes="80px"
-                className="rounded object-cover"
-              />
+    <>
+      <div className="order-1 flex h-[98%] min-h-[400px] w-full items-center gap-1 self-center md:order-2 md:gap-3">
+        {/* Main Image */}
+        <div className="bg-filter-trigger relative h-[98%] flex-1 overflow-hidden rounded-lg contain-size">
+          {isLoading && (
+            <div className="bg-opacity-70 bg-filter-trigger absolute inset-0 z-10 flex items-center justify-center">
+              <div className="h-8 w-8 animate-spin rounded-full border-3 border-t-transparent"></div>
             </div>
-          ))}
+          )}
+          <Image
+            src={selectedImage.url}
+            alt={''}
+            fill
+            quality={95}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className={`cursor-pointer rounded object-contain transition-opacity duration-200 ${
+              isLoading ? 'opacity-50' : 'opacity-100'
+            }`}
+            onClick={openPreview}
+          />
         </div>
 
-        <Button
-          onClick={scrollDown}
-          variant={'vanilla'}
-          size={'sm'}
-          disabled={startIndex >= productImages.length - visibleThumbnails}
-          className={
-            'bg-product-gallery-ctrl w-full cursor-pointer justify-items-center rounded-none rounded-b-md text-black'
-          }
-        >
-          <ChevronDown className="size-5" />
-        </Button>
+        {/* Thumbnail Slider */}
+        <div className="flex h-full flex-col items-center md:h-[95%]">
+          <Button
+            onClick={scrollUp}
+            variant={'vanilla'}
+            size={'sm'}
+            disabled={startIndex === 0}
+            className={
+              'bg-product-gallery-ctrl w-full cursor-pointer justify-items-center rounded-none rounded-t-md text-black'
+            }
+          >
+            <ChevronUp className="size-5" />
+          </Button>
+
+          {/* Rest of Images */}
+          <div className="flex h-full flex-col gap-3 overflow-hidden">
+            {visibleImages.map((image) => (
+              <div
+                key={image.id}
+                onClick={() => handleImageSelect(image)}
+                className={`bg-filter-trigger relative h-full w-20 cursor-pointer overflow-hidden transition-all duration-200 contain-size ${
+                  selectedImage.id === image.id ? 'opacity-100' : 'opacity-75'
+                }`}
+              >
+                <Image
+                  src={image.url}
+                  alt={''}
+                  fill
+                  quality={90}
+                  sizes="80px"
+                  className="rounded object-cover"
+                />
+              </div>
+            ))}
+          </div>
+
+          <Button
+            onClick={scrollDown}
+            variant={'vanilla'}
+            size={'sm'}
+            disabled={startIndex >= productImages.length - visibleThumbnails}
+            className={
+              'bg-product-gallery-ctrl w-full cursor-pointer justify-items-center rounded-none rounded-b-md text-black'
+            }
+          >
+            <ChevronDown className="size-5" />
+          </Button>
+        </div>
       </div>
-    </div>
+
+      {/* Full Screen Preview Modal */}
+      <Dialog open={isPreviewOpen} onOpenChange={setIsPreviewOpen}>
+        <DialogContent className="h-full max-h-[95vh] w-full max-w-[95vw] bg-white p-0">
+          <div className="relative flex h-full w-full items-center justify-center">
+            {/* Previous Button */}
+            {productImages.length > 1 && (
+              <Button
+                onClick={prevImage}
+                variant="ghost"
+                size="sm"
+                className="absolute top-1/2 left-4 z-50 -translate-y-1/2 rounded-full p-3 text-gray-700 hover:bg-gray-200"
+              >
+                <ChevronLeft className="h-8 w-8" />
+              </Button>
+            )}
+
+            {/* Main Preview Image */}
+            <div className="max-h-4xl relative h-full w-full max-w-4xl">
+              <Image
+                src={productImages[previewImageIndex]?.url}
+                alt=""
+                fill
+                quality={100}
+                sizes="95vw"
+                className="object-contain"
+                priority
+              />
+            </div>
+
+            {/* Next Button */}
+            {productImages.length > 1 && (
+              <Button
+                onClick={nextImage}
+                variant="ghost"
+                size="sm"
+                className="absolute top-1/2 right-4 z-50 -translate-y-1/2 rounded-full p-3 text-gray-700 hover:bg-gray-200"
+              >
+                <ChevronRight className="h-8 w-8" />
+              </Button>
+            )}
+
+            {/* Image Counter */}
+            {productImages.length > 1 && (
+              <div className="absolute bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-full bg-gray-800 px-3 py-1 text-sm text-white">
+                {previewImageIndex + 1} / {productImages.length}
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
+    </>
   )
 }
 
