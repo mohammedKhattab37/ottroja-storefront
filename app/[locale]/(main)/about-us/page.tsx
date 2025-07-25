@@ -12,14 +12,14 @@ export default function AboutUsPage() {
   return (
     <div className="grid gap-20 md:gap-32" dir={direction}>
       <div className="container-padding">
-        <div className="justify-items-center rounded-sm bg-[#F7F1E1] p-16">
+        <div className="h-full w-full justify-items-center rounded-sm bg-[#F7F1E1] p-16">
           <Image
-            src={'/assets/illustrations/about-us/about-us-header.svg'}
-            width={600}
-            height={600}
+            src={'/assets/about-us.png'}
+            width={1000}
+            height={1000}
             alt=""
+            className="rounded-sm object-contain"
           />
-          <p className="text-center text-2xl font-bold">{t('about-us')}</p>
         </div>
       </div>
       <FounderSection t={t} direction={direction} />

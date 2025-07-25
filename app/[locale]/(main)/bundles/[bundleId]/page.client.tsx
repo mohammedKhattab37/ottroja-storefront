@@ -64,11 +64,11 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
         <div className={'order-2 md:order-1'}>
           <div className="bg-filter-trigger relative min-h-32 w-full overflow-hidden rounded-lg p-5">
             <Image
-              alt=""
+              alt="Product header background"
               src={'/assets/illustrations/productp-header.svg'}
-              width={100}
-              height={100}
-              className="absolute start-0 top-0 w-full"
+              fill
+              quality={100}
+              className="absolute start-0 top-0 object-cover"
             />
             <div className="relative z-10 mt-5" dir={direction}>
               <p className="text-2xl font-bold">{translatedBundle.name}</p>
@@ -97,6 +97,7 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
                       src={'/assets/illustrations/list-indicator.svg'}
                       width={25}
                       height={20}
+                      quality={100}
                     />
                     {item.variant_name}
                   </div>

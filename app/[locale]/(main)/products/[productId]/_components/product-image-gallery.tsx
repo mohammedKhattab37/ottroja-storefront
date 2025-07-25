@@ -46,9 +46,10 @@ const ProductImageGallery = ({ productImages }: { productImages: ProductImage[] 
         <Image
           src={selectedImage.url}
           alt={''}
-          width={100}
-          height={100}
-          className={`h-full w-full rounded object-contain transition-opacity duration-200 ${
+          fill
+          quality={95}
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className={`rounded object-contain transition-opacity duration-200 ${
             isLoading ? 'opacity-50' : 'opacity-100'
           }`}
         />
@@ -81,9 +82,10 @@ const ProductImageGallery = ({ productImages }: { productImages: ProductImage[] 
               <Image
                 src={image.url}
                 alt={''}
-                width={100}
-                height={100}
-                className="h-full w-full rounded object-fill"
+                fill
+                quality={90}
+                sizes="80px"
+                className="rounded object-cover"
               />
             </div>
           ))}

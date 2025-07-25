@@ -75,6 +75,7 @@ export function Cart({
               src={`/assets/payment/${icon.name}`}
               width={icon.size}
               height={icon.size}
+              quality={100}
             />
           ))}
         </div>
@@ -97,7 +98,14 @@ export function CartItem({
   return (
     <div className="flex gap-3 py-4">
       <div className="bg-filter-trigger rounded-md px-6 py-2">
-        <Image src={item.image} alt="" width={80} height={80} />
+        <Image 
+          src={item.image} 
+          alt={locale == 'ar' ? item.name_ar : item.name_en} 
+          width={100} 
+          height={100} 
+          quality={90}
+          sizes="100px"
+        />
       </div>
       <div className="w-full">
         <div className="flex justify-between">

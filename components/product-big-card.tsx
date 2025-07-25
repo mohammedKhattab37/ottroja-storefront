@@ -28,9 +28,10 @@ function ProductBigCard({ direction, data }: { direction: string; data: Product 
         <Image
           alt="product"
           src={data.images[0].url}
-          width={0}
-          height={240}
-          sizes="100vw"
+          width={180}
+          height={180}
+          quality={90}
+          sizes="180px"
           className="absolute -top-20 h-[180px] w-auto"
         />
       </div>

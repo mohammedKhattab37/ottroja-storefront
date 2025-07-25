@@ -25,18 +25,20 @@ function OffersSection() {
         >
           <Image
             className="absolute start-0 end-0 -top-5 z-[-1]"
-            alt=""
+            alt="Bee hive background pattern"
             src={'/assets/bg-bee-hive.webp'}
             width={600}
             height={600}
+            quality={85}
           />
           <div className="flex justify-center">
             <Image
               className="absolute bottom-0"
-              alt={''}
+              alt={'Hero illustration'}
               src={'/assets/hero.svg'}
               width={300}
               height={300}
+              quality={100}
             />
           </div>
           <div className="text-secondary space-y-6" dir={contentDirection}>

@@ -30,9 +30,10 @@ function ProductSmallCard({ direction, product }: { direction: string; product: 
       <Image
         alt={product.name}
         src={product.image}
-        width={58}
-        height={58}
-        quality={100}
+        width={120}
+        height={120}
+        quality={90}
+        sizes="120px"
         style={{ objectFit: 'contain' }}
         className="self-center"
       />
@@ -69,6 +70,7 @@ function ProductSmallCard({ direction, product }: { direction: string; product: 
                 src={'/assets/illustrations/hot-offer.svg'}
                 width={20}
                 height={20}
+                quality={100}
               />
               <span className="font-bold">{product.new_price} </span>/ {product.currency}
             </span>
