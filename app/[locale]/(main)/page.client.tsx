@@ -29,7 +29,7 @@ export default function HomePage({
       <CategoriesSection NavCategories={NavCategories} />
       <ProductsSection FeaturedProducts={FeaturedProducts} />
       {/* <OffersSection /> */}
-      <FirstBannerSection bundleData={FeaturedBundles[0]} />
+      {FeaturedBundles.length > 0 && <FirstBannerSection bundleData={FeaturedBundles[0]} />}
       <SubBanners />
       <SecondBannerSection />
       <ReviewsSection />

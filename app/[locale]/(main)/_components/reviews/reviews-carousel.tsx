@@ -27,32 +27,47 @@ function ReviewsCarousel({ direction }: { direction: string }) {
   }, [api])
 
   return (
-    <div className="mt-16 w-full max-w-fit">
+    <div className="mt-16 w-screen max-w-full overflow-hidden">
       <Carousel
         setApi={setApi}
-        className="w-full"
+        className="w-full max-w-full"
         opts={{
           align: 'center',
           loop: true,
+          slidesToScroll: 1,
+          dragFree: true,
         }}
       >
-        <CarouselContent className="h-max min-h-96 p-20 lg:p-0">
+        <CarouselContent className="flex items-center">
           {dummyReviews.map((item, i) => (
             <CarouselItem
               key={i}
               dir={direction}
-              className={cn(
-                'content-center lg:basis-1/2',
-                direction == 'rtl' ? 'lg:ps-20' : 'lg:pe-20',
-              )}
+              className="flex justify-center basis-1/3 flex-shrink-0"
             >
               <div
                 className={cn(
-                  'text-secondary border-border bg-card grid scale-120 gap-6 overflow-hidden rounded-lg border p-10 transition-all duration-500',
+                  'text-secondary border-border bg-card grid overflow-hidden transition-all duration-500',
                   {
-                    'scale-100 opacity-60': i !== current - 1,
+                    // Side reviews - exact specifications
+                    'w-[575px] h-[270px] rounded-[10px] border-[1px] opacity-50': i !== current - 1,
+                    // Center review - full size with exact specifications
+                    'w-[661px] h-[311px] rounded-[11.5px] border-[1.15px] opacity-100 scale-100': i === current - 1,
                   },
                 )}
+                style={i === current - 1 ? {
+                  gap: '11.5px',
+                  paddingTop: '39.12px',
+                  paddingRight: '40.27px',
+                  paddingBottom: '39.12px',
+                  paddingLeft: '40.27px',
+                } : {
+                  gap: '10px',
+                  paddingTop: '34px',
+                  paddingRight: '35px',
+                  paddingBottom: '34px',
+                  paddingLeft: '35px',
+                }}
               >
                 <div className="flex items-center gap-4">
                   <Image
