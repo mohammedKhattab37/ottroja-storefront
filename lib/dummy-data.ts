@@ -113,21 +113,25 @@ export const dummyOfferCard = {
 export const dummyReviews = [
   {
     name: 'Yaser Ahmed',
+    rating: 3,
     title: 'Its a great product',
     content: 'great product with a lot of benefits i love it so much',
   },
   {
     name: 'Yaser Ahmed',
+    rating: 4,
     title: 'Its a great product',
     content: 'great product with a lot of benefits i love it so much',
   },
   {
     name: 'Yaser Ahmed',
+    rating: 5,
     title: 'Its a great product',
     content: 'great product with a lot of benefits i love it so much',
   },
   {
     name: 'Yaser Ahmed',
+    rating: 3,
     title: 'Its a great product',
     content: 'great product with a lot of benefits i love it so much',
   },
