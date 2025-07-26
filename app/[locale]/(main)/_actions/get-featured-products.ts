@@ -27,5 +27,8 @@ export async function getFeaturedProducts(): Promise<Product[]> {
 
 // Helper function to get main image for a product
 export async function getMainProductImage(product: Product): Promise<ProductImage | null> {
-  return product.images?.find((img) => img.isMain) || product.images?.[0] || null
+  const firstVariant = product.variants?.[0]
+  if (!firstVariant?.images?.length) return null
+
+  return firstVariant.images.find((img) => img.isMain) || firstVariant.images[0] || null
 }

@@ -38,7 +38,7 @@ const CheckoutPageClient = () => {
     }
 
     fetchCustomerSession()
-  }, [])
+  }, [goTo, setTotalSteps])
 
   return (
     <div className="relative grid grid-cols-1 gap-4 py-6 md:grid-cols-2 lg:grid-cols-3">
