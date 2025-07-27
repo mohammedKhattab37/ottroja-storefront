@@ -127,7 +127,7 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
           productImages={Array.from(
             new Map(
               bundleData.bundleItems
-                .flatMap((item) => item.variant.product.images)
+                .flatMap((item) => item.variant.images)
                 .map((img) => [img.id, img]),
             ).values(),
           )}
