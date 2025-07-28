@@ -1,3 +1,4 @@
+import { ToasterProvider } from '@/components/providers/toast-provider'
 import { routing } from '@/i18n/routing'
 import type { Metadata } from 'next'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
@@ -39,6 +40,7 @@ export default async function LocaleLayout({
           <Header />
           {children}
           <Footer categories={categories} />
+          <ToasterProvider />
         </body>
       </NextIntlClientProvider>
     </html>
