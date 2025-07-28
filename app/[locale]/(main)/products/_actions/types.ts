@@ -12,6 +12,7 @@ export interface ProductVariant {
   variant_name_ar?: string
   compare_at_price?: number | null
   images: ProductImage[]
+  inventory?: { quantityAvailable: number }
 }
 
 export interface ProductImage {

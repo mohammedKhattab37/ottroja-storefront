@@ -85,6 +85,12 @@
     "related": "المنتجات ذات صلة",
     "bundle-details":"تفاصيل العرض",
     "bundle-items": "المحتويات",
+    "out-stock":"غير متوفر",
+    "in-stock":"متوفر",
+    "number-in-stock":"وحدات متوفرة",
+    "in-cart":"قطعة في السلة حاليًا",
+    "added-to-cart":"تم اضافة المنتج الى السلة",
+    "updated-cart":"تم تحديث السلة",
     "pagination": {
       "next":"التالي",
       "back":"السابق",
@@ -105,7 +111,10 @@
   "cart":{
     "title":"عربة التسوق",
     "add": "اضف الي العربة",
-     "total":"المبلغ الكلي",
+    "in-cart":"في السلة",
+    "add-more":"إضافة المزيد",
+    "update-quantity":"تحديث الكمية",
+    "total":"المبلغ الكلي",
     "go_payment":"الذهاب إلى الدفع"
   },
   "aboutPage":{
