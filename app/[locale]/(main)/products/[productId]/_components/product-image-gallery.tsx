@@ -102,7 +102,7 @@ const ProductImageGallery = ({ productImages }: { productImages: ProductImage[] 
               <div
                 key={image.id}
                 onClick={() => handleImageSelect(image)}
-                className={`bg-filter-trigger relative h-full w-20 cursor-pointer overflow-hidden transition-all duration-200 contain-size ${
+                className={`bg-filter-trigger relative h-1/4 w-20 cursor-pointer overflow-hidden transition-all duration-200 contain-size ${
                   selectedImage.id === image.id ? 'opacity-100' : 'opacity-75'
                 }`}
               >
@@ -112,7 +112,7 @@ const ProductImageGallery = ({ productImages }: { productImages: ProductImage[] 
                   fill
                   quality={90}
                   sizes="80px"
-                  className="rounded object-cover"
+                  className="rounded object-contain"
                 />
               </div>
             ))}

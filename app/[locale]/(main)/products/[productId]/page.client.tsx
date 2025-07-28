@@ -141,7 +141,7 @@ function ProductPageClient({
   }
 
   return (
-    <div className="max-width-container overflow-hidden pb-64">
+    <div className="overflow-hidden px-4 pb-64 md:px-0">
       <div className="text-secondary grid grid-cols-1 gap-5 md:grid-cols-2">
         <div className={'order-2 md:order-1'}>
           <div className="bg-filter-trigger relative w-full overflow-hidden rounded-lg p-5">
@@ -257,7 +257,7 @@ function ProductPageClient({
       />
 
       {/* Related products */}
-      <div className="pt-32">
+      <div className="w-screen max-w-full items-center pt-32">
         <Header title={productT('related')} direction={direction} />
         <Carousel
           opts={{
@@ -265,12 +265,12 @@ function ProductPageClient({
             containScroll: 'trimSnaps',
           }}
         >
-          <CarouselContent className="pt-40">
+          <CarouselContent className="items-center pt-40">
             {similarProducts.map((item, i) => (
               <CarouselItem
                 key={i}
                 dir={direction}
-                className="basis-full sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                className="basis-full justify-items-center sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
               >
                 <ProductBigCard direction={direction} data={item} />
               </CarouselItem>
