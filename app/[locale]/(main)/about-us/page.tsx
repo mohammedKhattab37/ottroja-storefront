@@ -10,7 +10,10 @@ export default function AboutUsPage() {
   const direction = locale == 'ar' ? 'rtl' : 'ltr'
 
   return (
-    <div className="flex flex-col items-center justify-center md:gap-32" dir={direction}>
+    <div
+      className="flex flex-col items-center justify-center px-4 md:gap-32 md:px-0"
+      dir={direction}
+    >
       <Image
         src={'/assets/about-us.png'}
         width={1240}

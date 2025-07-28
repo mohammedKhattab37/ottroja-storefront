@@ -81,7 +81,7 @@ export default function CategoryPageClient({
       <div className="flex w-full flex-col" dir={contentDirection}>
         <div className="flex w-full flex-col pt-10 pb-64">
           {/* Products Flex Container */}
-          <div className="flex flex-wrap justify-start gap-5 pt-32">
+          <div className="flex flex-wrap justify-start gap-5 gap-y-24 pt-32">
             {products
               .filter((product) => product.isActive)
               .map((product) => (

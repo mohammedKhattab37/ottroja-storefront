@@ -38,7 +38,7 @@ export default function ProductsPageClient({
   }
 
   return (
-    <div className="text-secondary max-width-container grid">
+    <div className="text-secondary max-width-container grid px-4 md:px-0">
       <div className="relative bg-[#F7F1E1] p-32">
         <div>
           <Image
@@ -99,7 +99,7 @@ export default function ProductsPageClient({
         </div>
 
         <div className="col-span-full pt-20 pb-64 lg:col-span-3 lg:border-s-2 lg:border-s-[#FBE9D1]">
-          <div className="grid lg:ps-10">
+          <div className="grid lg:ps-4">
             <div className="flex items-center gap-4 lg:block">
               {/* Small screen filters btn */}
               <Button
@@ -116,7 +116,7 @@ export default function ProductsPageClient({
             </div>
 
             {/* Products Grid */}
-            <div className="grid grid-cols-1 gap-x-5 gap-y-28 px-0 pt-32 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="flex flex-wrap justify-center gap-x-5 gap-y-28 px-0 pt-32 xl:justify-start">
               {products
                 .filter((product) => product.isActive)
                 .map((product) => (

@@ -24,7 +24,7 @@ export default function HomePage({
   FeaturedBundles: Bundle[]
 }) {
   return (
-    <div className="mx-auto flex w-full flex-col items-center justify-center gap-y-32">
+    <div className="mx-auto flex w-full flex-col items-center justify-center gap-y-24 px-4 md:px-0">
       <Hero />
       <CategoriesSection NavCategories={NavCategories} />
       <ProductsSection FeaturedProducts={FeaturedProducts} />

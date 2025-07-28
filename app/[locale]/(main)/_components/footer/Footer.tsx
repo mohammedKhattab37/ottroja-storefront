@@ -25,10 +25,10 @@ function Footer({ categories }: { categories: Category[] }) {
   })
 
   return (
-    <footer className="bg-secondary text-secondary-foreground" dir={direction}>
+    <footer className="bg-secondary text-secondary-foreground px-4 md:px-0" dir={direction}>
       <div className="max-width-container relative py-28">
         <FooterServices services={footerServices} />
-        <div className="mt-16 grid grid-cols-3 gap-10 lg:mt-0 xl:grid-cols-7 xl:gap-12">
+        <div className="mt-24 grid grid-cols-3 gap-10 md:mt-16 lg:mt-0 xl:grid-cols-7 xl:gap-12">
           <div className="col-span-3 grid gap-4 xl:col-span-2">
             <Link href={'/'}>
               <Image src={'/assets/logo/footer-logo.svg'} width={100} height={100} alt="Ottroja" />

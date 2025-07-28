@@ -41,8 +41,7 @@ const CheckoutPageClient = () => {
   }, [goTo, setTotalSteps])
 
   return (
-    <div className="relative grid grid-cols-1 gap-4 py-6 md:grid-cols-2 lg:grid-cols-3">
-      <CheckoutItemsSummary t={useTranslations('checkoutPage')} />
+    <div className="relative grid grid-cols-1 gap-4 px-4 py-6 md:grid-cols-2 md:px-0 lg:grid-cols-3">
       {isLoading ? (
         <>
           <SkeletonSteps />
@@ -61,6 +60,7 @@ const CheckoutPageClient = () => {
           )}
         </>
       )}
+      <CheckoutItemsSummary t={useTranslations('checkoutPage')} />
     </div>
   )
 }
