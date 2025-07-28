@@ -11,7 +11,11 @@ function ProductBigCard({ direction, data }: { direction: string; data: Product 
   const locale = useLocale()
 
   return (
-    <div className="bg-card border-border text-card-foreground relative rounded-sm border-[1px] p-4 drop-shadow-md">
+    <Link 
+      href={`/products/${data.slug}`}
+      className="bg-card border-border text-card-foreground relative rounded-lg border-[1px] p-4 drop-shadow-md block hover:shadow-lg transition-shadow"
+      style={{ width: '295px', height: '284px' }}
+    >
       <div className="absolute top-0 left-0 h-20 w-full overflow-hidden">
         <div
           className={cn(
@@ -35,7 +39,7 @@ function ProductBigCard({ direction, data }: { direction: string; data: Product 
           className="absolute -top-20 h-[180px] w-auto"
         />
       </div>
-      <div className="grid justify-items-center gap-y-7 pt-36">
+      <div className="grid justify-items-center gap-y-7 pt-32">
         <div className="justify-items-center">
           <div className="mb-3 flex items-center gap-1" dir={direction}>
             {Array.from({ length: 5 }).map((_, i) => (
@@ -51,14 +55,18 @@ function ProductBigCard({ direction, data }: { direction: string; data: Product 
               />
             ))}
           </div>
-          <Link href={`/products/${data.slug}`} className="font-bold">
+          <span className="font-bold">
             {locale === 'ar' ? data.name_ar : data.name_en}
-          </Link>
+          </span>
         </div>
         <div className="flex items-center gap-5">
           <Button
             dir={direction}
-            onClick={() => window.open(`/products/${data.slug}`, '_self')}
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+              window.open(`/products/${data.slug}`, '_self')
+            }}
             className="border-card-foreground hover:border-primary hover:text-primary text-card-foreground rounded-full border-[1px] bg-transparent p-3 text-sm hover:bg-transparent"
           >
             <ShoppingCart />
@@ -72,7 +80,7 @@ function ProductBigCard({ direction, data }: { direction: string; data: Product 
           </span>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 

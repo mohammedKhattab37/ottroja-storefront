@@ -85,10 +85,10 @@ function Header() {
           setIsDrawerOpen={setIsDrawerOpen}
           isDrawerOpen={isDrawerOpen}
           title={
-            <div className="flex justify-items-center gap-2 text-sm font-bold">
+            <span className="flex justify-items-center gap-2 text-sm font-bold">
               <ShoppingCart className="size-5" />
               {cartT('title')}
-            </div>
+            </span>
           }
           contentDirection={direction}
           showInBigScreens={true}

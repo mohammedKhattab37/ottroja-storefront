@@ -45,8 +45,8 @@ function CategoryItem({
 }) {
   const locale = useLocale()
   return (
-    <Link href={slug} className="grid gap-y-6 text-center">
-      <div className="relative justify-self-center rounded-full bg-[#FEF4CF] px-6 py-5">
+    <Link href={`/category/${slug}`} className="grid gap-y-6 text-center">
+      <div className="relative justify-self-center rounded-full bg-[#FEF4CF] hover:bg-[#965A18] transition-colors duration-300 px-6 py-5">
         <Image
           alt={'Category Image'}
           src={image!}

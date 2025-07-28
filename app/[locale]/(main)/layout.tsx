@@ -35,7 +35,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <NextIntlClientProvider>
-        <body className={`${notoKufiArabic.variable} grid antialiased`}>
+        <body className={`${notoKufiArabic.variable} antialiased`}>
           <Header />
           {children}
           <Footer categories={categories} />
