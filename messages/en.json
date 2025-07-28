@@ -88,6 +88,9 @@
     "out-stock":"Out of stock",
     "in-stock":"In stock",
     "number-in-stock":"Units available in stock",
+    "in-cart":"units in cart",
+    "added-to-cart":"Product added to cart",
+    "updated-cart":"Updated the cart successfully",
     "pagination": {
       "next":"Next",
       "back":"Back",
@@ -108,6 +111,9 @@
   "cart":{
     "title":"Cart",
     "add":"Add to cart",
+    "in-cart":"In cart",
+    "add-more":"Add more",
+    "update-quantity":"Update quantity",
     "total":"Total Price",
     "go_payment":"Go to payment"
   },

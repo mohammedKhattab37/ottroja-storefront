@@ -15,7 +15,7 @@ import { useCartStore } from '@/stores/cart'
 import { Star } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 import { Product } from '../_actions/types'
 import ProductImageGallery from './_components/product-image-gallery'
@@ -73,7 +73,40 @@ function ProductPageClient({
   const [quantity, setQuantity] = useState(1)
   const t = useTranslations('cart')
   const productT = useTranslations('products')
-  const { addItem, isLoading } = useCartStore()
+  const { addItem, isLoading, items } = useCartStore()
+
+  // Check if the selected variant is in cart and get its current quantity
+  const cartItemInfo = useMemo(() => {
+    const cartItem = items.find((item) => item.productVariantId === selectedVariant.id)
+    return {
+      isInCart: !!cartItem,
+      currentCartQuantity: cartItem?.quantity || 0,
+      isSameQuantity: cartItem?.quantity === quantity,
+    }
+  }, [items, selectedVariant.id, quantity])
+
+  // Determine if add button should be disabled
+  const isAddButtonDisabled = useMemo(() => {
+    return (
+      isLoading ||
+      !selectedVariant.inventory ||
+      selectedVariant.inventory.quantityAvailable <= 0 ||
+      (cartItemInfo.isInCart && cartItemInfo.isSameQuantity)
+    )
+  }, [isLoading, selectedVariant.inventory, cartItemInfo])
+
+  const getButtonText = () => {
+    if (cartItemInfo.isInCart) {
+      if (cartItemInfo.isSameQuantity) {
+        return t('in-cart')
+      } else if (quantity > cartItemInfo.currentCartQuantity) {
+        return t('add-more')
+      } else {
+        return t('update-quantity')
+      }
+    }
+    return t('add')
+  }
 
   const handleAddToCart = async () => {
     try {
@@ -87,7 +120,7 @@ function ProductPageClient({
       }
 
       addItem({
-        id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+        id: selectedVariant.id,
         name_ar: productData.name_ar,
         name_en: productData.name_en,
         quantity,
@@ -97,7 +130,11 @@ function ProductPageClient({
         productVariant: productData.variants.find((variant) => variant.id == selectedVariant.id),
       })
 
-      toast.success('Added to cart successfully!')
+      if (cartItemInfo.isInCart) {
+        toast.success(productT('updated-cart'))
+      } else {
+        toast.success(productT('added-to-cart'))
+      }
     } catch (error) {
       console.error('Failed to add to cart:', error)
     }
@@ -158,7 +195,10 @@ function ProductPageClient({
                 const isActive = selectedVariant.id == variant.id
                 return (
                   <Button
-                    onClick={() => setSelectedVariant(variant)}
+                    onClick={() => {
+                      setQuantity(1)
+                      setSelectedVariant(variant)
+                    }}
                     className={'flex-1 rounded-lg p-6 text-xs font-bold'}
                     variant={isActive ? 'secondary' : 'input'}
                     key={variant.id}
@@ -175,14 +215,10 @@ function ProductPageClient({
               type="button"
               onClick={handleAddToCart}
               variant={'secondary'}
-              disabled={
-                isLoading ||
-                !selectedVariant.inventory ||
-                selectedVariant.inventory.quantityAvailable <= 0
-              }
+              disabled={isAddButtonDisabled}
               className="flex-1 rounded-full p-5 text-xs font-semibold"
             >
-              {t('add')}
+              {getButtonText()}
             </Button>
             <QuantityControls
               quantity={quantity}
@@ -196,6 +232,13 @@ function ProductPageClient({
               removeQuantity={() => setQuantity((old) => old - 1)}
             />
           </div>
+
+          {/* Cart status indicator */}
+          {cartItemInfo.isInCart && (
+            <div className="mt-3 text-xs text-gray-600" dir={direction}>
+              {cartItemInfo.currentCartQuantity} {productT('in-cart')}
+            </div>
+          )}
         </div>
 
         <ProductImageGallery productImages={selectedVariant.images} />
