@@ -4,12 +4,14 @@ import { Button } from '../ui/button'
 
 function QuantityControls({
   quantity,
+  maxQuantity,
   addQuantity,
   removeQuantity,
   size = 'big',
   disabled = false,
 }: {
   quantity: number
+  maxQuantity?: number
   addQuantity: () => void
   removeQuantity: () => void
   size?: 'small' | 'big'
@@ -30,7 +32,7 @@ function QuantityControls({
       <Button
         variant="vanilla"
         size="icon"
-        disabled={disabled}
+        disabled={(maxQuantity && quantity >= maxQuantity) || disabled}
         onClick={addQuantity}
         className={size == 'big' ? 'size-9' : 'size-8'}
       >

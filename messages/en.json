@@ -85,6 +85,9 @@
     "related": "Related Products",
     "bundle-details":"Bundle Details",
     "bundle-items":"Items",
+    "out-stock":"Out of stock",
+    "in-stock":"In stock",
+    "number-in-stock":"Units available in stock",
     "pagination": {
       "next":"Next",
       "back":"Back",

@@ -16,6 +16,7 @@ import { Star } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 import { Product } from '../_actions/types'
 import ProductImageGallery from './_components/product-image-gallery'
 import ProductTabsSection from './_components/product-tabs-section'
@@ -44,6 +45,7 @@ function ProductPageClient({
             variant_name: item.variant_name_ar,
             compare_at_price: item.compare_at_price,
             images: item.images,
+            inventory: item.inventory,
           })),
           benefits: productData.benefits_ar,
           ingredients: productData.ingredients_ar,
@@ -60,6 +62,7 @@ function ProductPageClient({
             variant_name: item.variant_name_en,
             compare_at_price: item.compare_at_price,
             images: item.images,
+            inventory: item.inventory,
           })),
           benefits: productData.benefits_en,
           ingredients: productData.ingredients_en,
@@ -74,6 +77,15 @@ function ProductPageClient({
 
   const handleAddToCart = async () => {
     try {
+      if (
+        !selectedVariant.inventory ||
+        selectedVariant.inventory.quantityAvailable <= 0 ||
+        quantity > selectedVariant.inventory.quantityAvailable
+      ) {
+        toast.error('Not enough in stock')
+        return
+      }
+
       addItem({
         id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
         name_ar: productData.name_ar,
@@ -85,7 +97,7 @@ function ProductPageClient({
         productVariant: productData.variants.find((variant) => variant.id == selectedVariant.id),
       })
 
-      console.log('Added to cart successfully!')
+      toast.success('Added to cart successfully!')
     } catch (error) {
       console.error('Failed to add to cart:', error)
     }
@@ -131,6 +143,15 @@ function ProductPageClient({
           <div className="bg-filter-trigger grid gap-5 rounded-lg p-5" dir={direction}>
             <p className="text-card-foreground text-sm font-bold">
               <span className="text-2xl"> {selectedVariant.price}</span> / {translatedCurrency}
+              <p className="text-card-foreground text-xs font-semibold">
+                {!selectedVariant.inventory || selectedVariant.inventory.quantityAvailable == 0
+                  ? productT('out-stock')
+                  : selectedVariant.inventory.quantityAvailable <= 10
+                    ? selectedVariant.inventory.quantityAvailable +
+                      ' ' +
+                      productT('number-in-stock')
+                    : productT('in-stock')}
+              </p>
             </p>
             <div className="flex w-full flex-wrap gap-2">
               {translatedProduct.variants.map((variant) => {
@@ -154,14 +175,23 @@ function ProductPageClient({
               type="button"
               onClick={handleAddToCart}
               variant={'secondary'}
-              disabled={isLoading}
+              disabled={
+                isLoading ||
+                !selectedVariant.inventory ||
+                selectedVariant.inventory.quantityAvailable <= 0
+              }
               className="flex-1 rounded-full p-5 text-xs font-semibold"
             >
               {t('add')}
             </Button>
             <QuantityControls
               quantity={quantity}
-              disabled={isLoading}
+              maxQuantity={selectedVariant.inventory?.quantityAvailable || undefined}
+              disabled={
+                isLoading ||
+                !selectedVariant.inventory ||
+                selectedVariant.inventory.quantityAvailable <= 0
+              }
               addQuantity={() => setQuantity((old) => old + 1)}
               removeQuantity={() => setQuantity((old) => old - 1)}
             />

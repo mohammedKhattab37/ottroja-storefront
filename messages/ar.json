@@ -85,6 +85,9 @@
     "related": "المنتجات ذات صلة",
     "bundle-details":"تفاصيل العرض",
     "bundle-items": "المحتويات",
+    "out-stock":"غير متوفر",
+    "in-stock":"متوفر",
+    "number-in-stock":"وحدات متوفرة",
     "pagination": {
       "next":"التالي",
       "back":"السابق",
