@@ -29,12 +29,12 @@ export interface BundleItem {
     weight_volume: number
     unit: string
     price: number
+    images: ProductImage[]
     product: {
       id: string
       name_en: string
       name_ar: string
       slug: string
-      images: ProductImage[]
       warnings_en?: string[]
       warnings_ar?: string[]
       benefits_en?: string[]

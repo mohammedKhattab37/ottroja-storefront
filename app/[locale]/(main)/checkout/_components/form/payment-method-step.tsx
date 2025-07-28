@@ -68,9 +68,9 @@ function PaymentMethodStep({ t }: { t: (key: string) => string }) {
           delivery: delivery,
           orderItems: items.map((item) => ({
             quantity: item.quantity,
-            unitPrice: item.productVariant?.price || 0,
-            productVariantId: item.productVariantId || '',
-            bundleId: item.bundleId || '',
+            unitPrice: item.productVariant?.price || item.bundle?.bundlePrice || 0,
+            productVariantId: item.productVariantId || undefined,
+            bundleId: item.bundleId || undefined,
           })),
           customerId: customerId || undefined,
           coupon_code: couponCode || '',
