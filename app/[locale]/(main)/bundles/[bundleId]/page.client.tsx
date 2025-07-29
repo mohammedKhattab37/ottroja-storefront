@@ -58,7 +58,7 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
   const isAddButtonDisabled = useMemo(() => {
     return (
       isLoading ||
-      bundleData.bundleItems.some(
+      !bundleData.bundleItems.some(
         (b_it) => b_it.variant.inventory && b_it.variant.inventory.quantityAvailable > 0,
       ) ||
       (cartItemInfo.isInCart && cartItemInfo.isSameQuantity)
