@@ -23,6 +23,7 @@ export interface Bundle {
 }
 
 export interface BundleItem {
+  quantity: number
   variant: {
     variant_name_en: string
     variant_name_ar: string
@@ -30,6 +31,7 @@ export interface BundleItem {
     unit: string
     price: number
     images: ProductImage[]
+    inventory?: { quantityAvailable: number }
     product: {
       id: string
       name_en: string

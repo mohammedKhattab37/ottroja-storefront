@@ -14,17 +14,19 @@ function FirstBannerSection({ bundleData }: { bundleData: Bundle }) {
       ? {
           title: bundleData.nameAr,
           sub_title: bundleData.briefTitleAr,
-          bannerItems: bundleData.bundleItems.map(
-            (item) => item.variant.product.name_ar + ' ' + item.variant.variant_name_ar,
-          ),
+          bannerItems: bundleData.bundleItems.map((item) => ({
+            variant_name: item.variant.product.name_ar + ' ' + item.variant.variant_name_ar,
+            quantity: item.quantity,
+          })),
           button_destination: bundleData.slug,
         }
       : {
           title: bundleData.nameEn,
           sub_title: bundleData.briefTitleEn,
-          bannerItems: bundleData.bundleItems.map(
-            (item) => item.variant.product.name_en + ' ' + item.variant.variant_name_en,
-          ),
+          bannerItems: bundleData.bundleItems.map((item) => ({
+            variant_name: item.variant.product.name_en + ' ' + item.variant.variant_name_en,
+            quantity: item.quantity,
+          })),
           button_destination: bundleData.slug,
         }
 

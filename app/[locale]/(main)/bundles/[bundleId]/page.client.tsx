@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button'
 import { useCartStore } from '@/stores/cart'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+import toast from 'react-hot-toast'
 import { Bundle } from '../../_actions/get-bundles'
 import ProductImageGallery from '../../products/[productId]/_components/product-image-gallery'
 import BundleDescription from './_components/bundle_description'
@@ -22,6 +23,7 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
           items: bundleData.bundleItems.map((item) => ({
             id: item.variant.product.id,
             variant_name: item.variant.product.name_ar + ' ' + item.variant.variant_name_ar,
+            quantity: item.quantity,
           })),
         }
       : {
@@ -31,18 +33,67 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
           items: bundleData.bundleItems.map((item) => ({
             id: item.variant.product.id,
             variant_name: item.variant.product.name_en + ' ' + item.variant.variant_name_en,
+            quantity: item.quantity,
           })),
         }
 
-  const [quantity, setQuantity] = useState(1)
+  const { addItem, items, isLoading } = useCartStore()
+  const [quantity, setQuantity] = useState(
+    items.find((item) => item.slug === bundleData.slug)?.quantity || 1,
+  )
   const t = useTranslations('cart')
   const productT = useTranslations('products')
-  const addItem = useCartStore((state) => state.addItem)
+
+  // Check if the selected variant is in cart and get its current quantity
+  const cartItemInfo = useMemo(() => {
+    const cartItem = items.find((item) => item.slug === bundleData.slug)
+    return {
+      isInCart: !!cartItem,
+      currentCartQuantity: cartItem?.quantity || 0,
+      isSameQuantity: cartItem?.quantity === quantity,
+    }
+  }, [bundleData.slug, items, quantity])
+
+  // Determine if add button should be disabled
+  const isAddButtonDisabled = useMemo(() => {
+    return (
+      isLoading ||
+      !bundleData.bundleItems.some(
+        (b_it) => b_it.variant.inventory && b_it.variant.inventory.quantityAvailable > 0,
+      ) ||
+      (cartItemInfo.isInCart && cartItemInfo.isSameQuantity)
+    )
+  }, [isLoading, bundleData, cartItemInfo])
+
+  const getButtonText = () => {
+    if (cartItemInfo.isInCart) {
+      if (cartItemInfo.isSameQuantity) {
+        return t('in-cart')
+      } else if (quantity > cartItemInfo.currentCartQuantity) {
+        return t('add-more')
+      } else {
+        return t('update-quantity')
+      }
+    }
+    return t('add')
+  }
 
   const handleAddToCart = async () => {
     try {
+      if (
+        !bundleData.bundleItems.some(
+          (b_it) =>
+            b_it.variant.inventory &&
+            b_it.variant.inventory.quantityAvailable > 0 &&
+            quantity * b_it.quantity <= b_it.variant.inventory.quantityAvailable,
+        )
+      ) {
+        toast.error('Not enough in stock')
+        return
+      }
+
       addItem({
-        id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+        id: bundleData.slug,
         name_ar: bundleData.nameAr,
         name_en: bundleData.nameEn,
         quantity,
@@ -52,7 +103,11 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
         bundle: bundleData,
       })
 
-      console.log('Added to cart successfully!')
+      if (cartItemInfo.isInCart) {
+        toast.success(productT('updated-cart'))
+      } else {
+        toast.success(productT('added-to-cart'))
+      }
     } catch (error) {
       console.error('Failed to add to cart:', error)
     }
@@ -91,7 +146,7 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
               </p>
               {translatedBundle.items.map((item) => {
                 return (
-                  <div key={item.variant_name} className="flex items-center gap-4">
+                  <div key={item.variant_name} className="flex items-start gap-4">
                     <Image
                       alt="list item"
                       src={'/assets/illustrations/list-indicator.svg'}
@@ -99,7 +154,10 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
                       height={20}
                       quality={100}
                     />
-                    {item.variant_name}
+                    <p>
+                      {item.quantity > 1 && <span className="font-bold">{item.quantity}x </span>}
+                      {item.variant_name}
+                    </p>
                   </div>
                 )
               })}
@@ -110,10 +168,11 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
             <Button
               type="button"
               onClick={handleAddToCart}
+              disabled={isAddButtonDisabled}
               variant={'secondary'}
               className="flex-1 rounded-full p-5 text-xs font-semibold"
             >
-              {t('add')}
+              {getButtonText()}
             </Button>
             <QuantityControls
               quantity={quantity}
@@ -121,6 +180,13 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
               removeQuantity={() => setQuantity((old) => old - 1)}
             />
           </div>
+
+          {/* Cart status indicator */}
+          {cartItemInfo.isInCart && (
+            <div className="mt-3 text-xs text-gray-600" dir={direction}>
+              {cartItemInfo.currentCartQuantity} {productT('in-cart')}
+            </div>
+          )}
         </div>
 
         <ProductImageGallery
