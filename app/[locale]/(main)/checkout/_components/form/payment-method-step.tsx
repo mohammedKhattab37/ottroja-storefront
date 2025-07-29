@@ -117,7 +117,7 @@ function PaymentMethodStep({ t }: { t: (key: string) => string }) {
                   'bg-background flex items-center justify-between rounded-lg p-4 text-xs font-bold transition-colors',
                   paymentMethodField === method.value
                     ? 'border-card-foreground text-card-foreground border-2'
-                    : 'text-[#AEAEAE]',
+                    : 'text-[#AEAEAE] opacity-65',
                 )}
               >
                 <PaymentMethodIcon method={method.value} />
