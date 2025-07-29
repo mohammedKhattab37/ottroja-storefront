@@ -1,6 +1,7 @@
 'use client'
 import QuantityControls from '@/components/fragments/quantity-controls'
 import { Button } from '@/components/ui/button'
+import { calculateBundleAvailability } from '@/lib/utils'
 import { useCartStore } from '@/stores/cart'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
@@ -43,6 +44,7 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
   )
   const t = useTranslations('cart')
   const productT = useTranslations('products')
+  const availability = calculateBundleAvailability(bundleData)
 
   // Check if the selected variant is in cart and get its current quantity
   const cartItemInfo = useMemo(() => {
@@ -136,10 +138,26 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
           </div>
           {/* item/price */}
           <div className="bg-filter-trigger grid gap-5 rounded-lg p-5" dir={direction}>
-            <p className="text-card-foreground flex items-center gap-2 font-bold">
-              <span className="text-2xl"> {bundleData.bundlePrice}</span> / جنيه مصري
-              <span className="text-xs line-through"> {bundleData.originalPrice} / جنيه مصري</span>
-            </p>
+            <div className="flex justify-between">
+              <div className="text-card-foreground flex items-center gap-2 font-bold">
+                <span className="text-2xl"> {bundleData.bundlePrice}</span> / جنيه مصري
+                <span className="text-xs line-through">
+                  {' '}
+                  {bundleData.originalPrice} / جنيه مصري
+                </span>
+              </div>
+              <span className="text-card-foreground text-xs font-semibold">
+                {availability.status === 'out-of-stock' ? (
+                  <div className="text-destructive">{productT('out-stock')}</div>
+                ) : availability.status === 'low-stock' ? (
+                  <div className="text-warning">
+                    {availability.availableQuantity + ' ' + productT('number-in-stock')}
+                  </div>
+                ) : (
+                  <div className="text-success">{productT('in-stock')}</div>
+                )}
+              </span>
+            </div>
             <div className="grid grid-cols-2 gap-2 p-4">
               <p className="text-card-foreground col-span-2 pb-4 font-bold">
                 {productT('bundle-items')}
