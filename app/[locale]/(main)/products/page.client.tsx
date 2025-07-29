@@ -119,15 +119,18 @@ export default function ProductsPageClient({
             <div className="flex flex-wrap justify-center gap-x-5 gap-y-28 px-0 pt-32 xl:justify-start">
               {products
                 .filter((product) => product.isActive)
-                .map((product) => (
-                  <ProductBigCard
-                    key={product.id}
-                    direction={contentDirection}
-                    data={{
-                      ...product,
-                    }}
-                  />
-                ))}
+                .map(
+                  (product) =>
+                    product.variants.length > 0 && (
+                      <ProductBigCard
+                        key={product.id}
+                        direction={contentDirection}
+                        data={{
+                          ...product,
+                        }}
+                      />
+                    ),
+                )}
             </div>
           </div>
 
