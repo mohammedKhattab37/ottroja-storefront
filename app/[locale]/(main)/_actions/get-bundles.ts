@@ -30,6 +30,7 @@ export interface BundleItem {
     unit: string
     price: number
     images: ProductImage[]
+    inventory?: { quantityAvailable: number }
     product: {
       id: string
       name_en: string
