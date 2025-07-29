@@ -69,11 +69,13 @@ function ProductPageClient({
           warnings: productData.warnings_en,
         }
 
+  const { addItem, isLoading, items } = useCartStore()
   const [selectedVariant, setSelectedVariant] = useState(translatedProduct.variants[0])
-  const [quantity, setQuantity] = useState(1)
+  const [quantity, setQuantity] = useState(
+    items.find((item) => item.productVariantId === translatedProduct.variants[0].id)?.quantity || 1,
+  )
   const t = useTranslations('cart')
   const productT = useTranslations('products')
-  const { addItem, isLoading, items } = useCartStore()
 
   // Check if the selected variant is in cart and get its current quantity
   const cartItemInfo = useMemo(() => {
@@ -178,26 +180,35 @@ function ProductPageClient({
           </div>
           {/* variants/prices */}
           <div className="bg-filter-trigger grid gap-5 rounded-lg p-5" dir={direction}>
-            <p className="text-card-foreground text-sm font-bold">
-              <span className="text-2xl"> {selectedVariant.price}</span> / {translatedCurrency}
-              <p className="text-card-foreground text-xs font-semibold">
-                {!selectedVariant.inventory || selectedVariant.inventory.quantityAvailable == 0
-                  ? productT('out-stock')
-                  : selectedVariant.inventory.quantityAvailable <= 10
-                    ? selectedVariant.inventory.quantityAvailable +
+            <div className="flex place-items-center justify-between">
+              <span className="text-card-foreground text-sm font-bold">
+                <span className="text-2xl"> {selectedVariant.price}</span> / {translatedCurrency}
+              </span>
+              <span className="text-card-foreground text-xs font-semibold">
+                {!selectedVariant.inventory || selectedVariant.inventory.quantityAvailable == 0 ? (
+                  <div className="text-destructive">{productT('out-stock')}</div>
+                ) : selectedVariant.inventory.quantityAvailable <= 10 ? (
+                  <div className="text-warning">
+                    {selectedVariant.inventory.quantityAvailable +
                       ' ' +
-                      productT('number-in-stock')
-                    : productT('in-stock')}
-              </p>
-            </p>
+                      productT('number-in-stock')}
+                  </div>
+                ) : (
+                  <div className="text-success">{productT('in-stock')} </div>
+                )}
+              </span>
+            </div>
+
             <div className="flex w-full flex-wrap gap-2">
               {translatedProduct.variants.map((variant) => {
                 const isActive = selectedVariant.id == variant.id
                 return (
                   <Button
                     onClick={() => {
-                      setQuantity(1)
                       setSelectedVariant(variant)
+                      setQuantity(
+                        items.find((item) => item.productVariantId === variant.id)?.quantity || 1,
+                      )
                     }}
                     className={'flex-1 rounded-lg p-6 text-xs font-bold'}
                     variant={isActive ? 'secondary' : 'input'}
