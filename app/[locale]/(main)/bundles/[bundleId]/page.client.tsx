@@ -85,7 +85,7 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
           (b_it) =>
             b_it.variant.inventory &&
             b_it.variant.inventory.quantityAvailable > 0 &&
-            quantity <= b_it.variant.inventory.quantityAvailable,
+            quantity * b_it.quantity <= b_it.variant.inventory.quantityAvailable,
         )
       ) {
         toast.error('Not enough in stock')
