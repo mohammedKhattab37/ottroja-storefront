@@ -10,7 +10,7 @@ function BannerDescription({
 }: {
   title: string
   sub_title: string
-  bannerItems?: string[]
+  bannerItems?: { variant_name: string; quantity: number }[]
   button_text: string
   button_destination: string
 }) {
@@ -30,7 +30,10 @@ function BannerDescription({
                 width={25}
                 height={20}
               />
-              {item}
+              <p>
+                {item.quantity > 1 && <span className="font-bold">{item.quantity}x </span>}
+                {item.variant_name}
+              </p>
             </div>
           ))}
         </div>

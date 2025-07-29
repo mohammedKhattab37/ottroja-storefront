@@ -23,6 +23,7 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
           items: bundleData.bundleItems.map((item) => ({
             id: item.variant.product.id,
             variant_name: item.variant.product.name_ar + ' ' + item.variant.variant_name_ar,
+            quantity: item.quantity,
           })),
         }
       : {
@@ -32,6 +33,7 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
           items: bundleData.bundleItems.map((item) => ({
             id: item.variant.product.id,
             variant_name: item.variant.product.name_en + ' ' + item.variant.variant_name_en,
+            quantity: item.quantity,
           })),
         }
 
@@ -144,7 +146,7 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
               </p>
               {translatedBundle.items.map((item) => {
                 return (
-                  <div key={item.variant_name} className="flex items-center gap-4">
+                  <div key={item.variant_name} className="flex items-start gap-4">
                     <Image
                       alt="list item"
                       src={'/assets/illustrations/list-indicator.svg'}
@@ -152,7 +154,10 @@ function BundlePageClient({ bundleData }: { bundleData: Bundle }) {
                       height={20}
                       quality={100}
                     />
-                    {item.variant_name}
+                    <p>
+                      {item.quantity > 1 && <span className="font-bold">{item.quantity}x </span>}
+                      {item.variant_name}
+                    </p>
                   </div>
                 )
               })}
