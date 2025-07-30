@@ -63,10 +63,13 @@
     },
     "banners":{
       "summer_offer":{
-        "title": "Golden Summer Offer ... Valid until stock runs out",
-        "sub_title": "100% Natural Kashmiri Honey",
-        "items": ["Kashmiri Sidr Honey 850g", "Kashmiri Sidr Honey 450g"],
         "button_text": "Get the offer now"
+      },
+      "wholesale":{
+        "title": "Buy in bulk",
+        "sub_title": "and be a partner in our success in spreading nature.",
+        "description": "At Ottroja, we offer you the ability to purchase in bulk the finest natural health and beauty products, from trusted and certified organic sources.",
+        "button_text": "Order now"
       }
     }
   },

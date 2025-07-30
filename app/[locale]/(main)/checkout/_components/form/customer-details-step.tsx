@@ -58,13 +58,41 @@ function CustomerDetailsStep({ t }: { t: (key: string) => string }) {
   const CustomerTypesIcon = ({ type }: { type: string }) => {
     switch (type) {
       case 'login':
-        return <Image src={'/assets/payment/cash-method.svg'} alt="" width={30} height={30} />
+        return (
+          <Image
+            src={'/assets/illustrations/checkout/customer-type/sign-in.svg'}
+            alt=""
+            width={30}
+            height={30}
+          />
+        )
       case 'register':
-        return <Image src={'/assets/payment/card-method.svg'} alt="" width={30} height={30} />
+        return (
+          <Image
+            src={'/assets/illustrations/checkout/customer-type/sign-up.svg'}
+            alt=""
+            width={30}
+            height={30}
+          />
+        )
       case 'guest':
-        return <Image src={'/assets/payment/e-wallet-method.svg'} alt="" width={30} height={30} />
+        return (
+          <Image
+            src={'/assets/illustrations/checkout/customer-type/guest.svg'}
+            alt=""
+            width={30}
+            height={30}
+          />
+        )
       default:
-        return <Image src={'/assets/payment/cash-method.svg'} alt="" width={30} height={30} />
+        return (
+          <Image
+            src={'/assets/illustrations/checkout/customer-type/guest.svg'}
+            alt=""
+            width={30}
+            height={30}
+          />
+        )
     }
   }
 
@@ -101,7 +129,7 @@ function CustomerDetailsStep({ t }: { t: (key: string) => string }) {
                   'bg-background flex items-center justify-between rounded-lg p-4 text-xs font-bold transition-colors',
                   customerType === type.value
                     ? 'border-card-foreground text-card-foreground border-2'
-                    : 'text-[#AEAEAE]',
+                    : 'text-[#AEAEAE] opacity-65',
                 )}
               >
                 <CustomerTypesIcon type={type.value} />

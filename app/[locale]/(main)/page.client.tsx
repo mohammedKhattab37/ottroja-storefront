@@ -7,6 +7,7 @@ import type { Category } from './_actions/get-categories'
 import FirstBannerSection from './_components/banners/First-banner-section'
 import SecondBannerSection from './_components/banners/Second-banner-section'
 import SubBanners from './_components/banners/Sub-banners'
+import WholesaleBanner from './_components/banners/wholesale-banner'
 import CategoriesSection from './_components/categories/Categories-section'
 import Hero from './_components/header/hero'
 import ProductsSection from './_components/products/Products-section'
@@ -28,6 +29,7 @@ export default function HomePage({
       <Hero />
       <CategoriesSection NavCategories={NavCategories} />
       <ProductsSection FeaturedProducts={FeaturedProducts} />
+      <WholesaleBanner />
       {/* <OffersSection /> */}
       {FeaturedBundles.length > 0 && <FirstBannerSection bundleData={FeaturedBundles[0]} />}
       <SubBanners />
