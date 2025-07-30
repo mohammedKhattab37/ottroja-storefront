@@ -73,16 +73,16 @@ function ProductTabsSection({ productT, direction, description }: ProductTabsPro
                   />
                 )}
 
-                <div className="rounded-lg bg-[#F2A31914] p-4">
-                  {description.warnings && (
+                {description.warnings && (
+                  <div className="rounded-lg bg-[#F2A31914] p-4">
                     <DescriptionSection
                       title={productT('description.warning')}
                       text_color="text-[#B1750C]"
                       list_indicator="/assets/illustrations/warning-list.svg"
                       content={description.warnings}
                     />
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -104,9 +104,15 @@ function ProductTabsSection({ productT, direction, description }: ProductTabsPro
               <CarouselContent>
                 {dummyReviews.map((item, i) => (
                   <CarouselItem key={i} dir={direction} className="basis-full lg:basis-1/2">
-                    <div className="text-secondary bg-card border-input-border grid h-full min-h-64 gap-6 overflow-hidden rounded-md rounded-tl-[5rem] rounded-br-[5rem] border px-10 pt-5 pb-8 text-sm">
+                    <div className="text-secondary bg-card border-input-border grid h-full min-h-64 content-start gap-6 overflow-hidden rounded-md border px-10 py-8 text-sm">
                       <div className="flex items-center gap-4">
-                        <div className="rounded-full bg-black p-8"></div>
+                        <Image
+                          src={'/assets/product-review-avatar.svg'}
+                          alt={''}
+                          width={20}
+                          height={20}
+                          className="size-16"
+                        />
                         <div className="grid min-w-0 gap-2">
                           <span className="truncate font-bold">{item.name}</span>
                           <span className="truncate text-[10px]">{item.name}</span>
