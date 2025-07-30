@@ -2,16 +2,23 @@ import { ToasterProvider } from '@/components/providers/toast-provider'
 import { routing } from '@/i18n/routing'
 import type { Metadata } from 'next'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
-import { Noto_Kufi_Arabic } from 'next/font/google'
+import localFont from 'next/font/local'
 import { notFound } from 'next/navigation'
 import '../globals.css'
 import { getCategories } from './_actions/get-categories'
 import Footer from './_components/footer/Footer'
 import Header from './_components/header/Header'
 
-const notoKufiArabic = Noto_Kufi_Arabic({
-  variable: '--font-noto-kufi-arabic',
-  subsets: ['arabic'],
+const alQabas = localFont({
+  src: [
+    {
+      path: '../../../public/fonts/al-qabas/alqabas-regular.ttf',
+      weight: '400',
+      style: 'normal',
+    },
+  ],
+  variable: '--font-al-qabas',
+  display: 'swap',
 })
 
 export const metadata: Metadata = {
@@ -36,7 +43,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <NextIntlClientProvider>
-        <body className={`${notoKufiArabic.variable} antialiased`}>
+        <body className={`${alQabas.variable} antialiased`}>
           <Header />
           {children}
           <Footer categories={categories} />
