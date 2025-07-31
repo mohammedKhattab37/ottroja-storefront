@@ -10,6 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
+import { useRouter } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
 import { useCartStore } from '@/stores/cart'
 import { Star } from 'lucide-react'
@@ -24,9 +25,11 @@ import ProductTabsSection from './_components/product-tabs-section'
 function ProductPageClient({
   productData,
   similarProducts,
+  chosenVariant,
 }: {
   productData: Product
   similarProducts: Product[]
+  chosenVariant?: string
 }) {
   const locale = useLocale()
   const direction = locale == 'ar' ? 'rtl' : 'ltr'
@@ -69,8 +72,13 @@ function ProductPageClient({
           warnings: productData.warnings_en,
         }
 
+  const router = useRouter()
+
   const { addItem, isLoading, items } = useCartStore()
-  const [selectedVariant, setSelectedVariant] = useState(translatedProduct.variants[0])
+  const [selectedVariant, setSelectedVariant] = useState(
+    translatedProduct.variants.find((variant) => variant.id == chosenVariant) ||
+      translatedProduct.variants[0],
+  )
   const [quantity, setQuantity] = useState(
     items.find((item) => item.productVariantId === translatedProduct.variants[0].id)?.quantity || 1,
   )
@@ -209,6 +217,7 @@ function ProductPageClient({
                       setQuantity(
                         items.find((item) => item.productVariantId === variant.id)?.quantity || 1,
                       )
+                      router.replace(`?variant_id=${variant.id}`)
                     }}
                     className={'flex-1 rounded-lg p-6 text-xs font-bold'}
                     variant={isActive ? 'secondary' : 'input'}
