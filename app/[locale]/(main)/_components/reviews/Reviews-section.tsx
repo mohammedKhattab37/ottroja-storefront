@@ -9,7 +9,7 @@ function ReviewsSection() {
   const direction = locale == 'ar' ? 'rtl' : 'ltr'
 
   return (
-    <div className="justify-items-center overflow-x-hidden">
+    <div className="w-full max-w-full justify-items-center overflow-x-auto">
       <Header title={t('badges.customer-reviews')} direction={locale == 'ar' ? 'rtl' : 'ltr'} />
       <ReviewsCarousel direction={direction} />
       <div className="mt-20 w-full">
