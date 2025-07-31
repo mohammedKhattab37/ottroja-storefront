@@ -56,3 +56,11 @@ export interface ProductsResponse {
   limit: number
   totalPages: number
 }
+
+export interface DiscountedVariantResponse extends ProductVariant {
+  product: {
+    name_en: string
+    name_ar: string
+    slug: string
+  }
+}

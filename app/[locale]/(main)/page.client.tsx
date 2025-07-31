@@ -10,17 +10,20 @@ import SubBanners from './_components/banners/Sub-banners'
 import WholesaleBanner from './_components/banners/wholesale-banner'
 import CategoriesSection from './_components/categories/Categories-section'
 import Hero from './_components/header/hero'
+import OffersSection from './_components/products/Offers-section'
 import ProductsSection from './_components/products/Products-section'
 import ReviewsSection from './_components/reviews/Reviews-section'
 import OurJourneySection from './about-us/_components/our-journey-section'
-import { Product } from './products/_actions/types'
+import { DiscountedVariantResponse, Product } from './products/_actions/types'
 
 export default function HomePage({
   NavCategories,
   FeaturedProducts,
+  discountedVariants,
 }: {
   NavCategories: Category[]
   FeaturedProducts: Product[]
+  discountedVariants: DiscountedVariantResponse[]
 }) {
   return (
     <div className="mx-auto flex w-full flex-col items-center justify-center gap-y-24 px-4 md:px-0">
@@ -28,7 +31,7 @@ export default function HomePage({
       <CategoriesSection NavCategories={NavCategories} />
       <ProductsSection FeaturedProducts={FeaturedProducts} />
       <WholesaleBanner />
-      {/* <OffersSection /> */}
+      <OffersSection discountedVariants={discountedVariants} />
       <FirstBannerSection bundleData={dummyBanner} />
       <SubBanners />
       <SecondBannerSection />
