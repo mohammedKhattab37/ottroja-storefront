@@ -34,7 +34,7 @@ function WholesaleBanner() {
               </span>
             </div>
 
-            <BannerButton text={t('button_text')} url={'/'} size="sm" />
+            <BannerButton text={t('button_text')} url={'https://wa.me/00201009770500'} size="sm" target="_blank" />
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 
+import { dummyBanner } from '@/lib/dummy-data'
 import { Bundle } from './_actions/get-bundles'
 import type { Category } from './_actions/get-categories'
 import FirstBannerSection from './_components/banners/First-banner-section'
@@ -31,7 +32,7 @@ export default function HomePage({
       <ProductsSection FeaturedProducts={FeaturedProducts} />
       <WholesaleBanner />
       {/* <OffersSection /> */}
-      {FeaturedBundles.length > 0 && <FirstBannerSection bundleData={FeaturedBundles[0]} />}
+      <FirstBannerSection bundleData={dummyBanner} />
       <SubBanners />
       <SecondBannerSection />
       <ReviewsSection />

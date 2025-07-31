@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 function SubBanners() {
   return (
-    <div className="max-width-container -mt-20 grid grid-cols-3 gap-5">
+    <div className="max-width-container -mt-20 grid grid-cols-1 gap-5 md:grid-cols-3">
       {dummyBanners.map((banner, i) => (
         <Link key={i} href={banner.url}>
           <Image

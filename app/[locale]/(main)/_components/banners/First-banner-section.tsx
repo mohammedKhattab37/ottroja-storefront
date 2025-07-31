@@ -1,34 +1,12 @@
 import Header from '@/components/header'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { Bundle } from '../../_actions/get-bundles'
 import BannerDescription from './banner-description'
 
-function FirstBannerSection({ bundleData }: { bundleData: Bundle }) {
+function FirstBannerSection({ bundleData }: { bundleData: any }) {
   const t = useTranslations('homePage')
   const locale = useLocale()
   const contentDirection = locale == 'ar' ? 'rtl' : 'ltr'
-
-  const translatedBundle =
-    locale == 'ar'
-      ? {
-          title: bundleData.nameAr,
-          sub_title: bundleData.briefTitleAr,
-          bannerItems: bundleData.bundleItems.map((item) => ({
-            variant_name: item.variant.product.name_ar + ' ' + item.variant.variant_name_ar,
-            quantity: item.quantity,
-          })),
-          button_destination: bundleData.slug,
-        }
-      : {
-          title: bundleData.nameEn,
-          sub_title: bundleData.briefTitleEn,
-          bannerItems: bundleData.bundleItems.map((item) => ({
-            variant_name: item.variant.product.name_en + ' ' + item.variant.variant_name_en,
-            quantity: item.quantity,
-          })),
-          button_destination: bundleData.slug,
-        }
 
   return (
     <div className="max-width-container">
@@ -49,18 +27,18 @@ function FirstBannerSection({ bundleData }: { bundleData: Bundle }) {
           <div className="flex justify-center md:justify-start lg:h-full">
             <Image
               alt="banner"
-              src={bundleData.imageUrl || ''}
+              src={bundleData.image || ''}
               width={574}
               height={415}
               className="h-auto w-full min-w-sm object-contain lg:h-full lg:object-cover"
             />
           </div>
           <BannerDescription
-            title={translatedBundle.title}
-            sub_title={translatedBundle.sub_title}
-            bannerItems={translatedBundle.bannerItems}
+            title={bundleData.title}
+            sub_title={bundleData.sub_title}
+            bannerItems={bundleData.items}
             button_text={t('banners.summer_offer.button_text')}
-            button_destination={'/bundles/' + translatedBundle.button_destination}
+            button_destination={bundleData.button_destination}
           />
         </div>
       </div>

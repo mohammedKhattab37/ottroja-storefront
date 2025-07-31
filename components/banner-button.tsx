@@ -7,12 +7,14 @@ function BannerButton({
   disabled = false,
   url,
   size = 'md',
+  target,
 }: {
   className?: string
   text: string
   disabled?: boolean
   url: string
   size?: 'sm' | 'md' | 'lg'
+  target?: string
 }) {
   const sizes = {
     sm: 'px-4 text-xs',
@@ -23,6 +25,7 @@ function BannerButton({
   return (
     <Link
       href={disabled ? '/' : url}
+      target={target}
       className={cn(
         'bg-secondary text-secondary-foreground inline-block w-fit rounded-full py-3 text-center font-bold transition-colors',
         disabled ? 'cursor-not-allowed opacity-50' : 'hover:bg-secondary/90',

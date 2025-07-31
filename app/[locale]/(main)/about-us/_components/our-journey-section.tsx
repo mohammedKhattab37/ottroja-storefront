@@ -15,14 +15,14 @@ function OurJourneySection({ t }: { t: (key: string) => string }) {
           <SocialLink
             title={t('instagram')}
             icon="/assets/socials/instagram-colored.svg"
-            href="/"
+            href="https://www.instagram.com/ottroja.food/"
             color1="hsla(30, 100%, 50%, 1)"
             color2="hsla(320, 99%, 44%, 1)"
           />
           <SocialLink
             title={t('youtube')}
             icon="/assets/socials/youtube-colored.svg"
-            href="/"
+            href="https://www.youtube.com/@Ottrojafood"
             color1="hsla(348, 83%, 46%, 1)"
           />
         </div>

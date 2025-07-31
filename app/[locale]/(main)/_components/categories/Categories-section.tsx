@@ -13,7 +13,7 @@ function CategoriesSection({ NavCategories }: { NavCategories: Category[] }) {
     <div className="justify-items-center">
       <Header title={t('sections.categories')} direction={locale == 'ar' ? 'rtl' : 'ltr'} />
       <div
-        className="mt-20 flex flex-wrap justify-center gap-16"
+        className="mt-20 flex flex-wrap justify-center gap-8 md:gap-16"
         dir={locale == 'ar' ? 'rtl' : 'ltr'}
       >
         {NavCategories.map((category, index) => (
@@ -50,8 +50,8 @@ function CategoryItem({
         <Image
           alt={'Category Image'}
           src={image!}
-          width={58}
-          height={58}
+          width={38}
+          height={38}
           quality={100}
           className="aspect-square object-cover"
         />
@@ -59,15 +59,15 @@ function CategoryItem({
           alt="border"
           src={'/assets/dashed-border.svg'}
           className="absolute top-2 left-2 -z-10 h-full w-full rounded-full"
-          width={60}
-          height={60}
+          width={20}
+          height={20}
           quality={100}
         />
       </div>
       {locale == 'ar' ? (
-        <span className="text-md -mr-2 font-bold">{nameAr}</span>
+        <span className="md:text-md -mr-2 text-xs font-bold">{nameAr}</span>
       ) : (
-        <span className="text-md -mr-2 font-bold">{nameEn}</span>
+        <span className="md:text-md -mr-2 text-xs font-bold">{nameEn}</span>
       )}
     </Link>
   )
