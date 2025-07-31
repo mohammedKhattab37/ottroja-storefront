@@ -9,22 +9,26 @@ import { Button } from './ui/button'
 function ProductBigCard({ direction, data }: { direction: string; data: Product }) {
   const t = useTranslations('homePage')
   const locale = useLocale()
+  const isAvailable =
+    data.isActive &&
+    data.variants.filter((variant) => variant.inventory && variant.inventory?.quantityAvailable > 0)
+      .length > 0
 
   return (
-    <Link 
+    <Link
       href={`/products/${data.slug}`}
-      className="bg-card border-border text-card-foreground relative rounded-lg border-[1px] p-4 drop-shadow-md block hover:shadow-lg transition-shadow"
+      className="bg-card border-border text-card-foreground relative block rounded-lg border-[1px] p-4 drop-shadow-md transition-shadow hover:shadow-lg"
       style={{ width: '295px', height: '284px' }}
     >
       <div className="absolute top-0 left-0 h-20 w-full overflow-hidden">
         <div
           className={cn(
             'absolute top-4 -left-8 max-w-fit min-w-[120px] -rotate-45 transform px-8 py-1 text-center text-xs font-bold text-white shadow-lg',
-            data.isActive ? 'bg-success' : 'bg-destructive',
+            isAvailable ? 'bg-success' : 'bg-destructive',
           )}
         >
           <span className="whitespace-nowrap">
-            {data.isActive ? t('status.available') : t('status.not-available')}
+            {isAvailable ? t('status.available') : t('status.not-available')}
           </span>
         </div>
       </div>
@@ -55,9 +59,7 @@ function ProductBigCard({ direction, data }: { direction: string; data: Product 
               />
             ))}
           </div>
-          <span className="font-bold">
-            {locale === 'ar' ? data.name_ar : data.name_en}
-          </span>
+          <span className="font-bold">{locale === 'ar' ? data.name_ar : data.name_en}</span>
         </div>
         <div className="flex items-center gap-5">
           <Button

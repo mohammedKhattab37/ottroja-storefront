@@ -94,6 +94,7 @@
     "in-cart":"units in cart",
     "added-to-cart":"Product added to cart",
     "updated-cart":"Updated the cart successfully",
+    "discount": "Save",
     "pagination": {
       "next":"Next",
       "back":"Back",

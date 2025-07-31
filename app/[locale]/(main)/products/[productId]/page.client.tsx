@@ -10,6 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
+import { useRouter } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
 import { useCartStore } from '@/stores/cart'
 import { Star } from 'lucide-react'
@@ -24,9 +25,11 @@ import ProductTabsSection from './_components/product-tabs-section'
 function ProductPageClient({
   productData,
   similarProducts,
+  chosenVariant,
 }: {
   productData: Product
   similarProducts: Product[]
+  chosenVariant?: string
 }) {
   const locale = useLocale()
   const direction = locale == 'ar' ? 'rtl' : 'ltr'
@@ -69,8 +72,13 @@ function ProductPageClient({
           warnings: productData.warnings_en,
         }
 
+  const router = useRouter()
+
   const { addItem, isLoading, items } = useCartStore()
-  const [selectedVariant, setSelectedVariant] = useState(translatedProduct.variants[0])
+  const [selectedVariant, setSelectedVariant] = useState(
+    translatedProduct.variants.find((variant) => variant.id == chosenVariant) ||
+      translatedProduct.variants[0],
+  )
   const [quantity, setQuantity] = useState(
     items.find((item) => item.productVariantId === translatedProduct.variants[0].id)?.quantity || 1,
   )
@@ -179,11 +187,46 @@ function ProductPageClient({
             <span className="text-xs leading-8 font-medium">{translatedProduct.brief_text}</span>
           </div>
           {/* variants/prices */}
-          <div className="bg-filter-trigger grid gap-5 rounded-lg p-5" dir={direction}>
-            <div className="flex place-items-center justify-between">
-              <span className="text-card-foreground text-sm font-bold">
-                <span className="text-2xl"> {selectedVariant.price}</span> / {translatedCurrency}
+          <div className="bg-filter-trigger relative grid gap-5 rounded-lg p-5" dir={direction}>
+            {selectedVariant.compare_at_price && (
+              <span className="bg-discount-badge absolute start-4 -top-3 rounded-full px-2 py-1 text-xs font-semibold text-white drop-shadow-xl">
+                {productT('discount') +
+                  ' ' +
+                  Math.round(
+                    ((selectedVariant.price - selectedVariant.compare_at_price) /
+                      selectedVariant.price) *
+                      100,
+                  )}{' '}
+                %
               </span>
+            )}
+            <div className="flex place-items-center justify-between">
+              <div
+                className={cn(
+                  'text-card-foreground font-bold',
+                  selectedVariant.compare_at_price ? 'flex items-center gap-2' : '',
+                )}
+              >
+                <div>
+                  <span className="text-2xl">
+                    {' '}
+                    {selectedVariant.compare_at_price
+                      ? selectedVariant.compare_at_price
+                      : selectedVariant.price}
+                  </span>{' '}
+                  / {translatedCurrency}
+                </div>
+                {selectedVariant.compare_at_price && (
+                  <span
+                    className={cn(
+                      selectedVariant.compare_at_price ? 'text-xs line-through' : 'text-2xl',
+                    )}
+                  >
+                    {' '}
+                    {selectedVariant.price} / {translatedCurrency}
+                  </span>
+                )}
+              </div>
               <span className="text-card-foreground text-xs font-semibold">
                 {!selectedVariant.inventory || selectedVariant.inventory.quantityAvailable == 0 ? (
                   <div className="text-destructive">{productT('out-stock')}</div>
@@ -209,6 +252,7 @@ function ProductPageClient({
                       setQuantity(
                         items.find((item) => item.productVariantId === variant.id)?.quantity || 1,
                       )
+                      router.replace(`?variant_id=${variant.id}`)
                     }}
                     className={'flex-1 rounded-lg p-6 text-xs font-bold'}
                     variant={isActive ? 'secondary' : 'input'}
