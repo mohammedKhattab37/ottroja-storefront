@@ -114,14 +114,14 @@ function PaymentMethodStep({ t }: { t: (key: string) => string }) {
                 disabled={isSubmitting}
                 onClick={() => form.setValue('method', method.value)}
                 className={cn(
-                  'bg-background flex items-center justify-between rounded-lg p-4 text-xs font-bold transition-colors',
+                  'bg-background flex items-center justify-between rounded-lg p-4 text-xs transition-colors',
                   paymentMethodField === method.value
-                    ? 'border-card-foreground text-card-foreground border-2'
-                    : 'text-[#AEAEAE] opacity-65',
+                    ? 'border-card-foreground text-card-foreground border-2 font-bold'
+                    : 'text-[#AEAEAE]',
                 )}
               >
                 <PaymentMethodIcon method={method.value} />
-                <span className="flex items-center gap-2 text-sm font-medium">
+                <span className="flex items-center gap-2 text-sm">
                   {method.label}
                   <div
                     className={cn(
