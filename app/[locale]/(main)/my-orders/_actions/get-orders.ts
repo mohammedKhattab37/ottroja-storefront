@@ -14,6 +14,7 @@ export interface Product {
   name_ar: string
   description_en: string | null
   description_ar: string | null
+  slug?: string
 }
 
 export interface ProductVariant {
@@ -73,7 +74,14 @@ export interface ShippingAddress {
 export interface Order {
   id: string
   orderNumber: string
-  status: 'PENDING' | 'PROCESSING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED'
+  status: 'PENDING' | 'PROCESSING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED' | 'CONFIRMED'
+  deliveryStatus?:
+    | 'ORDER_PLACED'
+    | 'PREPARING'
+    | 'OUT_FOR_DELIVERY'
+    | 'DELIVERED'
+    | 'DELIVERY_FAILED'
+    | 'RETURNED'
   totalAmount: number
   subTotal: number
   shippingAmount: number
@@ -127,7 +135,8 @@ export async function getUserOrders(): Promise<OrdersResponse> {
       .join('; ')
 
     // Extract token from cookies for Authorization header
-    const tokenCookie = cookieStore.get('auth_token') || cookieStore.get('token') || cookieStore.get('access_token')
+    const tokenCookie =
+      cookieStore.get('auth_token') || cookieStore.get('token') || cookieStore.get('access_token')
     const authToken = tokenCookie?.value
 
     const headers: Record<string, string> = {

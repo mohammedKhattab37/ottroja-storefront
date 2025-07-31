@@ -259,10 +259,73 @@
     "profile":{
       "menu":{
         "profile":"Profile",
-        "settings":"Settings",
+        "orders":"My Orders",
+        "settings":"Settings", 
         "logout":"Log out",
         "logging-out":"Logging out..."
       }
     }
+  },
+  "profile":{
+    "title":"Profile",
+    "description":"Manage your account information and preferences",
+    "editProfile":"Edit Profile",
+    "personalInfo":"Personal Information",
+    "name":"Full Name",
+    "email":"Email Address", 
+    "phone":"Phone Number",
+    "accountDetails":"Account Details",
+    "memberId":"Member ID",
+    "memberSince":"Member Since"
+  },
+      "orders":{
+    "title":"My Orders",
+    "description":"View and manage your past and current orders",
+    "noOrders":"No Orders",
+    "noOrdersDescription":"You haven't placed any orders yet. Start shopping now!",
+    "addReview":"Add Review",
+    "orderNumber":"Order Number",
+    "orderDate":"Order Date",
+    "status":"Status",
+    "total":"Total",
+    "items":"Items",
+    "viewDetails":"View Details",
+    "hideDetails":"Hide Details",
+    "quantity":"Quantity",
+    "each":"each",
+    "subtotal":"Subtotal",
+    "shipping":"Shipping",
+    "discount":"Discount",
+    "totalLabel":"Total",
+    "statuses":{
+      "pending":"Pending",
+      "processing":"Processing", 
+      "shipped":"Shipped",
+      "delivered":"Delivered",
+      "cancelled":"Cancelled",
+      "confirmed":"Confirmed"
+    },
+    "deliveryStatuses":{
+      "order_placed":"Order Placed",
+      "preparing":"Preparing",
+      "out_for_delivery":"Out for Delivery",
+      "delivered":"Delivered",
+      "delivery_failed":"Delivery Failed",
+      "returned":"Returned"
+    }
+  },
+  "reviews": {
+    "title": "Add Product Review",
+    "description": "Share your experience with this product to help other customers",
+    "selectProduct": "Select Product",
+    "selectProductPlaceholder": "Choose a product to review",
+    "rating": "Rating",
+    "reviewTitle": "Review Title",
+    "reviewTitlePlaceholder": "Summarize your experience",
+    "reviewContent": "Review Content (Optional)",
+    "reviewContentPlaceholder": "Tell us about your experience with this product (optional)...",
+    "cancel": "Cancel",
+    "submitReview": "Submit Review",
+    "submitting": "Submitting..."
   }
 }

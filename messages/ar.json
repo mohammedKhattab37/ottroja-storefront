@@ -278,11 +278,12 @@
     "memberId":"رقم العضوية",
     "memberSince":"عضو منذ"
   },
-  "orders":{
+      "orders":{
     "title":"طلباتي",
     "description":"عرض وإدارة طلباتك السابقة والحالية",
     "noOrders":"لا توجد طلبات",
     "noOrdersDescription":"لم تقم بأي طلبات بعد. ابدأ التسوق الآن!",
+    "addReview":"إضافة تقييم",
     "orderNumber":"رقم الطلب",
     "orderDate":"تاريخ الطلب",
     "status":"الحالة",
@@ -301,7 +302,30 @@
       "processing":"قيد المعالجة",
       "shipped":"تم الشحن",
       "delivered":"تم التسليم",
-      "cancelled":"ملغي"
+      "cancelled":"ملغي",
+      "confirmed":"مؤكد"
+    },
+    "deliveryStatuses":{
+      "order_placed":"تم تسجيل الطلب",
+      "preparing":"قيد التحضير",
+      "out_for_delivery":"في الطريق للتسليم",
+      "delivered":"تم التسليم",
+      "delivery_failed":"فشل التسليم",
+      "returned":"تم الإرجاع"
     }
+  },
+  "reviews": {
+    "title": "إضافة تقييم للمنتج",
+    "description": "شارك تجربتك مع هذا المنتج لمساعدة العملاء الآخرين",
+    "selectProduct": "اختر المنتج",
+    "selectProductPlaceholder": "اختر منتجاً لتقييمه",
+    "rating": "التقييم",
+    "reviewTitle": "عنوان التقييم",
+    "reviewTitlePlaceholder": "لخص تجربتك",
+    "reviewContent": "محتوى التقييم (اختياري)",
+    "reviewContentPlaceholder": "أخبرنا عن تجربتك مع هذا المنتج (اختياري)...",
+    "cancel": "إلغاء",
+    "submitReview": "إرسال التقييم",
+    "submitting": "جاري الإرسال..."
   }
 }
