@@ -75,7 +75,7 @@ export const zoneDelivery = [
 ]
 
 export const importantLinks = [
-  { name_en: 'Terms & Conditions', name_ar: 'الشروط و الاحكام', url: '/terms-conditions' },
+  { name_en: 'Terms & Conditions', name_ar: 'الشروط و الاحكام', url: '/terms-and-conditions' },
   { name_en: 'Privacy Policy', name_ar: 'سياسة الخصوصية', url: '/privacy-policy' },
   { name_en: 'Return Policy', name_ar: 'سياسة الإسترجاع', url: '/return-policy' },
 ]
