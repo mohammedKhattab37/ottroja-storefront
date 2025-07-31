@@ -109,21 +109,12 @@ export default function ProfilePage() {
               <p className="text-lg">{customer.email}</p>
             </div>
 
-            {customer.phone && (
-              <div>
-                <label className="mb-1 block text-sm font-medium text-gray-500">{t('phone')}</label>
-                <p className="text-lg">{customer.phone}</p>
-              </div>
-            )}
-
             <div>
               <label className="mb-1 block text-sm font-medium text-gray-500">
-                {t('memberSince')}
+                {t('emailVerified')}
               </label>
               <p className="text-lg">
-                {customer.created_at
-                  ? new Date(customer.created_at).toLocaleDateString(locale)
-                  : 'N/A'}
+                {customer.emailVerified ? t('verified') : t('notVerified')}
               </p>
             </div>
           </div>

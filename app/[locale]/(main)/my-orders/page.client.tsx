@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Link } from '@/i18n/navigation'
-import { ShoppingBag, Package, Calendar, Eye, ChevronDown, ChevronUp } from 'lucide-react'
+import { ShoppingBag, Package, Calendar, ChevronDown, ChevronUp } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useCallback, useEffect, useState } from 'react'
@@ -22,23 +22,6 @@ export default function MyOrdersPage() {
   const [isOrdersLoading, setIsOrdersLoading] = useState(true)
   const [ordersError, setOrdersError] = useState<string | null>(null)
   const [expandedOrders, setExpandedOrders] = useState<Set<string>>(new Set())
-
-  const checkSession = useCallback(async () => {
-    try {
-      const session = await getCustomerSession()
-      if (session.success) {
-        setCustomer(session.customer)
-        fetchOrders()
-      } else {
-        setCustomer(null)
-      }
-    } catch (error) {
-      console.error('Failed to get session:', error)
-      setCustomer(null)
-    } finally {
-      setIsLoading(false)
-    }
-  }, [])
 
   const fetchOrders = useCallback(async () => {
     try {
@@ -59,6 +42,23 @@ export default function MyOrdersPage() {
       setIsOrdersLoading(false)
     }
   }, [])
+
+  const checkSession = useCallback(async () => {
+    try {
+      const session = await getCustomerSession()
+      if (session.success) {
+        setCustomer(session.customer)
+        fetchOrders()
+      } else {
+        setCustomer(null)
+      }
+    } catch (error) {
+      console.error('Failed to get session:', error)
+      setCustomer(null)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [fetchOrders])
 
   useEffect(() => {
     checkSession()

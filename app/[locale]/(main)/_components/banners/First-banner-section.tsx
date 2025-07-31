@@ -3,7 +3,15 @@ import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
 import BannerDescription from './banner-description'
 
-function FirstBannerSection({ bundleData }: { bundleData: any }) {
+interface BannerData {
+  title: string
+  sub_title: string
+  image: string
+  items: string[]
+  button_destination: string
+}
+
+function FirstBannerSection({ bundleData }: { bundleData: BannerData }) {
   const t = useTranslations('homePage')
   const locale = useLocale()
   const contentDirection = locale == 'ar' ? 'rtl' : 'ltr'
