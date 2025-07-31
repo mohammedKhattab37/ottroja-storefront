@@ -258,10 +258,49 @@
     "profile":{
       "menu":{
         "profile":"الملف الشخصي",
+        "orders":"طلباتي",
         "settings":"الإعدادات",
         "logout":"تسجيل الخروج",
         "logging-out":"جاري تسجيل الخروج..."
       }
+    }
+  },
+  "profile":{
+    "title":"الملف الشخصي",
+    "description":"إدارة معلومات حسابك وتفضيلاتك",
+    "editProfile":"تعديل الملف الشخصي",
+    "personalInfo":"المعلومات الشخصية",
+    "name":"الاسم الكامل",
+    "email":"البريد الإلكتروني",
+    "phone":"رقم الهاتف",
+    "accountDetails":"تفاصيل الحساب",
+    "memberId":"رقم العضوية",
+    "memberSince":"عضو منذ"
+  },
+  "orders":{
+    "title":"طلباتي",
+    "description":"عرض وإدارة طلباتك السابقة والحالية",
+    "noOrders":"لا توجد طلبات",
+    "noOrdersDescription":"لم تقم بأي طلبات بعد. ابدأ التسوق الآن!",
+    "orderNumber":"رقم الطلب",
+    "orderDate":"تاريخ الطلب",
+    "status":"الحالة",
+    "total":"المجموع",
+    "items":"المنتجات",
+    "viewDetails":"عرض التفاصيل",
+    "hideDetails":"إخفاء التفاصيل",
+    "quantity":"الكمية",
+    "each":"للقطعة",
+    "subtotal":"المجموع الفرعي",
+    "shipping":"الشحن",
+    "discount":"الخصم",
+    "totalLabel":"الإجمالي",
+    "statuses":{
+      "pending":"قيد الانتظار",
+      "processing":"قيد المعالجة",
+      "shipped":"تم الشحن",
+      "delivered":"تم التسليم",
+      "cancelled":"ملغي"
     }
   }
 }

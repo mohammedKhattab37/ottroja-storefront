@@ -11,7 +11,8 @@ import {
 import { cn } from '@/lib/utils'
 import { useCartStore } from '@/stores/cart'
 import { useCheckoutStore } from '@/stores/checkout'
-import { LogOut, Settings, User, UserRound } from 'lucide-react'
+import { Link } from '@/i18n/navigation'
+import { LogOut, Settings, User, UserRound, ShoppingBag } from 'lucide-react'
 import Image from 'next/image'
 import { useCallback, useEffect, useState } from 'react'
 import { getCustomerSession } from '../../_auth/_actions/get-session'
@@ -127,9 +128,17 @@ export function Profile({ authT, direction, userButtonText }: ProfileProps) {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className={cn('cursor-pointer', isRTL && 'flex-row-reverse')}>
-              <User className={cn('h-4 w-4', isRTL ? 'ml-2' : 'mr-2')} />
-              <span>{authT('profile.menu.profile')}</span>
+            <DropdownMenuItem asChild className={cn('cursor-pointer', isRTL && 'flex-row-reverse')}>
+              <Link href="/profile">
+                <User className={cn('h-4 w-4', isRTL ? 'ml-2' : 'mr-2')} />
+                <span>{authT('profile.menu.profile')}</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild className={cn('cursor-pointer', isRTL && 'flex-row-reverse')}>
+              <Link href="/my-orders">
+                <ShoppingBag className={cn('h-4 w-4', isRTL ? 'ml-2' : 'mr-2')} />
+                <span>{authT('profile.menu.orders')}</span>
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem className={cn('cursor-pointer', isRTL && 'flex-row-reverse')}>
               <Settings className={cn('h-4 w-4', isRTL ? 'ml-2' : 'mr-2')} />
