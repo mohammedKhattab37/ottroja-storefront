@@ -94,6 +94,7 @@
     "in-cart":"قطعة في السلة حاليًا",
     "added-to-cart":"تم اضافة المنتج الى السلة",
     "updated-cart":"تم تحديث السلة",
+    "discount": "وفر",
     "pagination": {
       "next":"التالي",
       "back":"السابق",
