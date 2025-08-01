@@ -193,7 +193,12 @@
       "building":"Building No.",
       "apartment":"Apartment No.",
       "postal-code":"Zip code",
-      "extra-address":"Another extra address"
+      "extra-address":"Another extra address",
+      "open-package":{
+        "title":"Open the package upon receipt",
+        "yes":"Yes, I want to open it",
+        "no":"No, I don't want to open it"
+      }
     },
     "step3":{
       "name":"Payment details",
@@ -204,8 +209,7 @@
         "link-btn":"Pay Now",
         "link-title":"Click here to pay",
         "link-description":"You will be redirected to our instapay account",
-        "or":"OR",
-        "send-number-title":"Send to this number",
+        "send-number-title":"Or send to this number (Bank account)",
         "copy":"Copy",
         "copied":"Copied",
         "receipt-number":"After choosing a method please send Receipt via WhatsApp to the above number"
@@ -261,7 +265,7 @@
       "menu":{
         "profile":"Profile",
         "orders":"My Orders",
-        "settings":"Settings", 
+        "settings":"Settings",
         "logout":"Log out",
         "logging-out":"Logging out..."
       }
@@ -273,7 +277,7 @@
     "editProfile":"Edit Profile",
     "personalInfo":"Personal Information",
     "name":"Full Name",
-    "email":"Email Address", 
+    "email":"Email Address",
     "phone":"Phone Number",
     "accountDetails":"Account Details",
     "memberId":"Member ID",
@@ -300,7 +304,7 @@
     "totalLabel":"Total",
     "statuses":{
       "pending":"Pending",
-      "processing":"Processing", 
+      "processing":"Processing",
       "shipped":"Shipped",
       "delivered":"Delivered",
       "cancelled":"Cancelled",

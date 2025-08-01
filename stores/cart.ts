@@ -33,6 +33,8 @@ interface CartState {
   items: CartItem[]
   delivery: number
   couponAmount: number
+  openPackage: boolean
+  openPackageFee: number
   isLoading: boolean
   error: string | null
   isUserLoggedIn: () => Promise<boolean>
@@ -60,6 +62,8 @@ export const useCartStore = create<CartState>()(
       items: [],
       delivery: 0,
       couponAmount: 0,
+      openPackage: false,
+      openPackageFee: 10,
       isLoading: false,
       error: null,
       isUserLoggedIn: async () => {
@@ -157,13 +161,14 @@ export const useCartStore = create<CartState>()(
 
       getTotalPrice: (noDelivery = false) => {
         const delivery = noDelivery ? 0 : get().delivery
+        const openPackageFee = get().openPackage ? get().openPackageFee : 0
         const couponAmount = get().couponAmount
         const totalPrice = get().items.reduce(
           (total, item) =>
             total + (item.productVariant?.price || item.bundle?.bundlePrice || 0) * item.quantity,
           0,
         )
-        return totalPrice + delivery - couponAmount
+        return totalPrice + openPackageFee + delivery - couponAmount
       },
 
       saveToServer: async () => {

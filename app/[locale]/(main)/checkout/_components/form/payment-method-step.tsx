@@ -13,7 +13,7 @@ import { useCartStore } from '@/stores/cart'
 import { useCheckoutStore } from '@/stores/checkout'
 import { paymentSchema } from '@/zod/checkout-schema'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { CheckCircle, Copy, ExternalLink } from 'lucide-react'
+import { CheckCircle, Copy } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -24,7 +24,8 @@ export type CheckoutPaymentData = z.infer<typeof paymentSchema>
 
 function PaymentMethodStep({ t }: { t: (key: string) => string }) {
   const { next, customerId, couponCode, shippingAddressId, isSubmitting } = useCheckoutStore()
-  const { isUserLoggedIn, items, delivery, clearCartItems } = useCartStore()
+  const { isUserLoggedIn, items, delivery, clearCartItems, openPackage, openPackageFee } =
+    useCartStore()
   const [copied, setCopied] = useState(false)
 
   const form = useForm<CheckoutPaymentData>({
@@ -49,7 +50,7 @@ function PaymentMethodStep({ t }: { t: (key: string) => string }) {
       case 'CASH_ON_DELIVERY':
         return <Image src={'/assets/payment/cash-method.svg'} alt="" width={30} height={30} />
       case 'INSTAPAY':
-        return <Image src={'/assets/payment/instapay.svg'} alt="" width={45} height={45} />
+        return <Image src={'/assets/payment/instapay.svg'} alt="" width={60} height={60} />
       case 'CREDIT_CARD':
         return <Image src={'/assets/payment/card-method.svg'} alt="" width={30} height={30} />
       case 'WALLET':
@@ -66,6 +67,7 @@ function PaymentMethodStep({ t }: { t: (key: string) => string }) {
         isUser: await isUserLoggedIn(),
         data: {
           delivery: delivery,
+          ...(openPackage ? { openPackageFee } : {}),
           orderItems: items.map((item) => ({
             quantity: item.quantity,
             unitPrice: item.productVariant?.price || item.bundle?.bundlePrice || 0,
@@ -114,14 +116,14 @@ function PaymentMethodStep({ t }: { t: (key: string) => string }) {
                 disabled={isSubmitting}
                 onClick={() => form.setValue('method', method.value)}
                 className={cn(
-                  'bg-background flex items-center justify-between rounded-lg p-4 text-xs font-bold transition-colors',
+                  'bg-background flex items-center justify-between rounded-lg p-4 text-xs transition-colors',
                   paymentMethodField === method.value
-                    ? 'border-card-foreground text-card-foreground border-2'
-                    : 'text-[#AEAEAE] opacity-65',
+                    ? 'border-card-foreground text-card-foreground border-2 font-bold'
+                    : 'text-[#AEAEAE]',
                 )}
               >
                 <PaymentMethodIcon method={method.value} />
-                <span className="flex items-center gap-2 text-sm font-medium">
+                <span className="flex items-center gap-2 text-sm">
                   {method.label}
                   <div
                     className={cn(
@@ -143,48 +145,41 @@ function PaymentMethodStep({ t }: { t: (key: string) => string }) {
 
         {paymentMethodField === 'INSTAPAY' && (
           <div>
-            <Image
-              src={'/assets/payment/instapay.svg'}
-              className="bg-background mb-10 justify-self-center rounded-full"
-              alt=""
-              width={200}
-              height={200}
-            />
-            <div className="grid gap-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h4 className="mb-1 font-medium">{t('step3.instapay.link-title')}</h4>
-                  <p className="text-card-foreground text-xs font-normal">
-                    {t('step3.instapay.link-description')}
-                  </p>
-                </div>
+            <h4 className="text-card-foreground mb-4 font-medium">
+              {t('step3.instapay.link-title')}
+            </h4>
+            <div className="grid grid-cols-1 gap-6 pb-5 lg:grid-cols-2 lg:gap-3">
+              <div className="grid items-center justify-between gap-3">
+                <p className="text-sm font-normal text-[#575757]">
+                  {t('step3.instapay.link-description')}
+                </p>
                 <Button
-                  variant="secondary"
+                  variant="vanilla"
+                  size={'default'}
+                  className="border-secondary w-fit border"
                   onClick={() =>
                     window.open('https://ipn.eg/S/ehabshamseldin/instapay/8ElqWG', '_blank')
                   }
                 >
-                  {t('step3.instapay.link-btn')} <ExternalLink size={16} className="ml-2" />
+                  {t('step3.instapay.link-btn')}
                 </Button>
               </div>
-              <span className="bg-background aspect-square w-fit justify-self-center rounded-full p-4 text-center drop-shadow-xs">
-                {t('step3.instapay.or')}
-              </span>
               <div>
-                <h4 className="my-1 text-sm font-medium">
+                <h4 className="mb-3 text-sm font-normal text-[#575757]">
                   {t('step3.instapay.send-number-title')}
                 </h4>
-                <div className="bg-background border-border flex items-center justify-between rounded-md border p-3">
-                  <span className="font-mono text-lg">01113274044</span>
+                <div className="bg-background flex items-center justify-between rounded-md p-3">
+                  <span className="text-lg">01113274044</span>
                   <Button variant="outline" size="sm" onClick={() => handleCopyNumber()}>
                     {copied ? <CheckCircle size={16} /> : <Copy size={16} />}
                     {copied ? t('step3.instapay.copied') : t('step3.instapay.copy')}
                   </Button>
                 </div>
               </div>
-              <div className="text-card-foreground mt-4 text-center text-sm font-semibold">
-                {t('step3.instapay.receipt-number')}
-              </div>
+            </div>
+            <div className="text-card-foreground mt-4 flex w-full gap-2 rounded-md bg-[#FFF4D5] p-4 text-sm">
+              <Image alt="info" width={18} height={18} src={'/assets/illustrations/info.svg'} />
+              {t('step3.instapay.receipt-number')}
             </div>
           </div>
         )}

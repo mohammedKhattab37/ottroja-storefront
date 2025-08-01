@@ -7,6 +7,7 @@ export interface OrderData {
   isUser: boolean
   data: {
     delivery: number
+    openPackageFee?: number
     orderItems?: {
       quantity: number
       unitPrice: number
