@@ -21,9 +21,12 @@ const CheckoutPageClient = () => {
   const { currentStep, setTotalSteps, isLastStep, goTo } = useCheckoutStore()
   const { items } = useCartStore()
 
-  if (items.length == 0) {
-    redirect('/')
-  }
+  // Only redirect if cart is empty and we're not on the success step
+  useEffect(() => {
+    if (items.length == 0 && currentStep !== 3) {
+      redirect('/')
+    }
+  }, [items.length, currentStep])
 
   useEffect(() => {
     setTotalSteps(4)
@@ -51,7 +54,7 @@ const CheckoutPageClient = () => {
         <>
           <ProgressSteps
             currentStep={currentStep}
-            steps={[t('step1.name'), t('step2.name'), t('step3.name')]}
+            steps={[t('step1.name'), t('step2.name'), t('step3.name'), t('result-step.title')]}
           />
           {isLastStep() ? (
             <SubmitResultStep key={'submit-result'} />

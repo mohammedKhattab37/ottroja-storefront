@@ -1,8 +1,19 @@
 import { Check } from 'lucide-react'
 import { useTranslations } from 'next-intl'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 function SubmitResultStep() {
   const t = useTranslations('checkoutPage.result-step')
+  const router = useRouter()
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.push('/')
+    }, 5000) // Redirect to home after 5 seconds
+
+    return () => clearTimeout(timer)
+  }, [router])
 
   return (
     <div className="bg-filter-trigger text-secondary col-span-1 h-fit space-y-6 rounded-lg p-4 py-20 text-center shadow-sm lg:col-span-2">

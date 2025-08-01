@@ -7,7 +7,7 @@ import { useCartStore } from '@/stores/cart'
 import { Search, ShoppingCart } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Cart } from '../../checkout/_components/cart'
 import LangSwitch from './lang-switch'
 import NavItems from './nav-items'
@@ -26,9 +26,14 @@ function Header() {
   const direction = locale == 'ar' ? 'rtl' : 'ltr'
   const translatedCurrency = locale == 'ar' ? 'جنيه مصري' : 'EGP'
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const totalItems = useCartStore((state) => state.getTotalItems())
   const totalPrice = useCartStore((state) => state.getSubtotal())
   const { isLoading } = useCartStore()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   return (
     <div className="mt-1 px-4 md:px-0" dir={locale != 'ar' ? 'rtl' : 'ltr'}>
@@ -58,7 +63,7 @@ function Header() {
           <Profile authT={authT} direction={direction} userButtonText={t('header.user-button')} />
           <div className="flex content-center items-center gap-2.5">
             <span className="hidden text-xs font-medium md:block" dir={direction}>
-              {totalPrice} {translatedCurrency}
+              {mounted ? totalPrice : 0} {translatedCurrency}
             </span>
             <Button
               variant={'vanilla'}
@@ -66,7 +71,7 @@ function Header() {
               className="border-secondary relative h-fit rounded-full border-[1.5px] p-2"
               onClick={() => setIsDrawerOpen(true)}
             >
-              {(totalItems > 0 || isLoading) && (
+              {mounted && (totalItems > 0 || isLoading) && (
                 <span className="bg-success absolute -top-1.5 -right-2 flex h-4 w-4 items-center justify-center rounded-full text-[10px] text-white sm:h-5 sm:w-5 sm:text-xs">
                   {isLoading ? (
                     <div className="border-success border-t-input h-3/4 w-3/4 animate-spin rounded-full border-4"></div>

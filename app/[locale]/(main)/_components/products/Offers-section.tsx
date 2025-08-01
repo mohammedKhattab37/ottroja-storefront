@@ -11,7 +11,7 @@ function OffersSection({ offers }: { offers: OfferResponse[] }) {
   return (
     <div className="justify-items-center sm:px-0">
       <Header title={t('sections.offers')} direction={contentDirection} />
-      <div className="mt-20 grid grid-cols-3 gap-6">
+      <div className="mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {offers.map((offer) => (
           <ProductSmallCard key={offer.id} locale={locale} variant={offer.productVariant} />
         ))}

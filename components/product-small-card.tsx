@@ -57,7 +57,7 @@ function ProductSmallCard({
   return (
     <div
       className={cn(
-        'bg-card border-border text-card-foreground relative flex gap-x-5 rounded-md border-[1px] px-10 py-3',
+        'bg-card border-border text-card-foreground relative flex gap-x-5 rounded-md border-[1px] px-4 sm:px-10 py-3',
         locale === 'ar' ? 'flex-row-reverse' : 'flex-row',
       )}
     >
