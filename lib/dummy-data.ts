@@ -22,7 +22,7 @@ export const dummyHeroSlides = [
   {
     id: '5',
     image: '/assets/5.jpg',
-    link: '/products?category=natural-dietary-supplements-chatgpt',
+    link: '/products?category=natural-dietary-supplements',
   },
 ]
 
@@ -50,7 +50,7 @@ export const dummyMobileHeroSlides = [
   {
     id: '5',
     image: '/assets/mop-5.jpg',
-    link: '/products?category=natural-dietary-supplements-chatgpt',
+    link: '/products?category=natural-dietary-supplements',
   },
 ]
 
@@ -68,7 +68,7 @@ export const dummyBanner2 = {
   sub_title: '',
   image: '/assets/mini.png',
   button_text: 'اطلبها الآن',
-  button_destination: '/products?category=honey-blends-chatgpt',
+  button_destination: '/products?category=honey-blends',
 }
 
 export const dummyBanners = [

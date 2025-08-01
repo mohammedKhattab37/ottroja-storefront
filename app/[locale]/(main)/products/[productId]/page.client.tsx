@@ -163,19 +163,26 @@ function ProductPageClient({
               className="absolute start-0 top-0 w-full"
             />
             <div className="relative z-10 grid gap-4" dir={direction}>
-              <div className="flex items-center gap-1">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    stroke="currentColor"
-                    className={cn(
-                      'h-[1.2rem] w-[1.2rem]',
-                      i < (productData.rating || 0)
-                        ? 'fill-yellow-400 text-yellow-400'
-                        : 'fill-white text-white',
-                    )}
-                  />
-                ))}
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      stroke="currentColor"
+                      className={cn(
+                        'h-[1.2rem] w-[1.2rem]',
+                        i < (productData.reviewStats?.averageRating || productData.rating || 0)
+                          ? 'fill-yellow-400 text-yellow-400'
+                          : 'fill-white text-white',
+                      )}
+                    />
+                  ))}
+                </div>
+                {productData.reviewStats && (
+                  <span className="text-xs text-gray-600">
+                    ({productData.reviewStats.totalReviews} {productT('reviews')})
+                  </span>
+                )}
               </div>
               <p className="text-xs font-semibold">{translatedProduct.category}</p>
               <p className="text-2xl font-bold">{translatedProduct.name}</p>
@@ -309,6 +316,7 @@ function ProductPageClient({
           ingredients: translatedProduct.ingredients,
           warnings: translatedProduct.warnings,
         }}
+        reviews={productData.reviews}
       />
 
       {/* Related products */}

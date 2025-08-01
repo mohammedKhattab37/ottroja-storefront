@@ -21,6 +21,38 @@ export interface ProductImage {
   isMain: boolean
 }
 
+export interface ReviewCustomer {
+  name: string
+}
+
+export interface Review {
+  id: string
+  rating: number
+  title: string
+  content: string
+  createdAt: string
+  customer: ReviewCustomer
+}
+
+export interface ReviewPagination {
+  page: number
+  limit: number
+  totalCount: number
+  totalPages: number
+  hasNextPage: boolean
+  hasPreviousPage: boolean
+}
+
+export interface ReviewsData {
+  data: Review[]
+  pagination: ReviewPagination
+}
+
+export interface ReviewStats {
+  averageRating: number
+  totalReviews: number
+}
+
 export interface Product {
   id: string
   name_en: string
@@ -43,6 +75,8 @@ export interface Product {
   isFeatured?: boolean
   isActive?: boolean
   rating?: number
+  reviewStats?: ReviewStats
+  reviews?: ReviewsData
   createdAt: string
   updatedAt: string
   category?: Category

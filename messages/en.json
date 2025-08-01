@@ -105,6 +105,7 @@
       "details":"Product Details",
       "reviews":"Reviews"
     },
+    "no-reviews":"No reviews yet",
     "description":{
       "weight":"Weight / Packaging",
       "benefits":"Health Benefits",

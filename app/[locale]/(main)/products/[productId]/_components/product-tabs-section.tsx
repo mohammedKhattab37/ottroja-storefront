@@ -6,9 +6,9 @@ import {
   CarouselPrevious,
 } from '@/components/ui/carousel'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { dummyReviews } from '@/lib/dummy-data'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
+import { ReviewsData } from '../../_actions/types'
 
 interface ProductTabsProps {
   productT: (key: string) => string
@@ -19,9 +19,10 @@ interface ProductTabsProps {
     ingredients?: string[]
     warnings?: string[]
   }
+  reviews?: ReviewsData
 }
 
-function ProductTabsSection({ productT, direction, description }: ProductTabsProps) {
+function ProductTabsSection({ productT, direction, description, reviews }: ProductTabsProps) {
   return (
     <div className="overflow-hidden pt-20 md:pt-32">
       <Tabs defaultValue="details" className="text-secondary w-full">
@@ -94,53 +95,74 @@ function ProductTabsSection({ productT, direction, description }: ProductTabsPro
           className="bg-filter-trigger overflow-hidden rounded-lg px-5 py-10"
         >
           <div className="w-full">
-            <Carousel
-              className="max-w-full"
-              opts={{
-                align: 'start',
-                containScroll: 'trimSnaps',
-              }}
-            >
-              <CarouselContent>
-                {dummyReviews.map((item, i) => (
-                  <CarouselItem key={i} dir={direction} className="basis-full lg:basis-1/2">
-                    <div className="text-secondary bg-card border-input-border grid h-full min-h-64 content-start gap-6 overflow-hidden rounded-md border px-10 py-8 text-sm">
-                      <div className="flex items-center gap-4">
-                        <Image
-                          src={'/assets/product-review-avatar.svg'}
-                          alt={''}
-                          width={20}
-                          height={20}
-                          className="size-16"
-                        />
-                        <div className="grid min-w-0 gap-2">
-                          <span className="truncate font-bold">{item.name}</span>
-                          <span className="truncate text-[10px]">{item.name}</span>
+            {reviews?.data && reviews.data.length > 0 ? (
+              <Carousel
+                className="max-w-full"
+                opts={{
+                  align: 'start',
+                  containScroll: 'trimSnaps',
+                }}
+              >
+                <CarouselContent>
+                  {reviews.data.map((review) => (
+                    <CarouselItem
+                      key={review.id}
+                      dir={direction}
+                      className="basis-full lg:basis-1/2"
+                    >
+                      <div className="text-secondary bg-card border-input-border grid h-full min-h-64 content-start gap-6 overflow-hidden rounded-md border px-10 py-8 text-sm">
+                        <div className="flex items-center gap-4">
+                          <Image
+                            src={'/assets/product-review-avatar.svg'}
+                            alt={''}
+                            width={20}
+                            height={20}
+                            className="size-16"
+                          />
+                          <div className="grid min-w-0 gap-2">
+                            <span className="truncate font-bold">{review.customer.name}</span>
+                            <div className="flex items-center gap-1">
+                              {Array.from({ length: 5 }).map((_, starIndex) => (
+                                <span
+                                  key={starIndex}
+                                  className={
+                                    starIndex < review.rating ? 'text-yellow-400' : 'text-gray-300'
+                                  }
+                                >
+                                  ★
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="leading-8">
+                          <p className="font-bold">{review.title}</p>
+                          <p className="overflow-hidden leading-6 font-normal">{review.content}</p>
                         </div>
                       </div>
-                      <div className="leading-8">
-                        <p className="font-bold">{item.title}</p>
-                        <p className="overflow-hidden leading-6 font-normal">{item.content}</p>
-                      </div>
-                    </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
 
-              <div className={'mt-6 flex items-center justify-center space-x-4'}>
-                <CarouselPrevious
-                  className={cn(
-                    'disabled:border-secondary relative top-0 left-0 h-12 w-12 translate-x-0 translate-y-0 rounded-full disabled:border',
-                  )}
-                />
+                <div className={'mt-6 flex items-center justify-center space-x-4'}>
+                  <CarouselPrevious
+                    className={cn(
+                      'disabled:border-secondary relative top-0 left-0 h-12 w-12 translate-x-0 translate-y-0 rounded-full disabled:border',
+                    )}
+                  />
 
-                <CarouselNext
-                  className={cn(
-                    'disabled:border-secondary relative top-0 right-0 h-12 w-12 translate-x-0 translate-y-0 rounded-full disabled:border',
-                  )}
-                />
+                  <CarouselNext
+                    className={cn(
+                      'disabled:border-secondary relative top-0 right-0 h-12 w-12 translate-x-0 translate-y-0 rounded-full disabled:border',
+                    )}
+                  />
+                </div>
+              </Carousel>
+            ) : (
+              <div className="py-8 text-center">
+                <p className="text-gray-500">{productT('no-reviews')}</p>
               </div>
-            </Carousel>
+            )}
           </div>
         </TabsContent>
       </Tabs>
