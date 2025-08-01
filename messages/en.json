@@ -192,7 +192,12 @@
       "building":"Building No.",
       "apartment":"Apartment No.",
       "postal-code":"Zip code",
-      "extra-address":"Another extra address"
+      "extra-address":"Another extra address",
+      "open-package":{
+        "title":"Open the package upon receipt",
+        "yes":"Yes, I want to open it",
+        "no":"No, I don't want to open it"
+      }
     },
     "step3":{
       "name":"Payment details",

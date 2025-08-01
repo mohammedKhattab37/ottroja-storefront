@@ -11,7 +11,8 @@ import { ApplyCoupon, couponDetails } from '../_actions/apply-coupon'
 import { cartDrawerItem, CartItem } from './cart'
 
 function CheckoutItemsSummary({ t }: { t: (key: string) => string }) {
-  const { items, getTotalPrice, getSubtotal, delivery } = useCartStore()
+  const { items, getTotalPrice, getSubtotal, delivery, openPackage, openPackageFee } =
+    useCartStore()
   const { currentStep, customerId, isLastStep } = useCheckoutStore()
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -164,21 +165,33 @@ function CheckoutItemsSummary({ t }: { t: (key: string) => string }) {
           </div>
 
           {currentStep >= 2 && (
-            <div className="flex justify-between">
-              <p className="text-sm font-normal">{t('delivery-fee')}</p>
-              <div>
-                {coupon.type == 'FREE_SHIPPING' && (
-                  <span className="text-success px-2">{t('free')}</span>
-                )}
-                <span
-                  className={cn(
-                    'content-end text-xs',
-                    coupon.type == 'FREE_SHIPPING' ? 'line-through' : '',
+            <div>
+              {openPackage && (
+                <div className="mb-1 flex justify-between">
+                  <p className="text-sm font-normal">{t('step2.open-package.title')}</p>
+                  <div className="text-xs">
+                    <span className="font-bold">{openPackageFee} </span>
+                    <span className="font-semibold">/ {translatedCurrency}</span>
+                  </div>
+                </div>
+              )}
+
+              <div className="flex justify-between">
+                <p className="text-sm font-normal">{t('delivery-fee')}</p>
+                <div>
+                  {coupon.type == 'FREE_SHIPPING' && (
+                    <span className="text-success px-2">{t('free')}</span>
                   )}
-                >
-                  <span className="font-bold">{delivery} </span>
-                  <span className="font-semibold">/ {translatedCurrency}</span>
-                </span>
+                  <span
+                    className={cn(
+                      'content-end text-xs',
+                      coupon.type == 'FREE_SHIPPING' ? 'line-through' : '',
+                    )}
+                  >
+                    <span className="font-bold">{delivery} </span>
+                    <span className="font-semibold">/ {translatedCurrency}</span>
+                  </span>
+                </div>
               </div>
             </div>
           )}

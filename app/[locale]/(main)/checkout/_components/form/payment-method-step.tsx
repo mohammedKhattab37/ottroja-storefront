@@ -24,7 +24,8 @@ export type CheckoutPaymentData = z.infer<typeof paymentSchema>
 
 function PaymentMethodStep({ t }: { t: (key: string) => string }) {
   const { next, customerId, couponCode, shippingAddressId, isSubmitting } = useCheckoutStore()
-  const { isUserLoggedIn, items, delivery, clearCartItems } = useCartStore()
+  const { isUserLoggedIn, items, delivery, clearCartItems, openPackage, openPackageFee } =
+    useCartStore()
   const [copied, setCopied] = useState(false)
 
   const form = useForm<CheckoutPaymentData>({
@@ -66,6 +67,7 @@ function PaymentMethodStep({ t }: { t: (key: string) => string }) {
         isUser: await isUserLoggedIn(),
         data: {
           delivery: delivery,
+          ...(openPackage ? { openPackageFee } : {}),
           orderItems: items.map((item) => ({
             quantity: item.quantity,
             unitPrice: item.productVariant?.price || item.bundle?.bundlePrice || 0,
