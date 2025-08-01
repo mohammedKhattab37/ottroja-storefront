@@ -64,3 +64,13 @@ export interface DiscountedVariantResponse extends ProductVariant {
     slug: string
   }
 }
+
+export interface OfferResponse {
+  id: string
+  productVariant: DiscountedVariantResponse
+}
+
+export interface OffersApiResponse {
+  offers: OfferResponse[]
+  total: number
+}
