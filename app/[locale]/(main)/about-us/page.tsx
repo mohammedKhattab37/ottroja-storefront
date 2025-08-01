@@ -22,7 +22,7 @@ export default function AboutUsPage() {
         className="rounded-sm object-contain"
       />
       <FounderSection t={t} direction={direction} />
-      <WhyChooseUs t={useTranslations('aboutPage.choose-us')} />
+      <WhyChooseUs />
       <OurJourneySection t={useTranslations('ourJourney')} />
     </div>
   )
