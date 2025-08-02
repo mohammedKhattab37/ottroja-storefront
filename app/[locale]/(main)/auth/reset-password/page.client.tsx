@@ -81,8 +81,8 @@ export function ResetPasswordPage() {
         <Card className="mx-auto max-w-md text-center">
           <CardContent className="py-12">
             <div className="mb-10">
-              <h1 className="mb-2 text-3xl font-bold text-gray-900">{t('invalid-token')}</h1>
-              <p className="text-gray-600">{t('invalid-token-description')}</p>
+              <h1 className="text-secondary mb-2 text-3xl font-bold">{t('invalid-token')}</h1>
+              <p>{t('invalid-token-description')}</p>
             </div>
 
             <Button asChild className="w-full" variant="secondary">
@@ -100,8 +100,8 @@ export function ResetPasswordPage() {
         <Card className="mx-auto max-w-md text-center">
           <CardContent className="py-12">
             <div className="mb-10">
-              <h1 className="mb-2 text-3xl font-bold text-gray-900">{t('success-title')}</h1>
-              <p className="text-gray-600">{t('success-description')}</p>
+              <h1 className="text-secondary mb-2 text-3xl font-bold">{t('success-title')}</h1>
+              <p>{t('success-description')}</p>
             </div>
           </CardContent>
         </Card>
@@ -114,8 +114,8 @@ export function ResetPasswordPage() {
       <Card className="mx-auto max-w-md text-center">
         <CardContent className="py-12">
           <div className="mb-16">
-            <h1 className="mb-2 text-3xl font-bold text-gray-900">{t('title')}</h1>
-            <p className="text-gray-600">{t('description')}</p>
+            <h1 className="text-secondary mb-2 text-3xl font-bold">{t('title')}</h1>
+            <p>{t('description')}</p>
           </div>
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6 pb-10">

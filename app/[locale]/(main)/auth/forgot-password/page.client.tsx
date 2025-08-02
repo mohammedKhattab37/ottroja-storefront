@@ -52,11 +52,11 @@ export default function ForgotPasswordPage() {
         <Card className="mx-auto max-w-md text-center">
           <CardContent className="py-12">
             <div className="mb-10">
-              <h1 className="mb-2 text-3xl font-bold text-gray-900">{t('check-email')}</h1>
-              <p className="text-gray-600">{t('check-email-description')}</p>
+              <h1 className="text-secondary mb-2 text-3xl font-bold">{t('check-email')}</h1>
+              <p>{t('check-email-description')}</p>
             </div>
 
-            <p className="mb-2 text-start text-sm text-gray-600">{t('didnt-receive-email')}</p>
+            <p className="mb-2 text-start text-sm">{t('didnt-receive-email')}</p>
 
             <div className="flex gap-4">
               <Button className="flex-1" onClick={() => setEmailSent(false)} variant="outline">
@@ -77,8 +77,8 @@ export default function ForgotPasswordPage() {
       <Card className="mx-auto max-w-md text-center">
         <CardContent className="py-12">
           <div className="mb-16">
-            <h1 className="mb-2 text-3xl font-bold text-gray-900">{t('title')}</h1>
-            <p className="text-gray-600">{t('description')}</p>
+            <h1 className="text-secondary mb-2 text-3xl font-bold">{t('title')}</h1>
+            <p>{t('description')}</p>
           </div>
           <form onSubmit={handleSubmit}>
             <div className="grid gap-2 pb-10">
