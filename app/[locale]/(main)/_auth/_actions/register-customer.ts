@@ -1,5 +1,6 @@
 'use server'
 
+import { apiFetch } from '@/lib/utils'
 import { CustomerRegisterSchema, type CustomerRegisterInput } from '@/zod/auth-shcema'
 import { cookies } from 'next/headers'
 import { ZodError } from 'zod'
@@ -21,13 +22,14 @@ export async function registerCustomer(data: CustomerRegisterInput): Promise<Reg
     const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
     // Make the API call to register the customer
-    const response = await fetch(`${baseUrl}/customers/auth/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(registrationData),
-    })
+    const response = await apiFetch(
+      `${baseUrl}/customers/auth/register`,
+      undefined,
+      {
+        method: 'POST',
+        body: JSON.stringify(registrationData),
+      }
+    )
 
     let result
     try {

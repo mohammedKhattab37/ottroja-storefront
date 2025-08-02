@@ -1,11 +1,19 @@
 'use server'
 
+import { apiFetch } from '@/lib/utils'
 import { ZodError } from 'zod'
+
+interface OrderItem {
+  quantity: number
+  unitPrice: number
+  productVariantId?: string
+}
 
 interface CouponDataInput {
   code: string
   customerId: string
   orderTotal: number
+  orderItems?: OrderItem[]
 }
 
 export type couponDetails = {
@@ -15,6 +23,17 @@ export type couponDetails = {
   type: 'PERCENTAGE' | 'FIXED_AMOUNT' | 'FREE_SHIPPING'
   value: string
   amount: number
+  freeShipping?: boolean
+  applicableVariants?: Array<{
+    id: string
+    productVariantId: string
+    productVariant: {
+      id: string
+      sku: string
+      variant_name_en: string
+      variant_name_ar: string
+    }
+  }>
 }
 
 interface CouponErrorResponse {
@@ -33,13 +52,25 @@ export async function ApplyCoupon(
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
-    const response = await fetch(`${baseUrl}/coupons/validate`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(validatedData),
-    })
+    const response = await apiFetch(
+      `${baseUrl}/coupons/validate`,
+      undefined,
+      {
+        method: 'POST',
+        body: JSON.stringify(validatedData),
+      }
+    )
+
+    // Check if response is JSON
+    const contentType = response.headers.get('content-type')
+    if (!contentType || !contentType.includes('application/json')) {
+      const text = await response.text()
+      console.error('Non-JSON response received:', text.substring(0, 200))
+      return {
+        isValid: false,
+        error: 'Invalid response from server. Please try again.',
+      }
+    }
 
     const result = await response.json()
 

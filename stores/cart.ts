@@ -45,6 +45,7 @@ interface CartState {
   removeItem: (itemId: string) => void
   updateQuantity: (itemId: string, quantity: number) => void
   clearCartItems: () => void
+  clearCoupon: () => void
 
   // Computed values
   getTotalItems: () => number
@@ -87,6 +88,10 @@ export const useCartStore = create<CartState>()(
       addItem: async (newItem) => {
         set({ isLoading: true })
         const isLoggedIn = await get().isUserLoggedIn()
+        
+        // Clear coupon when cart is modified
+        get().clearCoupon()
+        
         // save on server if customer registered
         if (isLoggedIn) {
           addItemToDB(newItem)
@@ -120,6 +125,9 @@ export const useCartStore = create<CartState>()(
         set({ isLoading: true })
         const isLoggedIn = await get().isUserLoggedIn()
 
+        // Clear coupon when cart is modified
+        get().clearCoupon()
+
         set({
           items: get().items.filter((item) => item.id !== itemId),
         })
@@ -131,6 +139,16 @@ export const useCartStore = create<CartState>()(
 
       clearCartItems: () => {
         set({ items: [] })
+        get().clearCoupon()
+      },
+
+      clearCoupon: () => {
+        set({ couponAmount: 0 })
+        // Clear coupon code from checkout store
+        if (typeof window !== 'undefined') {
+          const { useCheckoutStore } = require('@/stores/checkout')
+          useCheckoutStore.setState({ couponCode: null })
+        }
       },
 
       updateQuantity: async (itemId, quantity) => {
@@ -140,6 +158,9 @@ export const useCartStore = create<CartState>()(
           get().removeItem(itemId)
           return
         }
+
+        // Clear coupon when cart is modified
+        get().clearCoupon()
 
         set({
           items: get().items.map((item) => (item.id === itemId ? { ...item, quantity } : item)),
@@ -201,6 +222,9 @@ export const useCartStore = create<CartState>()(
         if (newQuantity <= 0) {
           get().removeItem(itemId)
         } else {
+          // Clear coupon when cart is modified
+          get().clearCoupon()
+          
           set({
             items: get().items.map((item) => 
               item.id === itemId ? { ...item, quantity: newQuantity } : item
@@ -210,6 +234,9 @@ export const useCartStore = create<CartState>()(
       },
 
       removeItemByVariantOrBundle: (variantId, bundleId) => {
+        // Clear coupon when cart is modified
+        get().clearCoupon()
+        
         set({
           items: get().items.filter((item) => {
             if (variantId && item.productVariantId === variantId) {

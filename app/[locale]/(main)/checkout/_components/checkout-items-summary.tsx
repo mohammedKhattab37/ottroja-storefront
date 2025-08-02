@@ -6,12 +6,12 @@ import { useCartStore } from '@/stores/cart'
 import { useCheckoutStore } from '@/stores/checkout'
 import { Check } from 'lucide-react'
 import { useLocale } from 'next-intl'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ApplyCoupon, couponDetails } from '../_actions/apply-coupon'
 import { cartDrawerItem, CartItem } from './cart'
 
 function CheckoutItemsSummary({ t }: { t: (key: string) => string }) {
-  const { items, getTotalPrice, getSubtotal, delivery, openPackage, openPackageFee } =
+  const { items, getTotalPrice, getSubtotal, delivery, openPackage, openPackageFee, couponAmount } =
     useCartStore()
   const { currentStep, customerId, isLastStep } = useCheckoutStore()
   const [error, setError] = useState('')
@@ -30,6 +30,21 @@ function CheckoutItemsSummary({ t }: { t: (key: string) => string }) {
 
   const isCouponApplied = coupon.amount > 0 || coupon.type === 'FREE_SHIPPING'
 
+  // Reset local coupon state when cart coupon is cleared
+  useEffect(() => {
+    if (couponAmount === 0 && coupon.amount > 0) {
+      setCoupon({
+        id: '',
+        name: '',
+        code: '',
+        type: 'FIXED_AMOUNT',
+        value: '',
+        amount: 0,
+      })
+      setError('')
+    }
+  }, [couponAmount, coupon.amount])
+
   const handleSubmit = async () => {
     setIsLoading(true)
     setError('')
@@ -39,10 +54,18 @@ function CheckoutItemsSummary({ t }: { t: (key: string) => string }) {
         return
       }
 
+      // Map cart items to order items for coupon validation
+      const orderItems = items.map(item => ({
+        quantity: item.quantity,
+        unitPrice: item.productVariant?.price || item.bundle?.bundlePrice || 0,
+        productVariantId: item.productVariantId || undefined,
+      }))
+
       const appliedCoupon = await ApplyCoupon({
         code: coupon.code,
         customerId: customerId,
         orderTotal: getTotalPrice(),
+        orderItems,
       })
 
       if (appliedCoupon.isValid) {

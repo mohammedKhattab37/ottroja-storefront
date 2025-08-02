@@ -34,3 +34,70 @@ export const calculateBundleAvailability = (bundle: Bundle) => {
     return { status: 'in-stock', availableQuantity: maxBundles }
   }
 }
+
+/**
+ * Creates headers with Accept-Language based on current locale
+ */
+export function createApiHeaders(locale?: string, additionalHeaders?: Record<string, string>): Record<string, string> {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    ...additionalHeaders,
+  }
+
+  if (locale) {
+    headers['Accept-Language'] = locale === 'ar' ? 'ar' : 'en'
+  } else if (typeof window !== 'undefined') {
+    // Client-side: try to get locale from URL path
+    const pathSegments = window.location.pathname.split('/')
+    const pathLocale = pathSegments[1]
+    if (pathLocale === 'ar' || pathLocale === 'en') {
+      headers['Accept-Language'] = pathLocale
+    }
+  }
+
+  return headers
+}
+
+/**
+ * Get locale from server-side headers (for server actions)
+ */
+export async function getServerLocale(): Promise<string | undefined> {
+  if (typeof window !== 'undefined') return undefined
+  
+  try {
+    const { headers } = await import('next/headers')
+    const headersList = await headers()
+    const referer = headersList.get('referer')
+    
+    if (referer) {
+      const url = new URL(referer)
+      const pathSegments = url.pathname.split('/')
+      const pathLocale = pathSegments[1]
+      if (pathLocale === 'ar' || pathLocale === 'en') {
+        return pathLocale
+      }
+    }
+  } catch (error) {
+    console.warn('Failed to get server locale:', error)
+  }
+  
+  return undefined
+}
+
+/**
+ * Enhanced fetch with automatic Accept-Language header
+ */
+export async function apiFetch(
+  url: string,
+  locale?: string,
+  options: RequestInit = {}
+): Promise<Response> {
+  // Auto-detect locale if not provided
+  const resolvedLocale = locale || await getServerLocale()
+  const headers = createApiHeaders(resolvedLocale, options.headers as Record<string, string>)
+  
+  return fetch(url, {
+    ...options,
+    headers,
+  })
+}

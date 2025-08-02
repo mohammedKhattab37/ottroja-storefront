@@ -1,5 +1,6 @@
 'use server'
 
+import { createApiHeaders } from '@/lib/utils'
 import { cookies } from 'next/headers'
 import type { CustomerUser } from './types'
 
@@ -15,7 +16,7 @@ interface SessionErrorResponse {
 
 type SessionResponse = SessionSuccessResponse | SessionErrorResponse
 
-export async function getCustomerSession(): Promise<SessionResponse> {
+export async function getCustomerSession(locale?: string): Promise<SessionResponse> {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -26,11 +27,15 @@ export async function getCustomerSession(): Promise<SessionResponse> {
       .map(({ name, value }) => `${name}=${value}`)
       .join('; ')
 
+    const headers = createApiHeaders(locale, {
+      Cookie: cookieHeader,
+    })
+    // Remove Content-Type for GET requests
+    delete headers['Content-Type']
+
     const response = await fetch(`${baseUrl}/customers/auth/session`, {
       method: 'GET',
-      headers: {
-        Cookie: cookieHeader,
-      },
+      headers,
       credentials: 'include',
     })
 

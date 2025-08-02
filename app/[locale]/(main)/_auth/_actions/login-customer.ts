@@ -1,5 +1,6 @@
 'use server'
 
+import { apiFetch } from '@/lib/utils'
 import { CustomerLoginSchema, type CustomerLoginInput } from '@/zod/auth-shcema'
 import { cookies } from 'next/headers'
 import { ZodError } from 'zod'
@@ -14,13 +15,14 @@ export async function loginCustomer(data: CustomerLoginInput): Promise<LoginResp
     const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
     // Make the API call to login the customer
-    const response = await fetch(`${baseUrl}/customers/auth/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(validatedData),
-    })
+    const response = await apiFetch(
+      `${baseUrl}/customers/auth/login`,
+      undefined,
+      {
+        method: 'POST',
+        body: JSON.stringify(validatedData),
+      }
+    )
 
     const result = await response.json()
 
