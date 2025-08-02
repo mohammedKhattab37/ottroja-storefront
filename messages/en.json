@@ -28,7 +28,7 @@
       "not-available": "Unavailable"
     },
     "footer":{
-      "ottroja-description":"Ottroja is an online store offering the finest 100% pure natural honey, carefully extracted from local beehives and packaged according to the highest quality standards.",
+      "ottroja-description":"Ottroja is an Egyptian company specialized in producing and distributing natural products such as honey, natural oils, and natural dietary supplements.",
       "services":{
         "service1":{
           "title":"100% Quality Guaranteed",
@@ -149,7 +149,9 @@
     "line1":"We began in the heart of nature, amidst mountains and valleys and among beehives.",
     "line2":"We document our steps from source to packaging, sharing real moments from our journey to select the finest honey.",
     "instagram":"Follow us on Instagram",
-    "youtube":"Subscribe on Youtube"
+    "youtube":"Subscribe on Youtube",
+    "facebook":"Follow us on Facebook",
+    "tiktok":"Follow us on TikTok"
   },
   "checkoutPage":{
     "header":"Payment",

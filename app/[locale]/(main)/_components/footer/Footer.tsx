@@ -37,12 +37,13 @@ function Footer({ categories }: { categories: Category[] }) {
             {/* Social links */}
             <div className="flex items-center gap-3">
               {socialsIcons.map((icon) => (
-                <Link key={icon.name} href={''}>
+                <Link key={icon.name} href={icon.url} target="_blank" rel="noopener noreferrer">
                   <Image
                     alt={icon.name}
                     src={`/assets/socials/${icon.name}`}
                     width={icon.size}
                     height={icon.size}
+                    className="color-white fill-white"
                   />
                 </Link>
               ))}
@@ -59,7 +60,13 @@ function Footer({ categories }: { categories: Category[] }) {
                       {contact.icon}
                       <div>
                         <span>{contact.label} :</span>
-                        <span> {contact.value}</span>
+                        <span
+                          className={contact.label === t('contacts.phone') ? 'ltr' : ''}
+                          dir={contact.label === t('contacts.phone') ? 'ltr' : 'auto'}
+                        >
+                          {' '}
+                          {contact.value}
+                        </span>
                       </div>
                     </span>
                   ),

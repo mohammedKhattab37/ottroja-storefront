@@ -106,9 +106,9 @@ export const dummyFooterServices = [
 ]
 
 export const dummyContacts = [
-  { title: 'address', value: '123 Main St, City' },
-  { title: 'mail', value: 'info@example.com' },
-  { title: 'phone', value: '+123456789' },
+  { title: 'address', value: '113 الحي الخامس المنطقة الثانية التجمع الخامس القاهره الجديده' },
+  { title: 'mail', value: 'ottrojafood@gmail.com' },
+  { title: 'phone', value: '+20 155 173 3903' },
 ]
 
 export const dummyImportantLinks = [

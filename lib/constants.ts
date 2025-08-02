@@ -28,18 +28,22 @@ export const socialsIcons = [
   {
     name: 'facebook.svg',
     size: 18,
+    url: 'https://www.facebook.com/ottroja.food',
   },
   {
     name: 'instagram.svg',
     size: 18,
+    url: 'https://www.instagram.com/ottroja.food/',
   },
   {
     name: 'youtube.svg',
     size: 18,
+    url: 'https://www.youtube.com/@Ottrojafood',
   },
   {
-    name: 'telegram.svg',
+    name: 'tiktok-white.svg',
     size: 18,
+    url: 'https://www.tiktok.com/@ottroja',
   },
 ]
 

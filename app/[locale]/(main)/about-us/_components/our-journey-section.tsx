@@ -11,7 +11,7 @@ function OurJourneySection({ t }: { t: (key: string) => string }) {
           <p>{t('line2')}</p>
         </div>
         {/* Socials */}
-        <div className="flex gap-5 pt-5 text-xs font-bold">
+        <div className="flex flex-wrap justify-center gap-3 pt-5 text-xs font-bold sm:gap-4 md:gap-5">
           <SocialLink
             title={t('instagram')}
             icon="/assets/socials/instagram-colored.svg"
@@ -24,6 +24,18 @@ function OurJourneySection({ t }: { t: (key: string) => string }) {
             icon="/assets/socials/youtube-colored.svg"
             href="https://www.youtube.com/@Ottrojafood"
             color1="hsla(348, 83%, 46%, 1)"
+          />
+          <SocialLink
+            title={t('facebook')}
+            icon="/assets/socials/facebook-colored.svg"
+            href="https://www.facebook.com/ottroja.food"
+            color1="hsla(220, 46%, 45%, 1)"
+          />
+          <SocialLink
+            title={t('tiktok')}
+            icon="/assets/socials/tiktok.svg"
+            href="https://www.tiktok.com/@ottroja"
+            color1="hsla(0, 0%, 0%, 1)"
           />
         </div>
         <div className="grid grid-cols-1 gap-1 py-10 sm:gap-2 md:grid-cols-3 md:gap-4">
