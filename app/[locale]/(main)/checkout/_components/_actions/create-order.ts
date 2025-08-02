@@ -21,7 +21,17 @@ export interface OrderData {
   }
 }
 
-export async function createOrder(data: OrderData): Promise<boolean> {
+export interface InventoryError {
+  error: string
+  details: string[]
+}
+
+export interface CreateOrderResult {
+  success: boolean
+  inventoryError?: InventoryError
+}
+
+export async function createOrder(data: OrderData): Promise<CreateOrderResult> {
   const headersList = await headers()
   const requestHeaders = new Headers()
   requestHeaders.set('Content-Type', 'application/json')
@@ -43,8 +53,22 @@ export async function createOrder(data: OrderData): Promise<boolean> {
   })
 
   if (!response.ok) {
+    const errorData = await response.json().catch(() => null)
+    
+    console.log('Response status:', response.status)
+    console.log('Error data:', errorData)
+    
+    // Check if it's an inventory error
+    if (errorData?.error === 'Insufficient inventory for requested items' && errorData?.details) {
+      console.log('Inventory error detected:', errorData)
+      return {
+        success: false,
+        inventoryError: errorData as InventoryError
+      }
+    }
+    
     throw new Error('Failed to create an order')
   }
 
-  return true
+  return { success: true }
 }

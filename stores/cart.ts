@@ -54,6 +54,10 @@ interface CartState {
   // API actions
   saveToServer: () => Promise<void>
   loadFromServer: () => Promise<void>
+  
+  // Inventory adjustment actions
+  adjustItemQuantity: (itemId: string, newQuantity: number) => void
+  removeItemByVariantOrBundle: (variantId?: string, bundleId?: string) => void
 }
 
 export const useCartStore = create<CartState>()(
@@ -191,6 +195,32 @@ export const useCartStore = create<CartState>()(
         } finally {
           set({ isLoading: false })
         }
+      },
+
+      adjustItemQuantity: (itemId, newQuantity) => {
+        if (newQuantity <= 0) {
+          get().removeItem(itemId)
+        } else {
+          set({
+            items: get().items.map((item) => 
+              item.id === itemId ? { ...item, quantity: newQuantity } : item
+            ),
+          })
+        }
+      },
+
+      removeItemByVariantOrBundle: (variantId, bundleId) => {
+        set({
+          items: get().items.filter((item) => {
+            if (variantId && item.productVariantId === variantId) {
+              return false
+            }
+            if (bundleId && item.bundleId === bundleId) {
+              return false
+            }
+            return true
+          }),
+        })
       },
     }),
     {

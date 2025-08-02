@@ -213,7 +213,7 @@ export default function MyOrdersPage() {
                       )}
                       {expandedOrders.has(order.id) ? t('hideDetails') : t('viewDetails')}
                     </Button>
-                    {(order.status === 'DELIVERED' || order.deliveryStatus === 'DELIVERED') && (
+                    {order.status === 'DELIVERED' && (
                       <Button variant="outline" size="sm" onClick={() => openReviewModal(order)}>
                         {t('addReview')}
                       </Button>

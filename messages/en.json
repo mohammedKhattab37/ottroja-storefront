@@ -230,6 +230,13 @@
       "title":"Order Placed",
       "sub-title":"Thank you. Your order has been successfully confirmed. ",
       "redirect":"Redirecting you to the Homepage in:"
+    },
+    "inventory-errors":{
+      "title":"Inventory Updated",
+      "quantity-adjusted":"The quantity for \"{productName}\" has been reduced to {availableQuantity} (the available amount).",
+      "item-removed":"The item \"{productName}\" has been removed from your cart as it's no longer available.",
+      "empty-cart":"Your cart is now empty. Please add some items before proceeding.",
+      "continue-shopping":"Continue Shopping"
     }
   },
   "auth":{

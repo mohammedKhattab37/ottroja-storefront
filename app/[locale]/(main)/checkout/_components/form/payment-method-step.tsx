@@ -18,15 +18,26 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
-import { createOrder } from '../_actions/create-order'
+import { createOrder, InventoryError } from '../_actions/create-order'
+import toast from 'react-hot-toast'
+import { useRouter } from '@/i18n/navigation'
 
 export type CheckoutPaymentData = z.infer<typeof paymentSchema>
 
 function PaymentMethodStep({ t }: { t: (key: string) => string }) {
   const { next, customerId, couponCode, shippingAddressId, isSubmitting } = useCheckoutStore()
-  const { isUserLoggedIn, items, delivery, clearCartItems, openPackage, openPackageFee } =
-    useCartStore()
+  const { 
+    isUserLoggedIn, 
+    items, 
+    delivery, 
+    clearCartItems, 
+    openPackage, 
+    openPackageFee,
+    adjustItemQuantity,
+    removeItemByVariantOrBundle
+  } = useCartStore()
   const [copied, setCopied] = useState(false)
+  const router = useRouter()
 
   const form = useForm<CheckoutPaymentData>({
     resolver: zodResolver(paymentSchema),
@@ -60,6 +71,112 @@ function PaymentMethodStep({ t }: { t: (key: string) => string }) {
     }
   }
 
+  const handleInventoryErrors = (inventoryError: InventoryError) => {
+    console.log('Processing inventory errors:', inventoryError)
+    
+    let hasRemovedItems = false
+    let hasAdjustedQuantities = false
+    let adjustedItems: string[] = []
+    let removedItems: string[] = []
+    
+    inventoryError.details.forEach((detail) => {
+      console.log('Processing detail:', detail)
+      // Parse the error message to extract product info and available quantity
+      const bundleMatch = detail.match(/Bundle: Insufficient inventory for (.+?) \(SKU: (.+?)\)\. Requested: (\d+), Available: (\d+)/)
+      const productMatch = detail.match(/^Insufficient inventory for (.+?) \(SKU: (.+?)\)\. Requested: (\d+), Available: (\d+)/)
+      
+      if (bundleMatch || productMatch) {
+        const match = bundleMatch || productMatch
+        if (!match) return
+        const [, productName, , , available] = match
+        const availableQuantity = parseInt(available)
+        const isBundle = !!bundleMatch
+        
+        // Find the item in cart
+        console.log('Looking for item:', productName, 'isBundle:', isBundle)
+        console.log('Cart items:', items.map(item => ({id: item.id, name_en: item.name_en, productVariantId: item.productVariantId, bundleId: item.bundleId})))
+        
+        // Try to match by item type first, then by name similarity
+        let cartItem = null
+        
+        if (isBundle) {
+          // For bundles, find any bundle item first
+          cartItem = items.find(item => item.bundleId !== undefined)
+        } else {
+          // For products, find any product variant item first  
+          cartItem = items.find(item => item.productVariantId !== undefined)
+        }
+        
+        // If we have multiple items of the same type, try to match by name
+        if (!cartItem) {
+          cartItem = items.find(item => {
+            const itemName = item.name_en.toLowerCase()
+            const errorProductName = productName.toLowerCase()
+            return itemName.includes(errorProductName) || errorProductName.includes(itemName)
+          })
+        }
+        
+        console.log('Found cart item:', cartItem)
+        
+        if (cartItem) {
+          if (availableQuantity === 0) {
+            console.log('Removing item completely:', cartItem.id)
+            // Remove item completely
+            if (isBundle && cartItem.bundleId) {
+              removeItemByVariantOrBundle(undefined, cartItem.bundleId)
+            } else if (cartItem.productVariantId) {
+              removeItemByVariantOrBundle(cartItem.productVariantId, undefined)
+            }
+            
+            removedItems.push(productName)
+            hasRemovedItems = true
+          } else {
+            console.log('Adjusting quantity for item:', cartItem.id, 'to:', availableQuantity)
+            console.log('Current item quantity:', cartItem.quantity)
+            // Adjust quantity
+            adjustItemQuantity(cartItem.id, availableQuantity)
+            
+            adjustedItems.push(`${productName} (quantity: ${availableQuantity})`)
+            hasAdjustedQuantities = true
+          }
+        } else {
+          console.log('No matching cart item found for:', productName)
+        }
+      } else {
+        console.log('No regex match found for detail:', detail)
+      }
+    })
+
+    // Fallback: if no items were processed but we have inventory errors, 
+    // try to adjust the first item in cart as a test
+    if (!hasRemovedItems && !hasAdjustedQuantities && items.length > 0) {
+      console.log('Fallback: adjusting first item in cart')
+      const firstItem = items[0]
+      adjustItemQuantity(firstItem.id, Math.max(1, firstItem.quantity - 1))
+      adjustedItems.push(`${firstItem.name_en} (quantity: ${Math.max(1, firstItem.quantity - 1)})`)
+      hasAdjustedQuantities = true
+    }
+
+    // Show single summary toast
+    if (hasRemovedItems || hasAdjustedQuantities) {
+      let message = t('inventory-errors.title') + '\n'
+      
+      if (adjustedItems.length > 0) {
+        message += 'Adjusted: ' + adjustedItems.join(', ')
+      }
+      
+      if (removedItems.length > 0) {
+        if (adjustedItems.length > 0) message += '\n'
+        message += 'Removed: ' + removedItems.join(', ')
+      }
+      
+      toast(message, {
+        icon: '📦',
+        duration: 6000,
+      })
+    }
+  }
+
   const handleNext = async () => {
     useCheckoutStore.setState({ isSubmitting: true })
     try {
@@ -81,13 +198,33 @@ function PaymentMethodStep({ t }: { t: (key: string) => string }) {
         },
       })
 
-      if (result) {
+      console.log('Order result:', result)
+      
+      if (result.success) {
         next()
         clearCartItems()
         localStorage.removeItem('cart-storage')
+      } else if (result.inventoryError) {
+        console.log('Handling inventory error:', result.inventoryError)
+        // Handle inventory errors
+        handleInventoryErrors(result.inventoryError)
+        
+        // Check if cart is empty after adjustments (with a small delay to ensure state is updated)
+        setTimeout(() => {
+          const updatedItems = useCartStore.getState().items
+          console.log('Items after adjustment:', updatedItems)
+          if (updatedItems.length === 0) {
+            toast.error(t('inventory-errors.empty-cart'))
+            // Redirect to products page or show continue shopping button
+            setTimeout(() => {
+              router.push('/products')
+            }, 3000)
+          }
+        }, 100)
       }
     } catch (error) {
-      console.log('Validation error:', error)
+      console.log('Order creation error:', error)
+      toast.error('Failed to create order. Please try again.')
       form.trigger()
     }
     useCheckoutStore.setState({ isSubmitting: false })

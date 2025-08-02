@@ -9,6 +9,7 @@ import { getCategories } from './_actions/get-categories'
 import Footer from './_components/footer/Footer'
 import Header from './_components/header/Header'
 
+
 const alQabas = localFont({
   src: [
     {

@@ -230,6 +230,13 @@
       "title":"تم تسجيل الطلب",
       "sub-title":"شكرًا لك. تم تأكيد الطلب بنجاح.",
       "redirect":"سيتم تحويلك الى الصفحة الرئيسية خلال:"
+    },
+    "inventory-errors":{
+      "title":"تم تحديث المخزون",
+      "quantity-adjusted":"تم تقليل كمية \"{productName}\" إلى {availableQuantity} (الكمية المتاحة).",
+      "item-removed":"تم إزالة المنتج \"{productName}\" من السلة لأنه لم يعد متاحاً.",
+      "empty-cart":"سلة التسوق فارغة الآن. يرجى إضافة بعض المنتجات قبل المتابعة.",
+      "continue-shopping":"متابعة التسوق"
     }
   },
   "auth":{
