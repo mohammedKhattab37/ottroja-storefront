@@ -10,19 +10,23 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { translateAuthError, translateValidationIssues } from '@/lib/auth-utils'
 import { useAuthStore } from '@/stores/auth'
+import { useCartStore } from '@/stores/cart'
 import { CustomerRegisterSchema } from '@/zod/auth-shcema'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOff } from 'lucide-react'
 import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
+import { getServerCart } from '../../checkout/_components/_actions/cart-actions'
 import { registerCustomer } from '../_actions'
 
 function SignupForm({ t }: { t: (key: string) => string }) {
   const [isPending, startTransition] = useTransition()
   const [isVisible, setIsVisible] = useState<boolean>(false)
   const { setAuthModalType } = useAuthStore()
+  const { saveToServer, items, loadFromServer } = useCartStore()
 
   const form = useForm<z.infer<typeof CustomerRegisterSchema>>({
     resolver: zodResolver(CustomerRegisterSchema),
@@ -50,14 +54,38 @@ function SignupForm({ t }: { t: (key: string) => string }) {
 
         if (result.success) {
           console.log('Registration successful:', result.message)
-          // Close the modal or redirect
-          window.location.reload() // Simple reload for now, you might want to use router.refresh() or close modal
+
+          // Show success message temporarily
+          form.setError('root', {
+            type: 'success',
+            message: t('auth.sign-up.success'),
+          })
+
+          // Since registration was successful and token is set as cookie,
+          // the user is now automatically logged in. Sync the cart.
+          try {
+            const serverCart = await getServerCart()
+            if (items.length !== serverCart.length) {
+              await saveToServer()
+            } else {
+              await loadFromServer()
+            }
+          } catch (cartError) {
+            console.warn('Cart sync failed after registration:', cartError)
+            // Don't fail the registration flow if cart sync fails
+          }
+
+          // Close the modal or redirect after a brief delay to show success message
+          setTimeout(() => {
+            window.location.reload() // Simple reload for now, you might want to use router.refresh() or close modal
+          }, 1500)
         } else {
           console.error('Registration failed:', result.error)
 
           // Handle field-specific errors
           if (result.issues) {
-            result.issues.forEach((issue) => {
+            const translatedIssues = translateValidationIssues(result.issues, t)
+            translatedIssues.forEach((issue) => {
               const fieldName = issue.path[0] as keyof typeof values
               if (fieldName in values) {
                 form.setError(fieldName, {
@@ -67,10 +95,10 @@ function SignupForm({ t }: { t: (key: string) => string }) {
               }
             })
           } else {
-            // Set a general error message
+            // Set a general error message with translation
             form.setError('root', {
               type: 'server',
-              message: result.error,
+              message: translateAuthError(result.error, t),
             })
           }
         }
@@ -78,7 +106,7 @@ function SignupForm({ t }: { t: (key: string) => string }) {
         console.error('Registration error:', error)
         form.setError('root', {
           type: 'server',
-          message: 'An unexpected error occurred',
+          message: t('auth.errors.server.unexpected'),
         })
       }
     })
@@ -94,8 +122,22 @@ function SignupForm({ t }: { t: (key: string) => string }) {
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 gap-x-4 gap-y-8 py-10">
             {form.formState.errors.root && (
-              <div className="rounded-md bg-red-50 p-3">
-                <p className="text-sm text-red-600">{form.formState.errors.root.message}</p>
+              <div
+                className={`rounded-md p-3 ${
+                  form.formState.errors.root.type === 'success'
+                    ? 'border border-green-200 bg-green-50'
+                    : 'bg-red-50'
+                }`}
+              >
+                <p
+                  className={`text-sm ${
+                    form.formState.errors.root.type === 'success'
+                      ? 'text-green-600'
+                      : 'text-red-600'
+                  }`}
+                >
+                  {form.formState.errors.root.message}
+                </p>
               </div>
             )}
 
@@ -186,7 +228,7 @@ function SignupForm({ t }: { t: (key: string) => string }) {
               type="submit"
               disabled={isPending}
             >
-              {isPending ? 'Creating account...' : t('sign-up.btn')}
+              {isPending ? t('auth.sign-up.creating-account') : t('sign-up.btn')}
             </Button>
             <div className="flex items-center justify-center pt-4 text-xs">
               <span>{t('sign-up.have-account')}</span>

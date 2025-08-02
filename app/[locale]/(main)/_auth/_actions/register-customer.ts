@@ -40,21 +40,27 @@ export async function registerCustomer(data: CustomerRegisterInput): Promise<Reg
       }
     }
 
-
-
     if (!response.ok) {
-      // For 500 errors, provide more specific error message
-      if (response.status === 500) {
-        return {
-          success: false,
-          error: `Server error: ${result.error || 'Internal server error occurred'}. Please check server logs for more details.`,
-          issues: result.issues,
+      // Map specific server errors to translation keys
+      let errorKey = 'auth.errors.server.unexpected'
+
+      if (response.status === 400) {
+        if (
+          result.error?.toLowerCase().includes('already exists') ||
+          result.error?.toLowerCase().includes('user exists')
+        ) {
+          errorKey = 'auth.errors.server.email_exists'
+        } else {
+          errorKey = 'auth.errors.server.validation'
         }
+      } else if (response.status === 500) {
+        errorKey = 'auth.errors.server.connection'
       }
 
       return {
         success: false,
-        error: result.error || `Request failed with status ${response.status}`,
+        error: errorKey,
+        originalError: result.error, // Keep original for debugging
         issues: result.issues,
       }
     }
@@ -62,8 +68,8 @@ export async function registerCustomer(data: CustomerRegisterInput): Promise<Reg
     // If registration is successful and we have a token, set it as a cookie
     if (result.token) {
       const cookieStore = await cookies()
-      // Set the JWT token as an HttpOnly cookie for security
-      cookieStore.set('auth-token', result.token, {
+      // Set the JWT token as an HttpOnly cookie for security (same cookie name as login)
+      cookieStore.set('better-auth.session_token', result.token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'lax',
@@ -85,7 +91,7 @@ export async function registerCustomer(data: CustomerRegisterInput): Promise<Reg
     if (error instanceof ZodError) {
       return {
         success: false,
-        error: 'Validation failed',
+        error: 'auth.errors.server.validation',
         issues: error.issues,
       }
     }
@@ -94,14 +100,13 @@ export async function registerCustomer(data: CustomerRegisterInput): Promise<Reg
     if (error instanceof TypeError && error.message.includes('fetch')) {
       return {
         success: false,
-        error:
-          'Failed to connect to authentication service. Please check if the server is running.',
+        error: 'auth.errors.server.connection',
       }
     }
 
     return {
       success: false,
-      error: 'An unexpected error occurred during registration',
+      error: 'auth.errors.server.unexpected',
     }
   }
 }

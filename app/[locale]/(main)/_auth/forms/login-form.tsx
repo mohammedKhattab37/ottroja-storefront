@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Link } from '@/i18n/navigation'
+import { translateAuthError, translateValidationIssues } from '@/lib/auth-utils'
 import { useAuthStore } from '@/stores/auth'
 import { useCartStore } from '@/stores/cart'
 import { CustomerLoginSchema } from '@/zod/auth-shcema'
@@ -57,7 +58,8 @@ function LoginForm({ t }: { t: (key: string) => string }) {
 
           // Handle field-specific errors
           if (result.issues) {
-            result.issues.forEach((issue) => {
+            const translatedIssues = translateValidationIssues(result.issues, t)
+            translatedIssues.forEach((issue) => {
               const fieldName = issue.path[0] as keyof typeof values
               if (fieldName in values) {
                 form.setError(fieldName, {
@@ -67,10 +69,10 @@ function LoginForm({ t }: { t: (key: string) => string }) {
               }
             })
           } else {
-            // Set a general error message
+            // Set a general error message with translation
             form.setError('root', {
               type: 'server',
-              message: result.error,
+              message: translateAuthError(result.error, t),
             })
           }
         }
@@ -78,7 +80,7 @@ function LoginForm({ t }: { t: (key: string) => string }) {
         console.error('Login error:', error)
         form.setError('root', {
           type: 'server',
-          message: 'An unexpected error occurred',
+          message: t('auth.errors.server.unexpected'),
         })
       }
     })
@@ -94,8 +96,22 @@ function LoginForm({ t }: { t: (key: string) => string }) {
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 gap-x-4 gap-y-8 py-10">
             {form.formState.errors.root && (
-              <div className="rounded-md bg-red-50 p-3">
-                <p className="text-sm text-red-600">{form.formState.errors.root.message}</p>
+              <div
+                className={`rounded-md p-3 ${
+                  form.formState.errors.root.type === 'success'
+                    ? 'border border-green-200 bg-green-50'
+                    : 'bg-red-50'
+                }`}
+              >
+                <p
+                  className={`text-sm ${
+                    form.formState.errors.root.type === 'success'
+                      ? 'text-green-600'
+                      : 'text-red-600'
+                  }`}
+                >
+                  {form.formState.errors.root.message}
+                </p>
               </div>
             )}
 
@@ -171,7 +187,7 @@ function LoginForm({ t }: { t: (key: string) => string }) {
               type="submit"
               disabled={isPending}
             >
-              {isPending ? 'Signing in...' : t('login.btn')}
+              {isPending ? t('auth.login.signing-in') : t('login.btn')}
             </Button>
             <div className="flex items-center justify-center pt-4 text-xs">
               <span>{t('login.dont-have-account')}</span>

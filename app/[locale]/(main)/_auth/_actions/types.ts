@@ -28,6 +28,7 @@ export interface LoginSuccessResponse {
 export interface LoginErrorResponse {
   success: false
   error: string
+  originalError?: string // Keep original error for debugging
   issues?: Array<{
     code: string
     path: (string | number)[]
@@ -47,6 +48,7 @@ export interface RegisterSuccessResponse {
 export interface RegisterErrorResponse {
   success: false
   error: string
+  originalError?: string // Keep original error for debugging
   issues?: Array<{
     code: string
     path: (string | number)[]

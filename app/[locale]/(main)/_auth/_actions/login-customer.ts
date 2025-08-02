@@ -25,9 +25,25 @@ export async function loginCustomer(data: CustomerLoginInput): Promise<LoginResp
     const result = await response.json()
 
     if (!response.ok) {
+      // Map specific server errors to translation keys
+      let errorKey = 'auth.errors.server.unexpected'
+
+      if (response.status === 401) {
+        errorKey = 'auth.errors.server.invalid_credentials'
+      } else if (response.status === 404) {
+        errorKey = 'auth.errors.server.account_not_found'
+      } else if (response.status === 403) {
+        errorKey = 'auth.errors.server.account_disabled'
+      } else if (response.status === 429) {
+        errorKey = 'auth.errors.server.too_many_attempts'
+      } else if (response.status >= 500) {
+        errorKey = 'auth.errors.server.connection'
+      }
+
       return {
         success: false,
-        error: result.error || 'Login failed',
+        error: errorKey,
+        originalError: result.error, // Keep original for debugging
         issues: result.issues,
       }
     }
@@ -58,14 +74,22 @@ export async function loginCustomer(data: CustomerLoginInput): Promise<LoginResp
     if (error instanceof ZodError) {
       return {
         success: false,
-        error: 'Validation failed',
+        error: 'auth.errors.server.validation',
         issues: error.issues,
+      }
+    }
+
+    // Handle fetch errors
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      return {
+        success: false,
+        error: 'auth.errors.server.connection',
       }
     }
 
     return {
       success: false,
-      error: 'An unexpected error occurred during login',
+      error: 'auth.errors.server.unexpected',
     }
   }
 }

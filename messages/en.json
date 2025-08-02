@@ -242,6 +242,7 @@
   "auth":{
     "login":{
       "btn":"Login",
+      "signing-in":"Signing in...",
       "form":{
         "email":"E-mail",
         "password":"Password"
@@ -255,6 +256,8 @@
     },
     "sign-up":{
       "btn":"Create Account",
+      "creating-account":"Creating account...",
+      "success":"Account created successfully! You are now logged in.",
       "form":{
         "f-name":"First Name",
         "l-name":"Last Name",
@@ -275,6 +278,38 @@
         "settings":"Settings",
         "logout":"Log out",
         "logging-out":"Logging out..."
+      }
+    },
+    "errors":{
+      "email":{
+        "required":"Email is required",
+        "invalid":"Please enter a valid email address"
+      },
+      "password":{
+        "required":"Password is required",
+        "min_length":"Password must be at least 6 characters",
+        "max_length":"Password is too long (maximum 255 characters)",
+        "no_match":"Passwords do not match"
+      },
+      "name":{
+        "required":"Name is required",
+        "max_length":"Name cannot exceed 100 characters"
+      },
+      "first_name":{
+        "required":"First name is required"
+      },
+      "last_name":{
+        "required":"Last name is required"
+      },
+      "server":{
+        "unexpected":"An unexpected error occurred",
+        "connection":"Failed to connect to server. Please try again.",
+        "validation":"Please check your input and try again",
+        "email_exists":"An account with this email already exists",
+        "invalid_credentials":"Invalid email or password",
+        "account_not_found":"No account found with this email address",
+        "account_disabled":"Your account has been disabled. Please contact support.",
+        "too_many_attempts":"Too many login attempts. Please try again later."
       }
     }
   },
