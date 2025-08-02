@@ -180,7 +180,8 @@
       "guest":{
         "title": "Guest",
         "name": "Guest Name",
-        "email":"E-mail",
+        "email":"E-mail (Optional)",
+        "email_hint":"Enter your email to receive notifications about your order",
         "phone":"Phone"
       }
     },
@@ -194,13 +195,8 @@
       "district":"District",
       "building":"Building No.",
       "apartment":"Apartment No.",
-      "postal-code":"Zip code",
-      "extra-address":"Another extra address",
-      "open-package":{
-        "title":"Open the package upon receipt",
-        "yes":"Yes, I want to open it",
-        "no":"No, I don't want to open it"
-      }
+      "postal-code":"Zip code (Optional)",
+      "extra-address":"Another extra address"
     },
     "step3":{
       "name":"Payment details",

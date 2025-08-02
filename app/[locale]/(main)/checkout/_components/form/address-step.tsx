@@ -35,8 +35,7 @@ const AddressStep = ({ t }: { t: (key: string) => string }) => {
   const locale = useLocale()
   const translatedCurrency = locale == 'ar' ? 'جنيه مصري' : 'EGP'
   const { submitAddressForm, next, isSubmitting, customerId } = useCheckoutStore()
-  const { getDeliveryFee, openPackageFee } = useCartStore()
-  const [openPackage, setOpenPackage] = useState(false)
+  const { getDeliveryFee } = useCartStore()
   const [previousAddresses, setPreviousAddresses] = useState<AddressData[] | undefined>()
   const [selectedAddressId, setSelectedAddressId] = useState<
     { id: string; zone: string } | undefined
@@ -44,7 +43,9 @@ const AddressStep = ({ t }: { t: (key: string) => string }) => {
 
   const form = useForm<CheckoutAddressData>({
     resolver: zodResolver(addressSchema),
-    defaultValues: {},
+    defaultValues: {
+      country: 'egypt',
+    },
     mode: 'onChange',
   })
   const { control, watch } = form
@@ -81,7 +82,6 @@ const AddressStep = ({ t }: { t: (key: string) => string }) => {
 
         getDeliveryFee(zone)
       }
-      useCartStore.setState({ openPackage: openPackage })
       next()
     } catch (error) {
       console.log('Validation error:', error)
@@ -305,64 +305,6 @@ const AddressStep = ({ t }: { t: (key: string) => string }) => {
           />
         </div>
 
-        <span className="text-card-foreground font-normal">{t('step2.open-package.title')}</span>
-        <div className="grid grid-cols-2 gap-4 pt-5">
-          <button
-            type="button"
-            disabled={isSubmitting}
-            onClick={() => setOpenPackage(false)}
-            className={cn(
-              'bg-background flex items-center justify-between rounded-lg p-4 text-xs transition-colors',
-              !openPackage
-                ? 'border-card-foreground text-card-foreground border-2 font-bold'
-                : 'text-[#AEAEAE]',
-            )}
-          >
-            <span className="flex items-center gap-2 text-sm">
-              <div
-                className={cn(
-                  'h-[18px] w-[18px] rounded-full border p-0.5',
-                  !openPackage ? 'border-card-foreground' : 'border-[#AEAEAE]',
-                )}
-              >
-                {!openPackage && (
-                  <span className="bg-card-foreground flex h-full w-full rounded-full"></span>
-                )}
-              </div>
-              {t('step2.open-package.no')}
-            </span>
-            <span className="text-xs font-bold">0 {translatedCurrency}</span>
-          </button>
-
-          <button
-            type="button"
-            disabled={isSubmitting}
-            onClick={() => setOpenPackage(true)}
-            className={cn(
-              'bg-background flex items-center justify-between rounded-lg p-4 text-xs transition-colors',
-              openPackage
-                ? 'border-card-foreground text-card-foreground border-2 font-bold'
-                : 'text-[#AEAEAE]',
-            )}
-          >
-            <span className="flex items-center gap-2 text-sm">
-              <div
-                className={cn(
-                  'h-[18px] w-[18px] rounded-full border p-0.5',
-                  openPackage ? 'border-card-foreground' : 'border-[#AEAEAE]',
-                )}
-              >
-                {openPackage && (
-                  <span className="bg-card-foreground flex h-full w-full rounded-full"></span>
-                )}
-              </div>
-              {t('step2.open-package.yes')}
-            </span>
-            <span className="text-xs font-bold">
-              +{openPackageFee} {translatedCurrency}
-            </span>
-          </button>
-        </div>
       </div>
       <div className="mt-8 flex justify-center">
         <Button

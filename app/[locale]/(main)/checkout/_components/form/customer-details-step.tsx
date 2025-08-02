@@ -179,6 +179,7 @@ function CustomerDetailsStep({ t }: { t: (key: string) => string }) {
                       disabled={isSubmitting}
                     />
                   </FormControl>
+                  <p className="text-xs text-muted-foreground mt-1">{t('step1.guest.email_hint')}</p>
                   <FormMessage />
                 </FormItem>
               )}

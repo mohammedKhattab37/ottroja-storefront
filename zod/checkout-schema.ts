@@ -7,7 +7,7 @@ export const addressSchema = z.object({
   district: z.string().min(1, 'Please enter a district'),
   building: z.string().min(1, 'Please enter the building No.'),
   apartment: z.string().min(1, 'Please enter the apartment No.'),
-  postal_code: z.string().min(1, 'Please enter the postal code'),
+  postal_code: z.string().optional(),
   extra_address: z.string().optional(),
   zone: z.string(),
 })
@@ -45,7 +45,7 @@ export const authStepSchema = z
     customer_type: z.enum(['login', 'register', 'guest']).optional(),
     guest: z
       .object({
-        email: z.string().email('Please enter a valid email address'),
+        email: z.string().email('Please enter a valid email address').optional().or(z.literal('')),
         phoneNumber: z.string(),
         name: z.string(),
       })
@@ -53,11 +53,11 @@ export const authStepSchema = z
   })
   .superRefine((data, ctx) => {
     if (data.customer_type === 'guest' && data.guest) {
-      if (!data.guest.email) {
+      if (data.guest.email && data.guest.email !== '' && !z.string().email().safeParse(data.guest.email).success) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           path: ['guest.email'],
-          message: 'Email is required for guest',
+          message: 'Please enter a valid email address',
         })
       }
       if (!data.guest.phoneNumber) {
