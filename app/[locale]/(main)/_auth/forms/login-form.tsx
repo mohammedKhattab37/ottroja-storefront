@@ -27,7 +27,7 @@ function LoginForm({ t }: { t: (key: string) => string }) {
   const [isPending, startTransition] = useTransition()
   const [isVisible, setIsVisible] = useState<boolean>(false)
   const { saveToServer, items, loadFromServer } = useCartStore()
-  const { setAuthModalType } = useAuthStore()
+  const { setAuthModalType, toggleModal } = useAuthStore()
 
   const form = useForm<z.infer<typeof CustomerLoginSchema>>({
     resolver: zodResolver(CustomerLoginSchema),
@@ -171,7 +171,11 @@ function LoginForm({ t }: { t: (key: string) => string }) {
                       <Checkbox id="remember_me" className="data-[state=checked]:bg-[#2DC38C]" />
                       <FormLabel htmlFor="remember_me">{t('login.check-box')}</FormLabel>
                     </div>
-                    <Link href="/forgot-password" className="hover:underline">
+                    <Link
+                      href="/auth/forgot-password"
+                      className="hover:underline"
+                      onClick={toggleModal}
+                    >
                       {t('login.forgot-pass')}
                     </Link>
                   </div>
