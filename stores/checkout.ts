@@ -78,7 +78,12 @@ export const useCheckoutStore = create<CheckoutState>((set, get) => ({
       const validatedData = await authStepSchema.parseAsync(authForm)
 
       if (validatedData.customer_type == 'guest' && validatedData.guest) {
-        const guestCustomer = await CreateGuest({ ...validatedData.guest })
+        const guestData = {
+          name: validatedData.guest.name,
+          phoneNumber: validatedData.guest.phoneNumber,
+          email: validatedData.guest.email || '',
+        }
+        const guestCustomer = await CreateGuest(guestData)
 
         if (guestCustomer.success) {
           set({ customerId: guestCustomer.customer.id, isSubmitting: false })
@@ -99,7 +104,13 @@ export const useCheckoutStore = create<CheckoutState>((set, get) => ({
       const validatedData = await addressSchema.parseAsync(addressForm)
       const currentCustomer = get().customerId
       if (currentCustomer) {
-        const newAddress = await CreateAddress({ ...validatedData, customerId: currentCustomer })
+        const addressData = {
+          ...validatedData,
+          customerId: currentCustomer,
+          postal_code: validatedData.postal_code || '',
+          extra_address: validatedData.extra_address || ''
+        }
+        const newAddress = await CreateAddress(addressData)
         if (newAddress.success) {
           set({ shippingAddressId: newAddress.address.id, isSubmitting: false })
           return true

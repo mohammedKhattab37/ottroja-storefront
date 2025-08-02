@@ -33,7 +33,6 @@ export type CheckoutAddressData = z.infer<typeof addressSchema>
 
 const AddressStep = ({ t }: { t: (key: string) => string }) => {
   const locale = useLocale()
-  const translatedCurrency = locale == 'ar' ? 'جنيه مصري' : 'EGP'
   const { submitAddressForm, next, isSubmitting, customerId } = useCheckoutStore()
   const { getDeliveryFee } = useCartStore()
   const [previousAddresses, setPreviousAddresses] = useState<AddressData[] | undefined>()
