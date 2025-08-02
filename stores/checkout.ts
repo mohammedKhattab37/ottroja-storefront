@@ -78,16 +78,24 @@ export const useCheckoutStore = create<CheckoutState>((set, get) => ({
       const validatedData = await authStepSchema.parseAsync(authForm)
 
       if (validatedData.customer_type == 'guest' && validatedData.guest) {
-        const guestData = {
+        const guestData: { name: string; phoneNumber: string; email?: string } = {
           name: validatedData.guest.name,
           phoneNumber: validatedData.guest.phoneNumber,
-          email: validatedData.guest.email || '',
+        }
+        
+        // Only include email if it's not empty
+        if (validatedData.guest.email && validatedData.guest.email.trim() !== '') {
+          guestData.email = validatedData.guest.email
         }
         const guestCustomer = await CreateGuest(guestData)
 
         if (guestCustomer.success) {
           set({ customerId: guestCustomer.customer.id, isSubmitting: false })
           return true
+        } else {
+          console.error('Guest creation failed:', guestCustomer.error)
+          set({ error: guestCustomer.error, isSubmitting: false })
+          return false
         }
       }
       set({ isSubmitting: false })

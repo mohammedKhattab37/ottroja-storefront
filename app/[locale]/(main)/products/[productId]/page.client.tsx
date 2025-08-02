@@ -200,8 +200,8 @@ function ProductPageClient({
                 {productT('discount') +
                   ' ' +
                   Math.round(
-                    ((selectedVariant.price - selectedVariant.compare_at_price) /
-                      selectedVariant.price) *
+                    ((selectedVariant.compare_at_price - selectedVariant.price) /
+                      selectedVariant.compare_at_price) *
                       100,
                   )}{' '}
                 %
@@ -210,41 +210,29 @@ function ProductPageClient({
             <div className="flex place-items-center justify-between">
               <div
                 className={cn(
-                  'text-card-foreground font-bold',
-                  selectedVariant.compare_at_price ? 'flex items-center gap-2' : '',
+                  'text-card-foreground font-bold text-end',
+                  selectedVariant.compare_at_price ? 'flex items-center justify-end gap-2' : '',
                 )}
               >
-                <div>
+                <div className="text-end">
                   <span className="text-2xl">
                     {' '}
-                    {selectedVariant.compare_at_price
-                      ? selectedVariant.compare_at_price
-                      : selectedVariant.price}
+                    {selectedVariant.price}
                   </span>{' '}
                   / {translatedCurrency}
                 </div>
                 {selectedVariant.compare_at_price && (
-                  <span
-                    className={cn(
-                      selectedVariant.compare_at_price ? 'text-xs line-through' : 'text-2xl',
-                    )}
-                  >
+                  <span className="text-xs line-through text-muted-foreground">
                     {' '}
-                    {selectedVariant.price} / {translatedCurrency}
+                    {selectedVariant.compare_at_price} / {translatedCurrency}
                   </span>
                 )}
               </div>
               <span className="text-card-foreground text-xs font-semibold">
                 {!selectedVariant.inventory || selectedVariant.inventory.quantityAvailable == 0 ? (
                   <div className="text-destructive">{productT('out-stock')}</div>
-                ) : selectedVariant.inventory.quantityAvailable <= 10 ? (
-                  <div className="text-warning">
-                    {selectedVariant.inventory.quantityAvailable +
-                      ' ' +
-                      productT('number-in-stock')}
-                  </div>
                 ) : (
-                  <div className="text-success">{productT('in-stock')} </div>
+                  <div className="text-success">{productT('in-stock')}</div>
                 )}
               </span>
             </div>

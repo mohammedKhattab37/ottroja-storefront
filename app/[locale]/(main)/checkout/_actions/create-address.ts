@@ -1,5 +1,6 @@
 'use server'
 
+import { apiFetch } from '@/lib/utils'
 import { ZodError } from 'zod'
 import { RegisterErrorResponse } from '../../_auth/_actions/types'
 
@@ -26,13 +27,14 @@ export async function CreateAddress(
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL
 
-    const response = await fetch(`${baseUrl}/customers/address`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(validatedData),
-    })
+    const response = await apiFetch(
+      `${baseUrl}/customers/address`,
+      undefined,
+      {
+        method: 'POST',
+        body: JSON.stringify(validatedData),
+      }
+    )
 
     const result = await response.json()
 
