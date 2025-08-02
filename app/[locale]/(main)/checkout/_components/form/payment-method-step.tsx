@@ -76,8 +76,8 @@ function PaymentMethodStep({ t }: { t: (key: string) => string }) {
     
     let hasRemovedItems = false
     let hasAdjustedQuantities = false
-    let adjustedItems: string[] = []
-    let removedItems: string[] = []
+    const adjustedItems: string[] = []
+    const removedItems: string[] = []
     
     inventoryError.details.forEach((detail) => {
       console.log('Processing detail:', detail)
