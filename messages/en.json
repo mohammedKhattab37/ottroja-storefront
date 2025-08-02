@@ -252,6 +252,44 @@
       "check-box":"Remember me",
       "forgot-pass":"Forgot Your Password?"
     },
+    "forgot-password":{
+      "title":"Forgot Your Password?",
+      "description":"Enter your email address and we will send you a link to reset your password.",
+      "email":"Email",
+      "button":"Send reset link",
+      "sending":"Sending...",
+      "check-email":"Check your email",
+      "check-email-description":"We have sent a password reset link to your email address.",
+      "didnt-receive-email":"Didn't receive the email? Check your spam folder or try again.",
+      "tryAgain": "Try again",
+      "backToLogin": "Back to Homapage",
+      "success": "A password reset email has been sent!",
+      "errors": {
+        "email-required": "Email required",
+        "default-error": "An error occurred while sending the reset email."
+      }
+    },
+    "reset-password": {
+      "title": "Reset password",
+      "description": "Enter your new password below.",
+      "new-password": "New Password",
+      "confirm-password": "Re-enter the password",
+      "button": "Reset password",
+      "resetting": "Resetting...",
+      "invalid-token": "The reset link is invalid.",
+      "invalid-token-description": "This password reset link is invalid or expired.",
+      "request-newLink": "Request a new reset link",
+      "success-title": "Password reset successfully!",
+      "success-description": "Your password has been reset successfully. You are being redirected to the home page...",
+      "success": "Password reset successfully!",
+      "errors": {
+        "password-required": "Password required",
+        "passwords-dont-match": "Passwords do not match",
+        "password-too-short": "The password must be at least 6 characters long.",
+        "invalid-token": "Invalid reset token",
+        "default-error": "An error occurred while resetting your password."
+      }
+    },
     "sign-up":{
       "btn":"Create Account",
       "creating-account":"Creating account...",
